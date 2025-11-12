@@ -213,7 +213,7 @@ export class Bexio implements INodeType {
 			},
 			async getActivities(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const activities = await bexioApiRequest.call(this, 'GET', '/2.0/activity');
+				const activities = await bexioApiRequest.call(this, 'GET', '/2.0/business_activity');
 				for (const activity of activities) {
 					returnData.push({
 						name: activity.name,
