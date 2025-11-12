@@ -286,28 +286,28 @@ export async function handleItemOperations(this: IExecuteFunctions, operation: s
 			...additionalFields,
 		};
 
-		return await bexioApiRequest.call(this, 'POST', '/2.0/item', body);
+		return await bexioApiRequest.call(this, 'POST', '/2.0/article', body);
 	}
 
 	if (operation === 'delete') {
 		const itemId = this.getNodeParameter('itemId', index) as string;
-		return await bexioApiRequest.call(this, 'DELETE', `/2.0/item/${itemId}`);
+		return await bexioApiRequest.call(this, 'DELETE', `/2.0/article/${itemId}`);
 	}
 
 	if (operation === 'get') {
 		const itemId = this.getNodeParameter('itemId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/2.0/item/${itemId}`);
+		return await bexioApiRequest.call(this, 'GET', `/2.0/article/${itemId}`);
 	}
 
 	if (operation === 'getAll') {
 		const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 
 		if (returnAll) {
-			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/item');
+			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/article');
 		} else {
 			const limit = this.getNodeParameter('limit', index) as number;
 			const qs = { limit };
-			return await bexioApiRequest.call(this, 'GET', '/2.0/item', {}, qs);
+			return await bexioApiRequest.call(this, 'GET', '/2.0/article', {}, qs);
 		}
 	}
 
@@ -327,11 +327,11 @@ export async function handleItemOperations(this: IExecuteFunctions, operation: s
 		}
 
 		if (returnAll) {
-			return await bexioApiRequestAllItems.call(this, 'POST', '/2.0/item/search', body);
+			return await bexioApiRequestAllItems.call(this, 'POST', '/2.0/article/search', body);
 		} else {
 			const limit = this.getNodeParameter('limit', index) as number;
 			const qs = { limit };
-			return await bexioApiRequest.call(this, 'POST', '/2.0/item/search', body, qs);
+			return await bexioApiRequest.call(this, 'POST', '/2.0/article/search', body, qs);
 		}
 	}
 
@@ -339,7 +339,7 @@ export async function handleItemOperations(this: IExecuteFunctions, operation: s
 		const itemId = this.getNodeParameter('itemId', index) as string;
 		const updateFields = this.getNodeParameter('updateFields', index) as IDataObject;
 
-		return await bexioApiRequest.call(this, 'POST', `/2.0/item/${itemId}`, updateFields);
+		return await bexioApiRequest.call(this, 'POST', `/2.0/article/${itemId}`, updateFields);
 	}
 
 	throw new Error(`Unknown operation: ${operation}`);
@@ -491,22 +491,28 @@ export async function handleAccountingOperations(this: IExecuteFunctions, operat
 		return await bexioApiRequest.call(this, 'GET', '/2.0/vat_period');
 	}
 	if (operation === 'createManualEntry') {
-		return await bexioApiRequest.call(this, 'POST', '/2.0/manual_entry', {});
+		const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+		return await bexioApiRequest.call(this, 'POST', '/2.0/journal', additionalFields);
 	}
 	throw new Error(`Unknown operation: ${operation}`);
 }
 
 export async function handlePayrollOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
 	if (operation === 'getEmployees') {
-		return await bexioApiRequest.call(this, 'GET', '/2.0/employee');
+		return await bexioApiRequest.call(this, 'GET', '/2.0/payroll_employee');
 	}
 	if (operation === 'getEmployee') {
 		const employeeId = this.getNodeParameter('employeeId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/2.0/employee/${employeeId}`);
+		return await bexioApiRequest.call(this, 'GET', `/2.0/payroll_employee/${employeeId}`);
 	}
 	if (operation === 'createAbsence') {
 		const employeeId = this.getNodeParameter('employeeId', index) as string;
-		return await bexioApiRequest.call(this, 'POST', `/2.0/employee/${employeeId}/absence`, {});
+		const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+		const body = {
+			employee_id: employeeId,
+			...additionalFields,
+		};
+		return await bexioApiRequest.call(this, 'POST', `/2.0/payroll_absence`, body);
 	}
 	throw new Error(`Unknown operation: ${operation}`);
 }

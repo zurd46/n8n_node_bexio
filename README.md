@@ -282,6 +282,10 @@ Daniel Zurmühle (dzurmuehle@gmail.com) zurdai.com
 
 ## Version History
 
+### 1.0.6
+- Re-publish of 1.0.4/1.0.5 due to npm version conflict
+- No code changes
+
 ### 1.0.4
 - **Changed authentication to Personal Access Token (PAT)**
 - Simplified setup - no more OAuth configuration needed
