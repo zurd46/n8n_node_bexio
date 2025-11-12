@@ -221,7 +221,12 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
-### 1.0.12 (Current)
+### 1.0.13 (Current)
+- Added PDF download as binary data for Invoice, Quote, and Order operations
+- "Get PDF" operations now return the actual PDF file in the node's binary output
+- PDF files automatically named with document type and ID
+
+### 1.0.12
 - Fixed GitHub repository URL in all documentation
 - Corrected from `n8n-nodes-bexio` to `n8n_node_bexio`
 

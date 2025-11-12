@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.13] - 2025-01-12
+
+### Added
+- **PDF Download as Binary**: Invoice, Quote, and Order "Get PDF" operations now return the PDF file directly as binary data
+- Added `bexioApiRequestBinary` function for handling binary downloads
+- PDF files are now available in the node's binary data output with proper filename and metadata
+
+### Changed
+- "Get PDF" operations now return both JSON metadata (fileName, mimeType, fileSize) and binary data
+- PDF files are automatically named: `invoice_{id}.pdf`, `quote_{id}.pdf`, `order_{id}.pdf`
+
 ## [1.0.12] - 2025-01-12
 
 ### Fixed
