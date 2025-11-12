@@ -96,12 +96,12 @@ export async function bexioApiRequestBinary(
 	const options: IHttpRequestOptions = {
 		method,
 		headers: {
-			Accept: 'application/pdf',
+			Accept: 'application/json',
 		},
 		body,
 		qs,
 		url: `https://api.bexio.com${endpoint}`,
-		json: false,
+		json: true,
 		returnFullResponse: false,
 	};
 
@@ -169,6 +169,15 @@ export async function bexioApiRequestBinary(
 			}
 			if (typeof bodyData === 'string') {
 				return Buffer.from(bodyData, 'binary');
+			}
+		}
+
+		// If it's a Bexio PDF response with content property (base64 encoded)
+		if (response && typeof response === 'object' && 'content' in response) {
+			const content = (response as any).content;
+			if (typeof content === 'string') {
+				// Content is base64 encoded
+				return Buffer.from(content, 'base64');
 			}
 		}
 
