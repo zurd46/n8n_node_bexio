@@ -13,4 +13,4 @@ testing/
 credentials/**/*.ts
 nodes/**/*.ts
 !dist/**/*
-claude/
+.claude/
