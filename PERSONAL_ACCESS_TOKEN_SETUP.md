@@ -124,23 +124,6 @@ If the test fails: ❌ Error message
 3. Create a new token in the Developer Portal
 4. If the problem persists, contact Bexio Support
 
-### Problem: Cannot Find PAT in Developer Portal
-
-**Solution 1**: Contact Bexio Support
-```
-Hello Bexio Team,
-
-I would like to create a Personal Access Token (PAT) for the API,
-but I cannot find this option in the Developer Portal.
-
-Could you please show me where I can create a PAT?
-
-Thank you!
-```
-
-**Solution 2**: Use OAuth2 instead
-- See [BEXIO_OAUTH_SETUP.md](BEXIO_OAUTH_SETUP.md)
-
 ## 🔒 Security
 
 ### Store Token Securely
