@@ -2,6 +2,12 @@
 
 All notable changes to the n8n-nodes-bexio project will be documented in this file.
 
+## [1.0.6] - 2025-11-12
+
+### Note
+- Re-publish of 1.0.4/1.0.5 due to npm version conflict
+- No code changes from previous version
+
 ## [1.0.4] - 2025-11-12
 
 ### Changed
