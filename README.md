@@ -214,7 +214,10 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
-### 1.0.10 (Current)
+### 1.0.11 (Current)
+- Minor version update to ensure package consistency
+
+### 1.0.10
 - Updated documentation to reflect simplified resource selection
 - Clarified available permissions for the 6 supported resources
 - Updated operations documentation
