@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
+### [1.0.3] - 2025-01-12
+
+#### Added
+- **Invoice Filters**: Added status filters for "Get Many" operation
+  - Filter by status: Draft, Pending, Paid, Partially Paid, Overdue, Cancelled
+  - Quick filter "Overdue Only" for retrieving only overdue invoices
+  - Quick filter "Unpaid Only" for retrieving only unpaid invoices
+  - Makes it easy to get specific invoice subsets without using Search operation
+
+### [1.0.2] - 2025-01-12
+
+#### Fixed
+- **PDF Download**: Fixed Bexio PDF API response format handling
+  - PDFs are returned as JSON objects with base64 encoded content
+  - Changed Accept header from 'application/pdf' to 'application/json'
+  - Added base64 decoding for 'content' field in response
+  - PDFs now download correctly with proper content
+
+### [1.0.1] - 2025-01-12
+
+#### Changed
+- Updated all package references from `n8n-nodes-bexio` to `@zurdai/n8n-nodes-bexio`
+- Updated documentation to reflect scoped package name
+
 ### [1.0.0] - 2025-01-12
 
 #### Changed

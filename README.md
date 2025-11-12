@@ -71,7 +71,10 @@ This node focuses on essential business operations with the following resources:
 - **Create**: Create a new invoice
 - **Delete**: Delete an invoice
 - **Get**: Retrieve a single invoice
-- **Get Many**: Retrieve multiple invoices
+- **Get Many**: Retrieve multiple invoices with advanced filtering
+  - Filter by status: Draft, Pending, Paid, Partially Paid, Overdue, Cancelled
+  - Quick filters: Overdue Only, Unpaid Only
+  - Supports pagination or "Return All" option
 - **Get PDF**: Download invoice as PDF
 - **Issue**: Issue an invoice
 - **Mark as Sent**: Mark invoice as sent
@@ -132,6 +135,14 @@ This node focuses on essential business operations with the following resources:
 2. Add quote positions (line items) as JSON
 3. Use **Issue** operation to finalize the quote
 4. Once accepted, create an order from the same data using the **Order** resource
+
+### Example 4: Get All Overdue Invoices
+1. Add a Bexio node to your workflow
+2. Select **Invoice** as the resource
+3. Select **Get Many** as the operation
+4. Enable **Return All** to get all invoices
+5. Under **Options**, enable **Overdue Only** filter
+6. This will return all invoices with overdue status
 
 ## API Documentation
 
