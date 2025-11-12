@@ -1,6 +1,6 @@
 {
-  "name": "n8n-nodes-bexio",
-  "version": "1.0.16",
+  "name": "@zurdai/n8n-nodes-bexio",
+  "version": "1.0.0",
   "description": "n8n node for Bexio API integration",
   "keywords": [
     "n8n-community-node-package",
