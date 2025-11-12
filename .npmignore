@@ -1,0 +1,14 @@
+*.ts
+!dist/**/*.d.ts
+tsconfig.json
+.eslintrc.js
+gulpfile.js
+node_modules/
+.git/
+.github/
+*.log
+.DS_Store
+.vscode/
+credentials/**/*.ts
+nodes/**/*.ts
+!dist/**/*
