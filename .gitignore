@@ -4,3 +4,7 @@ dist/
 .DS_Store
 .env
 .vscode/
+
+# Testing (contains PAT token - DO NOT COMMIT!)
+testing/
+test-results.json
