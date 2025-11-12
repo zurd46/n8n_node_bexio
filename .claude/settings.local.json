@@ -12,7 +12,8 @@
       "Bash(npm profile:*)",
       "Bash(findstr:*)",
       "Bash(if not exist testing mkdir testing)",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []
