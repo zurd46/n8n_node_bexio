@@ -1,4 +1,4 @@
-# n8n-nodes-bexio
+# @zurdai/n8n-nodes-bexio
 
 This is an n8n community node that provides comprehensive integration with the [Bexio API](https://docs.bexio.com/).
 
@@ -182,7 +182,7 @@ npm run lintfix
 ### Project Structure
 
 ```
-n8n-nodes-bexio/
+@zurdai/n8n-nodes-bexio/
 ├── credentials/
 │   ├── BexioApi.credentials.ts          # PAT Authentication (Current)
 │   └── BexioOAuth2Api.credentials.ts    # OAuth2 (Deprecated)
@@ -223,7 +223,7 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ### 1.0.0 (Current) - @zurdai/n8n-nodes-bexio
 - **New Scoped Package**: Republished as `@zurdai/n8n-nodes-bexio` under zurdai organization
-- All features from n8n-nodes-bexio 1.0.16 included
+- All features from the previous package (v1.0.16) included
 - Comprehensive PDF binary download support for Invoice, Quote, and Order
 - 6 essential business resources: Banking, Contact, Invoice, Item, Order, Quote
 - Personal Access Token (PAT) authentication
@@ -231,7 +231,7 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ### Previous Package (n8n-nodes-bexio) - Deprecated
 
-The package was previously published as `n8n-nodes-bexio` (versions 1.0.0 - 1.0.16).
+The package was previously published as `n8n-nodes-bexio` (versions 1.0.0 - 1.0.16, now deprecated).
 All functionality has been migrated to the scoped package `@zurdai/n8n-nodes-bexio`.
 
 For complete version history of the previous package, see [CHANGELOG.md](CHANGELOG.md).

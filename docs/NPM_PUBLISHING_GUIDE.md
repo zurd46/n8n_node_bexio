@@ -1,4 +1,4 @@
-# 🚀 Quick Start Guide: Publishing n8n-nodes-bexio to npm
+# 🚀 Quick Start Guide: Publishing @zurdai/n8n-nodes-bexio to npm
 
 ## ✅ Pre-Flight Check (Already Done!)
 
@@ -58,23 +58,23 @@ npm publish --otp=123456
 After publishing, verify the package:
 
 ```bash
-npm view n8n-nodes-bexio
+npm view @zurdai/n8n-nodes-bexio
 ```
 
-Or visit: https://www.npmjs.com/package/n8n-nodes-bexio
+Or visit: https://www.npmjs.com/package/@zurdai/n8n-nodes-bexio
 
 ## 🎯 Step 4: Test Installation in n8n
 
 ### Via npm
 ```bash
-npm install n8n-nodes-bexio
+npm install @zurdai/n8n-nodes-bexio
 ```
 
 ### Via n8n UI
 1. Open n8n
 2. Go to **Settings > Community Nodes**
 3. Click **Install**
-4. Enter: `n8n-nodes-bexio`
+4. Enter: `@zurdai/n8n-nodes-bexio`
 5. Click **Install**
 
 ## 🔄 Future Updates
@@ -99,7 +99,7 @@ git push origin main --tags
 
 ## 📊 Package Information
 
-- **Name**: n8n-nodes-bexio
+- **Name**: @zurdai/n8n-nodes-bexio
 - **Version**: 1.0.0
 - **Keywords**: n8n-community-node-package, n8n, bexio, accounting, crm
 - **License**: MIT
@@ -137,7 +137,7 @@ npm login
 ```
 
 ### Error: Package name already exists
-The package name `n8n-nodes-bexio` is available. If you get this error, someone else published it first. Choose a different name.
+The package name `@zurdai/n8n-nodes-bexio` is available. If you get this error, someone else published it first. Choose a different name.
 
 ### Error: Version already published
 You're trying to publish a version that already exists. Update the version:
@@ -157,7 +157,7 @@ npm run build
 
 After successful publication:
 
-- [ ] Verify package on npm: https://www.npmjs.com/package/n8n-nodes-bexio
+- [ ] Verify package on npm: https://www.npmjs.com/package/@zurdai/n8n-nodes-bexio
 - [ ] Test installation in n8n
 - [ ] Update GitHub README with npm badge
 - [ ] Create GitHub release
@@ -169,9 +169,9 @@ After successful publication:
 Add these to your GitHub README:
 
 ```markdown
-![npm](https://img.shields.io/npm/v/n8n-nodes-bexio)
-![npm downloads](https://img.shields.io/npm/dm/n8n-nodes-bexio)
-![license](https://img.shields.io/npm/l/n8n-nodes-bexio)
+![npm](https://img.shields.io/npm/v/@zurdai/n8n-nodes-bexio)
+![npm downloads](https://img.shields.io/npm/dm/@zurdai/n8n-nodes-bexio)
+![license](https://img.shields.io/npm/l/@zurdai/n8n-nodes-bexio)
 ```
 
 ## 📞 Support
@@ -188,7 +188,7 @@ Once published, your node will be available to the entire n8n community!
 
 Users can install it with:
 ```bash
-npm install n8n-nodes-bexio
+npm install @zurdai/n8n-nodes-bexio
 ```
 
 Or via the n8n UI under **Settings > Community Nodes**.
