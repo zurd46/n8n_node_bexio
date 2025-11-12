@@ -102,9 +102,10 @@ export async function bexioApiRequestBinary(
 		qs,
 		url: `https://api.bexio.com${endpoint}`,
 		json: false,
-		encoding: 'arraybuffer',
 		returnFullResponse: false,
 	};
+
+	// Don't set encoding - let it return as Buffer automatically
 
 	if (Array.isArray(body)) {
 		if (body.length === 0) {
@@ -124,7 +125,19 @@ export async function bexioApiRequestBinary(
 			'bexioApi',
 			options,
 		);
-		return Buffer.from(response as Buffer);
+
+		// If response is already a Buffer, return it
+		if (Buffer.isBuffer(response)) {
+			return response;
+		}
+
+		// Otherwise try to convert it to Buffer
+		if (typeof response === 'string') {
+			return Buffer.from(response, 'binary');
+		}
+
+		// If it's an ArrayBuffer or similar
+		return Buffer.from(response);
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error as JsonObject);
 	}
