@@ -214,7 +214,13 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
-### 1.0.9 (Current)
+### 1.0.10 (Current)
+- Updated documentation to reflect simplified resource selection
+- Clarified available permissions for the 6 supported resources
+- Updated operations documentation
+- Updated usage examples and project structure
+
+### 1.0.9
 - **Breaking Change**: Simplified to 6 essential business resources
   - Removed: Project, Timesheet, Bill, Expense, Task, File, Accounting, Payroll
   - Kept: Banking, Contact, Invoice, Item, Order, Quote
