@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.9] - 2025-01-12
+
+### Breaking Changes
+- **Simplified Resource Selection**: Node now only shows 6 essential business resources
+  - Removed: Project, Timesheet, Bill, Expense, Task, File, Accounting, Payroll
+  - Kept: Banking, Contact, Invoice, Item, Order, Quote
+  - This focuses the node on core business operations: Customers, Products, Sales, and Banking
+
+### Fixed
+- **All API Endpoint Corrections**: Fixed 404 errors by updating to correct Bexio API v3.0 endpoints
+  - Invoice: `/2.0/invoice` → `/2.0/kb_invoice`
+  - Quote: `/2.0/quote` → `/2.0/kb_offer`
+  - Order: `/2.0/order` → `/2.0/kb_order`
+  - Banking Accounts: `/2.0/bank_account` → `/3.0/banking/accounts`
+  - Banking Payments: `/4.0/payment` → `/3.0/banking/payments`
+  - Banking Transactions: `/2.0/banking_transaction` → `/3.0/banking/accounts/{id}/transactions`
+
+### Changed
+- Removed unused resource handlers and imports to reduce bundle size
+- Simplified node interface for better user experience
+- Updated all endpoint paths to match Bexio API documentation
+
 ## [1.0.8] - 2025-01-12
 
 ### Added

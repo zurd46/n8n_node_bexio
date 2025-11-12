@@ -11,18 +11,10 @@ import {
 
 import { contactOperations, contactFields } from './descriptions/ContactDescription';
 import { invoiceOperations, invoiceFields } from './descriptions/InvoiceDescription';
-import { projectOperations, projectFields } from './descriptions/ProjectDescription';
 import { itemOperations, itemFields } from './descriptions/ItemDescription';
-import { timesheetOperations, timesheetFields } from './descriptions/TimesheetDescription';
 import { quoteOperations, quoteFields } from './descriptions/QuoteDescription';
 import { orderOperations, orderFields } from './descriptions/OrderDescription';
-import { billOperations, billFields } from './descriptions/BillDescription';
-import { expenseOperations, expenseFields } from './descriptions/ExpenseDescription';
-import { taskOperations, taskFields } from './descriptions/TaskDescription';
-import { fileOperations, fileFields } from './descriptions/FileDescription';
 import { bankingOperations, bankingFields } from './descriptions/BankingDescription';
-import { accountingOperations, accountingFields } from './descriptions/AccountingDescription';
-import { payrollOperations, payrollFields } from './descriptions/PayrollDescription';
 
 import { bexioApiRequest, bexioApiRequestAllItems } from './GenericFunctions';
 
@@ -54,92 +46,50 @@ export class Bexio implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Accounting',
-						value: 'accounting',
-					},
-					{
 						name: 'Banking',
 						value: 'banking',
-					},
-					{
-						name: 'Bill',
-						value: 'bill',
+						description: 'Bank accounts and payments',
 					},
 					{
 						name: 'Contact',
 						value: 'contact',
-					},
-					{
-						name: 'Expense',
-						value: 'expense',
-					},
-					{
-						name: 'File',
-						value: 'file',
+						description: 'Customers and suppliers',
 					},
 					{
 						name: 'Invoice',
 						value: 'invoice',
+						description: 'Customer invoices',
 					},
 					{
 						name: 'Item',
 						value: 'item',
+						description: 'Products and services',
 					},
 					{
 						name: 'Order',
 						value: 'order',
-					},
-					{
-						name: 'Payroll',
-						value: 'payroll',
-					},
-					{
-						name: 'Project',
-						value: 'project',
+						description: 'Customer orders',
 					},
 					{
 						name: 'Quote',
 						value: 'quote',
-					},
-					{
-						name: 'Task',
-						value: 'task',
-					},
-					{
-						name: 'Timesheet',
-						value: 'timesheet',
+						description: 'Customer quotes',
 					},
 				],
 				default: 'contact',
 			},
+			...bankingOperations,
+			...bankingFields,
 			...contactOperations,
 			...contactFields,
 			...invoiceOperations,
 			...invoiceFields,
-			...projectOperations,
-			...projectFields,
 			...itemOperations,
 			...itemFields,
-			...timesheetOperations,
-			...timesheetFields,
-			...quoteOperations,
-			...quoteFields,
 			...orderOperations,
 			...orderFields,
-			...billOperations,
-			...billFields,
-			...expenseOperations,
-			...expenseFields,
-			...taskOperations,
-			...taskFields,
-			...fileOperations,
-			...fileFields,
-			...bankingOperations,
-			...bankingFields,
-			...accountingOperations,
-			...accountingFields,
-			...payrollOperations,
-			...payrollFields,
+			...quoteOperations,
+			...quoteFields,
 		],
 	};
 
@@ -325,34 +275,18 @@ export class Bexio implements INodeType {
 			try {
 				let responseData;
 
-				if (resource === 'contact') {
+				if (resource === 'banking') {
+					responseData = await handleBankingOperations.call(this, operation, i);
+				} else if (resource === 'contact') {
 					responseData = await handleContactOperations.call(this, operation, i);
 				} else if (resource === 'invoice') {
 					responseData = await handleInvoiceOperations.call(this, operation, i);
-				} else if (resource === 'project') {
-					responseData = await handleProjectOperations.call(this, operation, i);
 				} else if (resource === 'item') {
 					responseData = await handleItemOperations.call(this, operation, i);
-				} else if (resource === 'timesheet') {
-					responseData = await handleTimesheetOperations.call(this, operation, i);
-				} else if (resource === 'quote') {
-					responseData = await handleQuoteOperations.call(this, operation, i);
 				} else if (resource === 'order') {
 					responseData = await handleOrderOperations.call(this, operation, i);
-				} else if (resource === 'bill') {
-					responseData = await handleBillOperations.call(this, operation, i);
-				} else if (resource === 'expense') {
-					responseData = await handleExpenseOperations.call(this, operation, i);
-				} else if (resource === 'task') {
-					responseData = await handleTaskOperations.call(this, operation, i);
-				} else if (resource === 'file') {
-					responseData = await handleFileOperations.call(this, operation, i);
-				} else if (resource === 'banking') {
-					responseData = await handleBankingOperations.call(this, operation, i);
-				} else if (resource === 'accounting') {
-					responseData = await handleAccountingOperations.call(this, operation, i);
-				} else if (resource === 'payroll') {
-					responseData = await handlePayrollOperations.call(this, operation, i);
+				} else if (resource === 'quote') {
+					responseData = await handleQuoteOperations.call(this, operation, i);
 				}
 
 				const executionData = this.helpers.constructExecutionMetaData(
@@ -381,17 +315,9 @@ export class Bexio implements INodeType {
 import * as handlers from './OperationsHandlers';
 
 // Re-export handlers for use in execute function
+const handleBankingOperations = handlers.handleBankingOperations;
 const handleContactOperations = handlers.handleContactOperations;
 const handleInvoiceOperations = handlers.handleInvoiceOperations;
-const handleProjectOperations = handlers.handleProjectOperations;
 const handleItemOperations = handlers.handleItemOperations;
-const handleTimesheetOperations = handlers.handleTimesheetOperations;
-const handleQuoteOperations = handlers.handleQuoteOperations;
 const handleOrderOperations = handlers.handleOrderOperations;
-const handleBillOperations = handlers.handleBillOperations;
-const handleExpenseOperations = handlers.handleExpenseOperations;
-const handleTaskOperations = handlers.handleTaskOperations;
-const handleFileOperations = handlers.handleFileOperations;
-const handleBankingOperations = handlers.handleBankingOperations;
-const handleAccountingOperations = handlers.handleAccountingOperations;
-const handlePayrollOperations = handlers.handlePayrollOperations;
+const handleQuoteOperations = handlers.handleQuoteOperations;
