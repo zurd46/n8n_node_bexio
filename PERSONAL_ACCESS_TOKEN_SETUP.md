@@ -32,21 +32,11 @@ Im Developer Portal sollten Sie eine Option finden für:
 - Button "Neuer Token" oder "Create Token"
 - Eventuell unter "Settings" oder "API"
 
-### Schritt 3: Token-Berechtigungen festlegen
+### Schritt 3: Token erstellen
 
-Wenn Sie den Token erstellen, können Sie die Berechtigungen auswählen:
+**Wichtig**: Im Bexio Developer Portal werden die Berechtigungen automatisch basierend auf Ihrem Bexio-Account vergeben. Sie können die Berechtigungen nicht einzeln auswählen wie beim OAuth2-Flow.
 
-**Minimal (für Tests)**:
-- ✅ Kontakte lesen
-
-**Empfohlen (für produktiven Einsatz)**:
-- ✅ Kontakte: Lesen, Erstellen, Bearbeiten, Löschen
-- ✅ Rechnungen: Lesen, Erstellen, Bearbeiten
-- ✅ Offerten: Lesen, Erstellen, Bearbeiten
-- ✅ Bestellungen: Lesen, Erstellen, Bearbeiten
-- ✅ Artikel: Lesen, Erstellen, Bearbeiten
-- ✅ Projekte: Lesen, Erstellen, Bearbeiten
-- ✅ Zeiterfassung: Lesen, Erstellen, Bearbeiten
+Der erstellte Token hat automatisch Zugriff auf alle API-Endpunkte, die für Ihren Bexio-Account verfügbar sind.
 
 ### Schritt 4: Token kopieren
 
@@ -126,13 +116,13 @@ Wenn der Test fehlschlägt: ❌ Fehlermeldung
 
 ### Problem: "Unauthorized" oder 401 Fehler
 
-**Ursache**: Token hat nicht die erforderlichen Berechtigungen
+**Ursache**: Token ist ungültig oder Ihr Bexio-Account hat nicht die erforderlichen Rechte
 
 **Lösung**:
-1. Gehen Sie zum Developer Portal
-2. Bearbeiten Sie den Token
-3. Aktivieren Sie die fehlenden Berechtigungen
-4. ODER: Erstellen Sie einen neuen Token mit allen Berechtigungen
+1. Überprüfen Sie, ob der Token korrekt kopiert wurde
+2. Stellen Sie sicher, dass Ihr Bexio-Account die erforderlichen Berechtigungen hat
+3. Erstellen Sie einen neuen Token im Developer Portal
+4. Falls das Problem weiterhin besteht, kontaktieren Sie den Bexio Support
 
 ### Problem: Kann PAT im Developer Portal nicht finden
 
