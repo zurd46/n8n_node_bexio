@@ -2,11 +2,33 @@
 
 All notable changes to the n8n-nodes-bexio project will be documented in this file.
 
-## [1.0.6] - 2025-11-12
+## [1.0.7] - 2025-11-12
+
+### Fixed
+- **BREAKING**: Corrected API endpoints to match Bexio API documentation
+  - Changed `/2.0/item` → `/2.0/article` (Items are called Articles in Bexio)
+  - Changed `/2.0/employee` → `/2.0/payroll_employee`
+  - Changed `/2.0/activity` → `/2.0/business_activity`
+  - Changed `/2.0/manual_entry` → `/2.0/journal`
+  - Fixed payroll absence endpoint to `/2.0/payroll_absence`
 
 ### Note
-- Re-publish of 1.0.4/1.0.5 due to npm version conflict
-- No code changes from previous version
+- These endpoint corrections may affect existing workflows using Item, Payroll, or Accounting resources
+- Update your workflows accordingly
+
+## [1.0.6] - 2025-11-12 (unpublished)
+
+### Fixed
+- **BREAKING**: Corrected API endpoints to match Bexio API documentation
+  - Changed `/2.0/item` → `/2.0/article` (Items are called Articles in Bexio)
+  - Changed `/2.0/employee` → `/2.0/payroll_employee`
+  - Changed `/2.0/activity` → `/2.0/business_activity`
+  - Changed `/2.0/manual_entry` → `/2.0/journal`
+  - Fixed payroll absence endpoint to `/2.0/payroll_absence`
+
+### Note
+- These endpoint corrections may affect existing workflows using Item, Payroll, or Accounting resources
+- Update your workflows accordingly
 
 ## [1.0.4] - 2025-11-12
 
