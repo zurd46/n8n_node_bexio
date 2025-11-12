@@ -17,8 +17,6 @@ export async function bexioApiRequest(
 	uri?: string,
 	option: IDataObject = {},
 ): Promise<any> {
-	const credentials = await this.getCredentials('bexioOAuth2Api');
-
 	const options: IHttpRequestOptions = {
 		method,
 		headers: {
@@ -50,7 +48,7 @@ export async function bexioApiRequest(
 	try {
 		return await this.helpers.httpRequestWithAuthentication.call(
 			this,
-			'bexioOAuth2Api',
+			'bexioApi',
 			options,
 		);
 	} catch (error) {

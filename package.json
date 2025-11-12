@@ -34,7 +34,7 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/BexioOAuth2Api.credentials.js"
+      "dist/credentials/BexioApi.credentials.js"
     ],
     "nodes": [
       "dist/nodes/Bexio/Bexio.node.js"

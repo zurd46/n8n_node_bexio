@@ -33,8 +33,8 @@ export class BexioOAuth2Api implements ICredentialType {
 			displayName: 'Scope',
 			name: 'scope',
 			type: 'string',
-			default: 'offline_access',
-			description: 'Leave as offline_access for persistent connection. Bexio grants all permissions configured in your developer portal app automatically.',
+			default: 'openid profile email company_profile contact_show',
+			description: 'Space-separated list of scopes. OpenID scopes (openid, profile, email, company_profile) + API scopes (contact_show, contact_edit, invoice_show, etc.)',
 		},
 		{
 			displayName: 'Auth URI Query Parameters',
