@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.10] - 2025-01-12
+
+### Changed
+- Updated README.md documentation to reflect simplified resource selection
+- Updated available permissions section to show only supported resources
+- Updated operations documentation to show only Banking, Contact, Invoice, Item, Order, Quote
+- Updated usage examples to reflect current functionality
+- Updated project structure documentation to include testing directory
+- Updated compatibility notes
+
 ## [1.0.9] - 2025-01-12
 
 ### Breaking Changes
