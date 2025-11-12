@@ -270,5 +270,5 @@ npm owner add <username> n8n-nodes-bexio
 ## Links
 
 - npm Package: https://www.npmjs.com/package/n8n-nodes-bexio
-- GitHub Repository: https://github.com/zurd46/n8n-nodes-bexio
+- GitHub Repository: https://github.com/zurd46/n8n_node_bexio
 - n8n Community Nodes Documentation: https://docs.n8n.io/integrations/community-nodes/
