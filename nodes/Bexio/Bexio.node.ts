@@ -362,8 +362,9 @@ export class Bexio implements INodeType {
 				returnData.push(...executionData);
 			} catch (error) {
 				if (this.continueOnFail()) {
+					const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 					const executionData = this.helpers.constructExecutionMetaData(
-						this.helpers.returnJsonArray({ error: error.message }),
+						this.helpers.returnJsonArray({ error: errorMessage }),
 						{ itemData: { item: i } },
 					);
 					returnData.push(...executionData);

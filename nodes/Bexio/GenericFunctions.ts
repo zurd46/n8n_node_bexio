@@ -12,7 +12,7 @@ export async function bexioApiRequest(
 	this: IExecuteFunctions | ILoadOptionsFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
-	body: IDataObject = {},
+	body: IDataObject | any[] = {},
 	qs: IDataObject = {},
 	uri?: string,
 	option: IDataObject = {},
@@ -35,7 +35,11 @@ export async function bexioApiRequest(
 		Object.assign(options, option);
 	}
 
-	if (Object.keys(body).length === 0) {
+	if (Array.isArray(body)) {
+		if (body.length === 0) {
+			delete options.body;
+		}
+	} else if (Object.keys(body).length === 0) {
 		delete options.body;
 	}
 
@@ -58,7 +62,7 @@ export async function bexioApiRequestAllItems(
 	this: IExecuteFunctions | ILoadOptionsFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
-	body: IDataObject = {},
+	body: IDataObject | any[] = {},
 	query: IDataObject = {},
 ): Promise<any> {
 	const returnData: IDataObject[] = [];
