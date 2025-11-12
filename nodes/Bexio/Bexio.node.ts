@@ -42,7 +42,7 @@ export class Bexio implements INodeType {
 		outputs: ['main'],
 		credentials: [
 			{
-				name: 'bexioOAuth2Api',
+				name: 'bexioApi',
 				required: true,
 			},
 		],
