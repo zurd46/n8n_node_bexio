@@ -33,8 +33,8 @@ export class BexioOAuth2Api implements ICredentialType {
 			displayName: 'Scope',
 			name: 'scope',
 			type: 'string',
-			default: 'profile email contact_show contact_edit contact_delete invoice_show invoice_edit quote_show quote_edit order_show order_edit article_show article_edit project_show project_edit timesheet_show timesheet_edit accounting_show accounting_edit payroll_show payroll_edit company_profile',
-			description: 'Space-separated list of scopes. Adjust based on your needs.',
+			default: 'contact_show contact_edit contact_delete invoice_show invoice_edit invoice_delete quote_show quote_edit quote_delete order_show order_edit order_delete item_show item_edit item_delete project_show project_edit project_delete timesheet_show timesheet_edit timesheet_delete accounting_show accounting_edit bank_account_show payment_show payment_edit payment_delete company_profile',
+			description: 'Space-separated list of scopes. Adjust based on your needs and what is configured in your Bexio OAuth app.',
 		},
 		{
 			displayName: 'Auth URI Query Parameters',
