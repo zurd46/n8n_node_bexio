@@ -10,14 +10,14 @@
     "crm"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/yourusername/n8n-nodes-bexio",
+  "homepage": "https://github.com/zurd46/n8n-nodes-bexio",
   "author": {
     "name": "Daniel Zurmühle",
     "email": "dzurmuehle@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zurd46/n8n-nodes-bexio.git"
+    "url": "git+https://github.com/zurd46/n8n-nodes-bexio.git"
   },
   "main": "index.js",
   "scripts": {
