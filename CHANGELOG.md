@@ -1,0 +1,129 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.0.8] - 2025-01-12
+
+### Added
+- Comprehensive testing suite in `testing/` directory
+  - `simple-test.ts` - Basic API connectivity test
+  - `api-field-explorer.ts` - Explore API field structures
+  - `endpoint-tester.ts` - Test all API endpoints
+  - `create-test-data.ts` - Create comprehensive test data
+  - `cleanup-test-data.ts` - Clean up test data
+- Complete testing documentation
+  - `testing/GETTING-STARTED.md` - Quick start guide
+  - `testing/README.md` - Comprehensive documentation
+  - `testing/INDEX.md` - File overview and workflows
+  - `testing/ENDPOINT_FINDINGS.md` - API research notes
+- Added `tsx` as dev dependency for TypeScript script execution
+
+### Changed
+- Updated `.gitignore` to exclude `testing/` directory (contains API tokens)
+- Updated `.npmignore` to exclude testing files from npm package
+
+### Fixed
+- Corrected timesheet creation format (tracking as object, not array)
+- Added required fields for timesheet: `client_service_id`, `allowable_bill`
+
+## [1.0.7] - 2025-01-12
+
+### Changed
+- Updated author email in package.json
+- Refined permissions in settings.local.json
+- Updated dependencies
+
+## [1.0.6] - 2025-01-11
+
+### Added
+- Version history documentation
+- Note about npm version conflicts
+
+### Changed
+- Expanded permissions in settings
+
+## [1.0.5] - 2025-01-11
+
+### Breaking Changes
+- **Authentication Method Changed**: Switched from OAuth2 to Personal Access Token (PAT)
+  - OAuth2 credentials are no longer supported
+  - All users must migrate to PAT authentication
+
+### Added
+- Personal Access Token (PAT) authentication support
+- `PERSONAL_ACCESS_TOKEN_SETUP.md` - Detailed PAT setup guide
+
+### Changed
+- Updated README.md with new PAT authentication instructions
+- Simplified setup process
+
+### Migration Guide
+If you're upgrading from version 1.0.4 or earlier:
+
+1. **Get a Personal Access Token**:
+   - Log in to Bexio at https://office.bexio.com
+   - Go to Settings → User → API Access
+   - Create a new Personal Access Token
+   - Select the required scopes
+   - Copy the token (shown only once!)
+
+2. **Update Your n8n Credentials**:
+   - Open your n8n instance
+   - Go to Credentials → Bexio API
+   - Remove old OAuth2 credentials
+   - Add new credentials using PAT
+   - Paste your token
+
+3. **Update Your Workflows**:
+   - All existing workflows will need new credentials
+   - Replace credential references in all Bexio nodes
+
+## [1.0.4] - Earlier
+
+### Added
+- Initial OAuth2 implementation
+- Basic CRUD operations for Bexio resources
+- Support for Contacts, Articles, Tasks, Projects, etc.
+
+---
+
+## Version Comparison
+
+### Authentication Evolution
+
+| Version | Auth Method | Status |
+|---------|-------------|--------|
+| 1.0.4 and earlier | OAuth2 | ❌ Deprecated |
+| 1.0.5+ | Personal Access Token (PAT) | ✅ Current |
+
+### Why the Change?
+
+The switch to Personal Access Token (PAT) provides:
+- Simpler setup process (no OAuth2 app registration needed)
+- More reliable authentication
+- Better developer experience
+- Aligned with Bexio's recommended authentication method
+
+## Testing
+
+Version 1.0.8 introduces a comprehensive testing suite that allows developers to:
+- Verify API connectivity
+- Explore Bexio API field structures
+- Create realistic test data
+- Test all CRUD operations
+- Clean up test data automatically
+
+See `testing/GETTING-STARTED.md` for details.
+
+## Support
+
+For issues, questions, or contributions:
+- GitHub: https://github.com/zurd46/n8n-nodes-bexio
+- Issues: https://github.com/zurd46/n8n-nodes-bexio/issues
+
+## License
+
+MIT License - see LICENSE file for details
