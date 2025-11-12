@@ -28,13 +28,18 @@ npm install n8n-nodes-bexio
 
 ## Credentials
 
-This node uses OAuth2 authentication. You need to:
+This node uses **Personal Access Token (PAT)** authentication for simple and reliable API access.
 
-1. Create an application in the [Bexio Developer Portal](https://developer.bexio.com/)
-2. Configure OAuth2 credentials in n8n with:
-   - **Client ID**: Your Bexio application client ID
-   - **Client Secret**: Your Bexio application client secret
-   - **Scopes**: The required API scopes for your use case
+### Setup Steps
+
+1. Go to the [Bexio Developer Portal](https://developer.bexio.com/)
+2. Create a **Personal Access Token (PAT)**
+3. Configure the required permissions for your use case
+4. Copy the token (it will only be shown once!)
+5. In n8n, create a **Bexio API** credential
+6. Paste your Personal Access Token
+
+📖 **Detailed Setup Guide**: See [PERSONAL_ACCESS_TOKEN_SETUP.md](PERSONAL_ACCESS_TOKEN_SETUP.md)
 
 ### Available Scopes
 
