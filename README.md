@@ -154,6 +154,13 @@ For detailed information about the Bexio API, visit:
 
 For issues and feature requests, please create an issue on the [GitHub repository](https://github.com/zurd46/n8n_node_bexio/issues).
 
+## Custom Adjustments
+
+If you need specific customizations or have special requirements for this integration, please contact:
+
+- **Email**: daniel.zurmuehle@zurdai.com
+- **Phone**: +41 79 127 55 54
+
 ## Development
 
 ### Setup

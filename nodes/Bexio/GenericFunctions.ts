@@ -86,6 +86,50 @@ export async function bexioApiRequestAllItems(
 	return returnData;
 }
 
+export async function bexioApiRequestBinary(
+	this: IExecuteFunctions,
+	method: IHttpRequestMethods,
+	endpoint: string,
+	body: IDataObject | any[] = {},
+	qs: IDataObject = {},
+): Promise<Buffer> {
+	const options: IHttpRequestOptions = {
+		method,
+		headers: {
+			Accept: 'application/pdf',
+		},
+		body,
+		qs,
+		url: `https://api.bexio.com${endpoint}`,
+		json: false,
+		encoding: 'arraybuffer',
+		returnFullResponse: false,
+	};
+
+	if (Array.isArray(body)) {
+		if (body.length === 0) {
+			delete options.body;
+		}
+	} else if (Object.keys(body).length === 0) {
+		delete options.body;
+	}
+
+	if (Object.keys(qs).length === 0) {
+		delete options.qs;
+	}
+
+	try {
+		const response = await this.helpers.httpRequestWithAuthentication.call(
+			this,
+			'bexioApi',
+			options,
+		);
+		return Buffer.from(response as Buffer);
+	} catch (error) {
+		throw new NodeApiError(this.getNode(), error as JsonObject);
+	}
+}
+
 export function validateJSON(json: string | undefined): any {
 	let result;
 	try {

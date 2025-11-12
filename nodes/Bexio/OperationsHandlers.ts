@@ -3,7 +3,7 @@ import {
 	IDataObject,
 } from 'n8n-workflow';
 
-import { bexioApiRequest, bexioApiRequestAllItems } from './GenericFunctions';
+import { bexioApiRequest, bexioApiRequestAllItems, bexioApiRequestBinary } from './GenericFunctions';
 
 // =====================================
 // Contact Operations
@@ -127,7 +127,28 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 
 	if (operation === 'getPdf') {
 		const invoiceId = this.getNodeParameter('invoiceId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/2.0/kb_invoice/${invoiceId}/pdf`);
+
+		// Download PDF as binary data
+		const pdfBuffer = await bexioApiRequestBinary.call(this, 'GET', `/2.0/kb_invoice/${invoiceId}/pdf`);
+
+		// Return as binary data that n8n can handle
+		const binaryData = await this.helpers.prepareBinaryData(
+			pdfBuffer,
+			`invoice_${invoiceId}.pdf`,
+			'application/pdf',
+		);
+
+		return {
+			json: {
+				invoiceId,
+				fileName: `invoice_${invoiceId}.pdf`,
+				mimeType: 'application/pdf',
+				fileSize: pdfBuffer.length,
+			},
+			binary: {
+				data: binaryData,
+			},
+		} as any;
 	}
 
 	if (operation === 'issue') {
@@ -526,7 +547,31 @@ async function handleDocumentOperations(this: IExecuteFunctions, operation: stri
 	}
 	if (operation === 'getPdf') {
 		const id = this.getNodeParameter(idParam, index) as string;
-		return await bexioApiRequest.call(this, 'GET', `${endpoint}/${id}/pdf`);
+
+		// Download PDF as binary data
+		const pdfBuffer = await bexioApiRequestBinary.call(this, 'GET', `${endpoint}/${id}/pdf`);
+
+		// Determine document type from endpoint
+		const docType = endpoint.includes('kb_offer') ? 'quote' : endpoint.includes('kb_order') ? 'order' : 'document';
+
+		// Return as binary data that n8n can handle
+		const binaryData = await this.helpers.prepareBinaryData(
+			pdfBuffer,
+			`${docType}_${id}.pdf`,
+			'application/pdf',
+		);
+
+		return {
+			json: {
+				[idParam]: id,
+				fileName: `${docType}_${id}.pdf`,
+				mimeType: 'application/pdf',
+				fileSize: pdfBuffer.length,
+			},
+			binary: {
+				data: binaryData,
+			},
+		} as any;
 	}
 	if (operation === 'issue') {
 		const id = this.getNodeParameter(idParam, index) as string;
