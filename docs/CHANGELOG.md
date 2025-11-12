@@ -164,7 +164,7 @@ npm run build
 ## Support
 
 For issues, questions, or feature requests:
-- GitHub Issues: https://github.com/zurd46/n8n-nodes-bexio/issues
+- GitHub Issues: https://github.com/zurd46/n8n_node_bexio/issues
 - Bexio API Docs: https://docs.bexio.com/
 - n8n Community: https://community.n8n.io/
 

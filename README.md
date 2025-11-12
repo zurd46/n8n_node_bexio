@@ -214,7 +214,11 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
-### 1.0.11 (Current)
+### 1.0.12 (Current)
+- Fixed GitHub repository URL in all documentation
+- Corrected from `n8n-nodes-bexio` to `n8n_node_bexio`
+
+### 1.0.11
 - Minor version update to ensure package consistency
 
 ### 1.0.10

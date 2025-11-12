@@ -103,7 +103,7 @@ git push origin main --tags
 - **Version**: 1.0.0
 - **Keywords**: n8n-community-node-package, n8n, bexio, accounting, crm
 - **License**: MIT
-- **Homepage**: https://github.com/zurd46/n8n-nodes-bexio
+- **Homepage**: https://github.com/zurd46/n8n_node_bexio
 
 ## 🎉 What's Included
 
