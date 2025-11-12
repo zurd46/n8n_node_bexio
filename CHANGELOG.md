@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.16] - 2025-01-12
+
+### Fixed
+- **PDF Binary Download**: Comprehensive response handling for all possible response formats
+- Added support for axios-style responses (data property) and http-style responses (body property)
+- Added detailed error message showing response type when unexpected format is received
+- Now handles Buffer, ArrayBuffer, Uint8Array, and string responses correctly
+
 ## [1.0.15] - 2025-01-12
 
 ### Fixed
