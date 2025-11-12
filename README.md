@@ -221,7 +221,11 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
-### 1.0.15 (Current)
+### 1.0.16 (Current)
+- Comprehensive PDF binary download fix - handles all response formats
+- Added detailed error messages for debugging unexpected response types
+
+### 1.0.15
 - Fixed PDF binary download error - corrected response handling with returnFullResponse
 - PDFs now download correctly without type errors
 

@@ -102,8 +102,7 @@ export async function bexioApiRequestBinary(
 		qs,
 		url: `https://api.bexio.com${endpoint}`,
 		json: false,
-		encoding: 'arraybuffer',
-		returnFullResponse: true,
+		returnFullResponse: false,
 	};
 
 	if (Array.isArray(body)) {
@@ -125,26 +124,56 @@ export async function bexioApiRequestBinary(
 			options,
 		);
 
-		// When returnFullResponse is true, response has { body, headers, statusCode }
-		const responseBody = (response as any).body;
-
-		// If response body is already a Buffer, return it
-		if (Buffer.isBuffer(responseBody)) {
-			return responseBody;
+		// If response is already a Buffer, return it
+		if (Buffer.isBuffer(response)) {
+			return response;
 		}
 
 		// If it's an ArrayBuffer, convert to Buffer
-		if (responseBody instanceof ArrayBuffer) {
-			return Buffer.from(responseBody);
+		if (response instanceof ArrayBuffer) {
+			return Buffer.from(response);
+		}
+
+		// If it's a Uint8Array, convert to Buffer
+		if (response instanceof Uint8Array) {
+			return Buffer.from(response);
 		}
 
 		// If it's a string, convert with binary encoding
-		if (typeof responseBody === 'string') {
-			return Buffer.from(responseBody, 'binary');
+		if (typeof response === 'string') {
+			return Buffer.from(response, 'binary');
 		}
 
-		// Otherwise try generic Buffer conversion
-		return Buffer.from(responseBody);
+		// If it's an object with data property (axios response format)
+		if (response && typeof response === 'object' && 'data' in response) {
+			const data = (response as any).data;
+			if (Buffer.isBuffer(data)) {
+				return data;
+			}
+			if (data instanceof ArrayBuffer || data instanceof Uint8Array) {
+				return Buffer.from(data);
+			}
+			if (typeof data === 'string') {
+				return Buffer.from(data, 'binary');
+			}
+		}
+
+		// If it's an object with body property (http response format)
+		if (response && typeof response === 'object' && 'body' in response) {
+			const bodyData = (response as any).body;
+			if (Buffer.isBuffer(bodyData)) {
+				return bodyData;
+			}
+			if (bodyData instanceof ArrayBuffer || bodyData instanceof Uint8Array) {
+				return Buffer.from(bodyData);
+			}
+			if (typeof bodyData === 'string') {
+				return Buffer.from(bodyData, 'binary');
+			}
+		}
+
+		// If response is an object, it might be an error or unexpected format
+		throw new Error(`Unexpected response type: ${typeof response}. Response: ${JSON.stringify(response).substring(0, 200)}`);
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error as JsonObject);
 	}
