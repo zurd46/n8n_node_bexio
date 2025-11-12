@@ -14,7 +14,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 1. Go to **Settings > Community Nodes** in your n8n instance
 2. Select **Install**
-3. Enter `n8n-nodes-bexio` in **Enter npm package name**
+3. Enter `@zurdai/n8n-nodes-bexio` in **Enter npm package name**
 4. Agree to the [risks](https://docs.n8n.io/integrations/community-nodes/risks/) of using community nodes
 5. Select **Install**
 
@@ -23,7 +23,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 To install this node manually in your n8n instance:
 
 ```bash
-npm install n8n-nodes-bexio
+npm install @zurdai/n8n-nodes-bexio
 ```
 
 ## Credentials
@@ -221,69 +221,17 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
-### 1.0.16 (Current)
-- Comprehensive PDF binary download fix - handles all response formats
-- Added detailed error messages for debugging unexpected response types
+### 1.0.0 (Current) - @zurdai/n8n-nodes-bexio
+- **New Scoped Package**: Republished as `@zurdai/n8n-nodes-bexio` under zurdai organization
+- All features from n8n-nodes-bexio 1.0.16 included
+- Comprehensive PDF binary download support for Invoice, Quote, and Order
+- 6 essential business resources: Banking, Contact, Invoice, Item, Order, Quote
+- Personal Access Token (PAT) authentication
+- All API endpoints verified and tested
 
-### 1.0.15
-- Fixed PDF binary download error - corrected response handling with returnFullResponse
-- PDFs now download correctly without type errors
+### Previous Package (n8n-nodes-bexio) - Deprecated
 
-### 1.0.14
-- Fixed empty PDF issue - PDFs now contain correct document data
-- Improved binary data handling for PDF downloads
+The package was previously published as `n8n-nodes-bexio` (versions 1.0.0 - 1.0.16).
+All functionality has been migrated to the scoped package `@zurdai/n8n-nodes-bexio`.
 
-### 1.0.13
-- Added PDF download as binary data for Invoice, Quote, and Order operations
-- "Get PDF" operations now return the actual PDF file in the node's binary output
-- PDF files automatically named with document type and ID
-
-### 1.0.12
-- Fixed GitHub repository URL in all documentation
-- Corrected from `n8n-nodes-bexio` to `n8n_node_bexio`
-
-### 1.0.11
-- Minor version update to ensure package consistency
-
-### 1.0.10
-- Updated documentation to reflect simplified resource selection
-- Clarified available permissions for the 6 supported resources
-- Updated operations documentation
-- Updated usage examples and project structure
-
-### 1.0.9
-- **Breaking Change**: Simplified to 6 essential business resources
-  - Removed: Project, Timesheet, Bill, Expense, Task, File, Accounting, Payroll
-  - Kept: Banking, Contact, Invoice, Item, Order, Quote
-- **Fixed all API endpoint 404 errors**
-  - Corrected Invoice, Quote, Order endpoints to use `kb_` prefix
-  - Updated Banking to use v3.0 endpoints (`/3.0/banking/`)
-  - All endpoints verified against Bexio API documentation
-- Reduced bundle size by removing unused resources
-- Improved node interface focusing on core business operations
-
-### 1.0.8
-- Added comprehensive testing suite in `testing/` directory
-- Created test scripts for API connectivity, data creation, and cleanup
-- Updated `.gitignore` to exclude testing directory
-- Fixed timesheet creation format
-
-### 1.0.7
-- Updated author email
-- Refined permissions in settings
-- Updated dependencies
-
-### 1.0.6
-- Re-publish of 1.0.4/1.0.5 due to npm version conflict
-- No code changes
-
-### 1.0.5
-- **Breaking Change**: Switched from OAuth2 to Personal Access Token (PAT)
-- Simplified setup - no more OAuth configuration needed
-- Improved reliability and ease of use
-- Updated documentation with PAT setup guide
-
-### 1.0.4
-- Initial stable release
-- Support for major Bexio API resources
-- OAuth2 authentication (later deprecated)
+For complete version history of the previous package, see [CHANGELOG.md](CHANGELOG.md).

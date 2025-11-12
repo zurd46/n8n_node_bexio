@@ -5,7 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.16] - 2025-01-12
+## @zurdai/n8n-nodes-bexio
+
+### [1.0.0] - 2025-01-12
+
+#### Changed
+- **Package Name**: Republished as scoped package `@zurdai/n8n-nodes-bexio`
+- Moved from `n8n-nodes-bexio` to `@zurdai/n8n-nodes-bexio`
+- All features from previous package version 1.0.16 included
+
+#### Features
+- PDF binary download support for Invoice, Quote, and Order
+- 6 essential business resources: Banking, Contact, Invoice, Item, Order, Quote
+- Personal Access Token (PAT) authentication
+- Comprehensive response handling for all API response formats
+- All endpoints verified against Bexio API v2.0 and v3.0
+
+---
+
+## n8n-nodes-bexio (Previous Package - Deprecated)
+
+### [1.0.16] - 2025-01-12
 
 ### Fixed
 - **PDF Binary Download**: Comprehensive response handling for all possible response formats
