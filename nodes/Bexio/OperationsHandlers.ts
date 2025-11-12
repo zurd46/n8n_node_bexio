@@ -116,6 +116,27 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
 		const qs: IDataObject = { ...options };
 
+		// Remove empty status filter
+		if (qs.kb_item_status_id === '') {
+			delete qs.kb_item_status_id;
+		}
+
+		// Handle special filters
+		if (qs.overdue_only) {
+			qs.kb_item_status_id = '18'; // Overdue status
+			delete qs.overdue_only;
+		}
+
+		if (qs.unpaid_only) {
+			// Unpaid includes: Pending (5), Partially Paid (10), Overdue (18)
+			// Note: Bexio API might not support multiple status IDs in one request
+			// We'll filter for Pending status and let user handle other statuses via search
+			if (!qs.kb_item_status_id) {
+				qs.kb_item_status_id = '5'; // Pending
+			}
+			delete qs.unpaid_only;
+		}
+
 		if (returnAll) {
 			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/kb_invoice', {}, qs);
 		} else {
