@@ -13,7 +13,10 @@
       "Bash(findstr:*)",
       "Bash(if not exist testing mkdir testing)",
       "Bash(npx tsx:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
