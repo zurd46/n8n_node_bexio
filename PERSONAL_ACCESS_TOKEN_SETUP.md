@@ -1,210 +1,210 @@
 # 🔑 Bexio Personal Access Token (PAT) Setup
 
-## Was ist ein Personal Access Token?
+## What is a Personal Access Token?
 
-Ein Personal Access Token (PAT) ist eine einfachere Alternative zu OAuth2. Es ist ein langlebiger Token, den Sie direkt verwenden können, ohne den komplexen OAuth-Flow durchlaufen zu müssen.
+A Personal Access Token (PAT) is a simpler alternative to OAuth2. It's a long-lived token that you can use directly without having to go through the complex OAuth flow.
 
-## ✅ Vorteile von PAT
+## ✅ Benefits of PAT
 
-- **Einfacher**: Kein OAuth-Flow erforderlich
-- **Schneller**: Sofort einsatzbereit
-- **Keine Scope-Probleme**: Berechtigungen werden im Developer Portal festgelegt
-- **Langlebig**: Token läuft nicht nach 1 Stunde ab
+- **Simpler**: No OAuth flow required
+- **Faster**: Ready to use immediately
+- **No scope issues**: Permissions are set in the Developer Portal
+- **Long-lived**: Token doesn't expire after 1 hour
 
-## 📋 Anleitung: PAT erstellen
+## 📋 Guide: Creating a PAT
 
-### Schritt 1: Bexio Developer Portal öffnen
+### Step 1: Open Bexio Developer Portal
 
-1. Gehen Sie zu: **https://developer.bexio.com/**
-2. Melden Sie sich mit Ihrem Bexio-Account an
-3. Wählen Sie Ihre Organisation aus
+1. Go to: **https://developer.bexio.com/**
+2. Log in with your Bexio account
+3. Select your organization
 
-### Schritt 2: Personal Access Token erstellen
+### Step 2: Create Personal Access Token
 
-Im Developer Portal sollten Sie eine Option finden für:
-- **"Personal Access Token"** oder
-- **"API Token"** oder
-- **"Token erstellen"** oder
+In the Developer Portal, you should find an option for:
+- **"Personal Access Token"** or
+- **"API Token"** or
+- **"Create Token"** or
 - **"Generate Token"**
 
-**Hinweis**: Die genaue Position kann variieren. Suchen Sie nach:
-- Menüpunkt "Tokens" oder "Access Tokens"
-- Button "Neuer Token" oder "Create Token"
-- Eventuell unter "Settings" oder "API"
+**Note**: The exact location may vary. Look for:
+- Menu item "Tokens" or "Access Tokens"
+- Button "New Token" or "Create Token"
+- Possibly under "Settings" or "API"
 
-### Schritt 3: Token erstellen
+### Step 3: Create Token
 
-**Wichtig**: Im Bexio Developer Portal werden die Berechtigungen automatisch basierend auf Ihrem Bexio-Account vergeben. Sie können die Berechtigungen nicht einzeln auswählen wie beim OAuth2-Flow.
+**Important**: In the Bexio Developer Portal, permissions are automatically assigned based on your Bexio account. You cannot select permissions individually like in the OAuth2 flow.
 
-Der erstellte Token hat automatisch Zugriff auf alle API-Endpunkte, die für Ihren Bexio-Account verfügbar sind.
+The created token automatically has access to all API endpoints available for your Bexio account.
 
-### Schritt 4: Token kopieren
+### Step 4: Copy Token
 
-⚠️ **WICHTIG**: Der Token wird nur EINMAL angezeigt!
+⚠️ **IMPORTANT**: The token is only shown ONCE!
 
-1. Kopieren Sie den Token sofort
-2. Speichern Sie ihn sicher (z.B. in einem Passwort-Manager)
-3. Sie können den Token NICHT später erneut abrufen
+1. Copy the token immediately
+2. Store it securely (e.g., in a password manager)
+3. You CANNOT retrieve the token later
 
-Beispiel-Token-Format:
+Example token format:
 ```
 bxo_123abc456def789ghi012jkl345mno678pqr901stu
 ```
 
-### Schritt 5: Token in n8n verwenden
+### Step 5: Use Token in n8n
 
-#### 5.1 n8n öffnen
+#### 5.1 Open n8n
 
-1. Öffnen Sie Ihre n8n-Instanz
-2. Gehen Sie zu **"Credentials"**
-3. Klicken Sie auf **"+ Add Credential"**
+1. Open your n8n instance
+2. Go to **"Credentials"**
+3. Click on **"+ Add Credential"**
 
-#### 5.2 Bexio API Credential erstellen
+#### 5.2 Create Bexio API Credential
 
-1. Suchen Sie nach **"Bexio API"**
-2. Wählen Sie **"Bexio API"** (NICHT "Bexio OAuth2 API")
-3. Fügen Sie Ihren Personal Access Token ein
-4. Klicken Sie auf **"Save"**
+1. Search for **"Bexio API"**
+2. Select **"Bexio API"** (NOT "Bexio OAuth2 API")
+3. Paste your Personal Access Token
+4. Click **"Save"**
 
-#### 5.3 Credential testen
+#### 5.3 Test Credential
 
-Die Credentials werden automatisch getestet durch einen API-Aufruf:
+The credentials are automatically tested through an API call:
 ```
 GET https://api.bexio.com/2.0/contact
 ```
 
-Wenn der Test erfolgreich ist: ✅ Grünes Häkchen
-Wenn der Test fehlschlägt: ❌ Fehlermeldung
+If the test succeeds: ✅ Green checkmark
+If the test fails: ❌ Error message
 
-## 🧪 Ersten Test durchführen
+## 🧪 Perform First Test
 
-### Test 1: Kontakte abrufen
+### Test 1: Retrieve Contacts
 
-1. Erstellen Sie einen neuen Workflow
-2. Fügen Sie einen **Bexio-Knoten** hinzu
-3. Wählen Sie Ihre **Bexio API** Credentials aus
-4. Konfiguration:
+1. Create a new workflow
+2. Add a **Bexio node**
+3. Select your **Bexio API** credentials
+4. Configuration:
    - **Resource**: Contact
    - **Operation**: Get Many
    - **Return All**: Yes
-5. Führen Sie den Workflow aus
+5. Execute the workflow
 
-**Erwartetes Ergebnis**: Liste aller Kontakte in Ihrem Bexio-Account
+**Expected Result**: List of all contacts in your Bexio account
 
-### Test 2: Rechnung erstellen
+### Test 2: Create Invoice
 
-1. Fügen Sie einen **Bexio-Knoten** hinzu
-2. Konfiguration:
+1. Add a **Bexio node**
+2. Configuration:
    - **Resource**: Invoice
    - **Operation**: Create
-   - Füllen Sie die Pflichtfelder aus
-3. Führen Sie den Workflow aus
+   - Fill in the required fields
+3. Execute the workflow
 
-**Erwartetes Ergebnis**: Neue Rechnung wurde erstellt
+**Expected Result**: New invoice has been created
 
 ## 🔍 Troubleshooting
 
-### Problem: "Invalid token" Fehler
+### Problem: "Invalid token" Error
 
-**Ursache**: Token ist falsch oder ungültig
+**Cause**: Token is incorrect or invalid
 
-**Lösung**:
-1. Überprüfen Sie, ob Sie den Token vollständig kopiert haben
-2. Achten Sie auf Leerzeichen am Anfang/Ende
-3. Erstellen Sie einen neuen Token im Developer Portal
-4. Aktualisieren Sie die Credentials in n8n
+**Solution**:
+1. Check if you copied the complete token
+2. Watch for spaces at the beginning/end
+3. Create a new token in the Developer Portal
+4. Update the credentials in n8n
 
-### Problem: "Unauthorized" oder 401 Fehler
+### Problem: "Unauthorized" or 401 Error
 
-**Ursache**: Token ist ungültig oder Ihr Bexio-Account hat nicht die erforderlichen Rechte
+**Cause**: Token is invalid or your Bexio account doesn't have the required permissions
 
-**Lösung**:
-1. Überprüfen Sie, ob der Token korrekt kopiert wurde
-2. Stellen Sie sicher, dass Ihr Bexio-Account die erforderlichen Berechtigungen hat
-3. Erstellen Sie einen neuen Token im Developer Portal
-4. Falls das Problem weiterhin besteht, kontaktieren Sie den Bexio Support
+**Solution**:
+1. Verify that the token was copied correctly
+2. Ensure your Bexio account has the required permissions
+3. Create a new token in the Developer Portal
+4. If the problem persists, contact Bexio Support
 
-### Problem: Kann PAT im Developer Portal nicht finden
+### Problem: Cannot Find PAT in Developer Portal
 
-**Lösung 1**: Kontaktieren Sie den Bexio Support
+**Solution 1**: Contact Bexio Support
 ```
-Hallo Bexio Team,
+Hello Bexio Team,
 
-Ich möchte einen Personal Access Token (PAT) für die API erstellen,
-aber ich kann diese Option im Developer Portal nicht finden.
+I would like to create a Personal Access Token (PAT) for the API,
+but I cannot find this option in the Developer Portal.
 
-Können Sie mir bitte zeigen, wo ich einen PAT erstellen kann?
+Could you please show me where I can create a PAT?
 
-Vielen Dank!
+Thank you!
 ```
 
-**Lösung 2**: Verwenden Sie OAuth2 stattdessen
-- Siehe [BEXIO_OAUTH_SETUP.md](BEXIO_OAUTH_SETUP.md)
+**Solution 2**: Use OAuth2 instead
+- See [BEXIO_OAUTH_SETUP.md](BEXIO_OAUTH_SETUP.md)
 
-## 🔒 Sicherheit
+## 🔒 Security
 
-### Token sicher aufbewahren
+### Store Token Securely
 
-❌ **NICHT**:
-- In Git committen
-- In Logs ausgeben
-- Öffentlich teilen
-- In unverschlüsselten Dateien speichern
+❌ **DON'T**:
+- Commit to Git
+- Output in logs
+- Share publicly
+- Store in unencrypted files
 
-✅ **EMPFOHLEN**:
-- Passwort-Manager verwenden
-- n8n Credentials-Manager verwenden
-- Umgebungsvariablen verwenden
-- Regelmäßig rotieren
+✅ **RECOMMENDED**:
+- Use password manager
+- Use n8n credentials manager
+- Use environment variables
+- Rotate regularly
 
-### Token-Rotation
+### Token Rotation
 
-Empfehlung: Erstellen Sie alle 3-6 Monate einen neuen Token:
+Recommendation: Create a new token every 3-6 months:
 
-1. Erstellen Sie neuen Token im Developer Portal
-2. Aktualisieren Sie die Credentials in n8n
-3. Testen Sie, dass alles funktioniert
-4. Löschen Sie den alten Token im Developer Portal
+1. Create new token in Developer Portal
+2. Update credentials in n8n
+3. Test that everything works
+4. Delete the old token in Developer Portal
 
 ## 📞 Support
 
-**Bexio Support kontaktieren**:
+**Contact Bexio Support**:
 - Developer Portal: https://developer.bexio.com/
-- Dokumentation: https://docs.bexio.com/
-- Support: Über Ihren Bexio-Account
+- Documentation: https://docs.bexio.com/
+- Support: Through your Bexio account
 
-**Was Sie bereithalten sollten**:
-1. Ihre Bexio Account-ID
-2. Fehlermeldungen (Screenshots)
-3. Beschreibung des Problems
-4. Was Sie bereits versucht haben
+**What to have ready**:
+1. Your Bexio Account ID
+2. Error messages (screenshots)
+3. Description of the problem
+4. What you've already tried
 
-## ✅ Erfolgs-Checkliste
+## ✅ Success Checklist
 
-Nach dem Setup sollten Sie folgendes haben:
+After setup, you should have:
 
-- [ ] Personal Access Token im Bexio Developer Portal erstellt
-- [ ] Token sicher kopiert und gespeichert
-- [ ] Credentials in n8n erstellt mit dem PAT
-- [ ] Credential-Test erfolgreich (grünes Häkchen)
-- [ ] Erster Test-Request funktioniert (z.B. Kontakte abrufen)
-- [ ] Alle benötigten Berechtigungen sind aktiviert
+- [ ] Personal Access Token created in Bexio Developer Portal
+- [ ] Token securely copied and saved
+- [ ] Credentials created in n8n with the PAT
+- [ ] Credential test successful (green checkmark)
+- [ ] First test request works (e.g., retrieve contacts)
+- [ ] All required permissions are activated
 
-## 🎯 Nächste Schritte
+## 🎯 Next Steps
 
-Jetzt können Sie:
+Now you can:
 
-1. **Workflows erstellen** mit dem Bexio-Knoten
-2. **Automation aufbauen** für:
-   - Rechnungserstellung
-   - Kontaktverwaltung
-   - Projektmanagement
-   - Zeiterfassung
-3. **Integrationen** mit anderen n8n-Knoten:
-   - E-Mail versenden nach Rechnungserstellung
-   - CRM-Synchronisation
-   - Automatische Berichte
+1. **Create workflows** with the Bexio node
+2. **Build automation** for:
+   - Invoice creation
+   - Contact management
+   - Project management
+   - Time tracking
+3. **Integrations** with other n8n nodes:
+   - Send email after invoice creation
+   - CRM synchronization
+   - Automated reports
 
 ---
 
-**Viel Erfolg mit Ihrer Bexio-Integration!** 🚀
+**Good luck with your Bexio integration!** 🚀
