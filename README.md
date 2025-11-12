@@ -45,29 +45,21 @@ This node uses **Personal Access Token (PAT)** authentication for simple and rel
 
 When creating your Personal Access Token, you can select permissions for:
 
-**Contacts**: View, create, edit, and delete contacts
+**Contacts**: View, create, edit, and delete contacts (customers and suppliers)
 **Invoices**: View, create, edit, and delete invoices
-**Quotes**: View, create, edit, and delete quotes
+**Quotes**: View, create, edit, and delete quotes (offers)
 **Orders**: View, create, edit, and delete orders
-**Items/Products**: View, create, edit, and delete items
-**Projects**: View, create, edit, and delete projects
-**Timesheets**: View, create, edit, and delete timesheet entries
-**Accounting**: View and edit accounting data
+**Items/Products**: View, create, edit, and delete items (products and services)
 **Banking**: View bank accounts and manage payments
 **Company**: Access company profile information
-**Bills**: View, create, edit, and delete purchase bills
-**Expenses**: View, create, edit, and delete expenses
-**Tasks**: View, create, edit, and delete tasks
-**Files**: Upload, download, and manage files
-**Payroll**: View employee and absence data
 
-**Recommended**: Enable all permissions you need when creating the token. You can always create a new token with different permissions if needed.
+**Recommended**: Enable all permissions for the resources you plan to use when creating the token. You can always create a new token with different permissions if needed.
 
 ## Operations
 
-This node supports the following resources and operations:
+This node focuses on essential business operations with the following resources:
 
-### Contact
+### Contact (Customers & Suppliers)
 - **Create**: Create a new contact (person or company)
 - **Delete**: Delete a contact
 - **Get**: Retrieve a single contact
@@ -87,16 +79,6 @@ This node supports the following resources and operations:
 - **Send**: Send invoice via email
 - **Update**: Update an invoice
 
-### Project
-- **Create**: Create a new project
-- **Delete**: Delete a project
-- **Get**: Retrieve a single project
-- **Get Many**: Retrieve multiple projects
-- **Archive**: Archive a project
-- **Unarchive**: Unarchive a project
-- **Search**: Search projects with criteria
-- **Update**: Update a project
-
 ### Item (Products/Services)
 - **Create**: Create a new item
 - **Delete**: Delete an item
@@ -105,15 +87,7 @@ This node supports the following resources and operations:
 - **Search**: Search items with criteria
 - **Update**: Update an item
 
-### Timesheet
-- **Create**: Create a new timesheet entry
-- **Delete**: Delete a timesheet entry
-- **Get**: Retrieve a single timesheet entry
-- **Get Many**: Retrieve multiple timesheet entries
-- **Search**: Search timesheet entries with criteria
-- **Update**: Update a timesheet entry
-
-### Quote
+### Quote (Offers)
 - **Create**: Create a new quote
 - **Delete**: Delete a quote
 - **Get**: Retrieve a single quote
@@ -132,53 +106,11 @@ This node supports the following resources and operations:
 - **Search**: Search orders with criteria
 - **Update**: Update an order
 
-### Bill (Purchase)
-- **Create**: Create a new bill
-- **Delete**: Delete a bill
-- **Get**: Retrieve a single bill
-- **Get Many**: Retrieve multiple bills
-- **Update**: Update a bill
-
-### Expense
-- **Create**: Create a new expense
-- **Delete**: Delete an expense
-- **Get**: Retrieve a single expense
-- **Get Many**: Retrieve multiple expenses
-- **Update**: Update an expense
-
-### Task
-- **Create**: Create a new task
-- **Delete**: Delete a task
-- **Get**: Retrieve a single task
-- **Get Many**: Retrieve multiple tasks
-- **Search**: Search tasks with criteria
-- **Update**: Update a task
-
-### File
-- **Create**: Upload a file
-- **Delete**: Delete a file
-- **Get**: Retrieve file metadata
-- **Get Many**: Retrieve multiple files
-- **Download**: Download a file
-- **Search**: Search files with criteria
-
 ### Banking
 - **Get Bank Accounts**: Retrieve bank accounts
 - **Get Payments**: Retrieve multiple payments
 - **Get Payment**: Retrieve a single payment
 - **Create Payment**: Create a new payment
-
-### Accounting
-- **Get Accounts**: Retrieve chart of accounts
-- **Get Currencies**: Retrieve currencies
-- **Get Taxes**: Retrieve tax rates
-- **Get VAT Periods**: Retrieve VAT periods
-- **Create Manual Entry**: Create a manual accounting entry
-
-### Payroll
-- **Get Employees**: Retrieve multiple employees
-- **Get Employee**: Retrieve a single employee
-- **Create Absence**: Create an employee absence
 
 ## Usage Examples
 
@@ -195,11 +127,11 @@ This node supports the following resources and operations:
 3. Use **Issue** operation to finalize the invoice
 4. Use **Send** operation to email the invoice to the customer
 
-### Example 3: Track Time on a Project
-1. Use the **Timesheet** resource with **Create** operation
-2. Select the user, project, and activity
-3. Enter the date and duration (in minutes)
-4. Add a description of the work performed
+### Example 3: Create a Quote and Convert to Order
+1. Create a quote using the **Quote** resource with **Create** operation
+2. Add quote positions (line items) as JSON
+3. Use **Issue** operation to finalize the quote
+4. Once accepted, create an order from the same data using the **Order** resource
 
 ## API Documentation
 
@@ -210,7 +142,8 @@ For detailed information about the Bexio API, visit:
 ## Compatibility
 
 - Tested with n8n version 1.0.0 and above
-- Compatible with Bexio API v2.0, v3.0, and v4.0 endpoints
+- Uses Bexio API v2.0 and v3.0 endpoints
+- All endpoints verified and tested against Bexio API documentation
 
 ## Resources
 
@@ -244,28 +177,27 @@ npm run lintfix
 ```
 n8n-nodes-bexio/
 ├── credentials/
-│   └── BexioOAuth2Api.credentials.ts
+│   ├── BexioApi.credentials.ts          # PAT Authentication (Current)
+│   └── BexioOAuth2Api.credentials.ts    # OAuth2 (Deprecated)
 ├── nodes/
 │   └── Bexio/
-│       ├── Bexio.node.ts
-│       ├── GenericFunctions.ts
-│       ├── OperationsHandlers.ts
-│       ├── bexio.svg
+│       ├── Bexio.node.ts                # Main node implementation
+│       ├── GenericFunctions.ts          # API request helpers
+│       ├── OperationsHandlers.ts        # Resource operation handlers
+│       ├── bexio.svg                    # Node icon
 │       └── descriptions/
-│           ├── ContactDescription.ts
-│           ├── InvoiceDescription.ts
-│           ├── ProjectDescription.ts
-│           ├── ItemDescription.ts
-│           ├── TimesheetDescription.ts
-│           ├── QuoteDescription.ts
-│           ├── OrderDescription.ts
-│           ├── BillDescription.ts
-│           ├── ExpenseDescription.ts
-│           ├── TaskDescription.ts
-│           ├── FileDescription.ts
-│           ├── BankingDescription.ts
-│           ├── AccountingDescription.ts
-│           └── PayrollDescription.ts
+│           ├── ContactDescription.ts     # Contact resource fields
+│           ├── InvoiceDescription.ts     # Invoice resource fields
+│           ├── ItemDescription.ts        # Item resource fields
+│           ├── QuoteDescription.ts       # Quote resource fields
+│           ├── OrderDescription.ts       # Order resource fields
+│           └── BankingDescription.ts     # Banking resource fields
+├── testing/                             # Test scripts (not in npm package)
+│   ├── simple-test.ts                   # Basic API connectivity test
+│   ├── create-test-data.ts              # Create comprehensive test data
+│   ├── cleanup-test-data.ts             # Clean up test data
+│   ├── api-field-explorer.ts            # Explore API field structures
+│   └── endpoint-tester.ts               # Test all API endpoints
 ├── package.json
 ├── tsconfig.json
 ├── gulpfile.js
@@ -282,36 +214,39 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
+### 1.0.9 (Current)
+- **Breaking Change**: Simplified to 6 essential business resources
+  - Removed: Project, Timesheet, Bill, Expense, Task, File, Accounting, Payroll
+  - Kept: Banking, Contact, Invoice, Item, Order, Quote
+- **Fixed all API endpoint 404 errors**
+  - Corrected Invoice, Quote, Order endpoints to use `kb_` prefix
+  - Updated Banking to use v3.0 endpoints (`/3.0/banking/`)
+  - All endpoints verified against Bexio API documentation
+- Reduced bundle size by removing unused resources
+- Improved node interface focusing on core business operations
+
+### 1.0.8
+- Added comprehensive testing suite in `testing/` directory
+- Created test scripts for API connectivity, data creation, and cleanup
+- Updated `.gitignore` to exclude testing directory
+- Fixed timesheet creation format
+
+### 1.0.7
+- Updated author email
+- Refined permissions in settings
+- Updated dependencies
+
 ### 1.0.6
 - Re-publish of 1.0.4/1.0.5 due to npm version conflict
 - No code changes
 
-### 1.0.4
-- **Changed authentication to Personal Access Token (PAT)**
+### 1.0.5
+- **Breaking Change**: Switched from OAuth2 to Personal Access Token (PAT)
 - Simplified setup - no more OAuth configuration needed
 - Improved reliability and ease of use
 - Updated documentation with PAT setup guide
 
-### 1.0.3
-- Updated dependencies
-- Fixed TypeScript compilation issues
-- Improved error handling
-
-### 1.0.0
-- Initial release
-- Support for all major Bexio API resources
-- Comprehensive CRUD operations for:
-  - Contacts
-  - Invoices
-  - Projects
-  - Items
-  - Timesheets
-  - Quotes
-  - Orders
-  - Bills
-  - Expenses
-  - Tasks
-  - Files
-  - Banking
-  - Accounting
-  - Payroll
+### 1.0.4
+- Initial stable release
+- Support for major Bexio API resources
+- OAuth2 authentication (later deprecated)
