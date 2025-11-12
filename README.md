@@ -38,19 +38,52 @@ This node uses OAuth2 authentication. You need to:
 
 ### Available Scopes
 
-- `openid` - Basic OpenID Connect
+**User Information:**
 - `profile` - User profile information
+- `email` - Email address
+
+**Contacts:**
 - `contact_show` - View contacts
 - `contact_edit` - Edit contacts
-- `kb_invoice_show` - View invoices
-- `kb_invoice_edit` - Edit invoices
+- `contact_delete` - Delete contacts
+
+**Sales Documents:**
+- `invoice_show` - View invoices
+- `invoice_edit` - Edit invoices
+- `quote_show` - View quotes
+- `quote_edit` - Edit quotes
+- `order_show` - View orders
+- `order_edit` - Edit orders
+
+**Products:**
+- `article_show` - View items/articles
+- `article_edit` - Edit items/articles
+
+**Projects & Time:**
 - `project_show` - View projects
 - `project_edit` - Edit projects
 - `timesheet_show` - View timesheets
 - `timesheet_edit` - Edit timesheets
-- `article_show` - View items/articles
-- `article_edit` - Edit items/articles
-- And many more (see [Bexio API Documentation](https://docs.bexio.com/))
+
+**Accounting:**
+- `accounting_show` - View accounting data
+- `accounting_edit` - Edit accounting data
+
+**Payroll:**
+- `payroll_show` - View payroll data
+- `payroll_edit` - Edit payroll data
+
+**Company:**
+- `company_profile` - Access company profile
+
+**Default Scopes** (included in credentials):
+```
+profile email contact_show contact_edit invoice_show invoice_edit
+quote_show quote_edit order_show order_edit article_show article_edit
+project_show project_edit timesheet_show timesheet_edit
+```
+
+You can customize the scopes in the credential settings based on your needs.
 
 ## Operations
 

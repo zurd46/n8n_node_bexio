@@ -33,8 +33,8 @@ export class BexioOAuth2Api implements ICredentialType {
 			displayName: 'Scope',
 			name: 'scope',
 			type: 'string',
-			default: 'openid profile contact_show contact_edit kb_invoice_show kb_invoice_edit project_show project_edit timesheet_show timesheet_edit article_show article_edit',
-			description: 'Space-separated list of scopes',
+			default: 'profile email contact_show contact_edit contact_delete invoice_show invoice_edit quote_show quote_edit order_show order_edit article_show article_edit project_show project_edit timesheet_show timesheet_edit accounting_show accounting_edit payroll_show payroll_edit company_profile',
+			description: 'Space-separated list of scopes. Adjust based on your needs.',
 		},
 		{
 			displayName: 'Auth URI Query Parameters',
