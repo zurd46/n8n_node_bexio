@@ -98,17 +98,17 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 			body.positions = JSON.parse(body.positions as string);
 		}
 
-		return await bexioApiRequest.call(this, 'POST', '/2.0/invoice', body);
+		return await bexioApiRequest.call(this, 'POST', '/2.0/kb_invoice', body);
 	}
 
 	if (operation === 'delete') {
 		const invoiceId = this.getNodeParameter('invoiceId', index) as string;
-		return await bexioApiRequest.call(this, 'DELETE', `/2.0/invoice/${invoiceId}`);
+		return await bexioApiRequest.call(this, 'DELETE', `/2.0/kb_invoice/${invoiceId}`);
 	}
 
 	if (operation === 'get') {
 		const invoiceId = this.getNodeParameter('invoiceId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/2.0/invoice/${invoiceId}`);
+		return await bexioApiRequest.call(this, 'GET', `/2.0/kb_invoice/${invoiceId}`);
 	}
 
 	if (operation === 'getAll') {
@@ -117,27 +117,27 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 		const qs: IDataObject = { ...options };
 
 		if (returnAll) {
-			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/invoice', {}, qs);
+			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/kb_invoice', {}, qs);
 		} else {
 			const limit = this.getNodeParameter('limit', index) as number;
 			qs.limit = limit;
-			return await bexioApiRequest.call(this, 'GET', '/2.0/invoice', {}, qs);
+			return await bexioApiRequest.call(this, 'GET', '/2.0/kb_invoice', {}, qs);
 		}
 	}
 
 	if (operation === 'getPdf') {
 		const invoiceId = this.getNodeParameter('invoiceId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/2.0/invoice/${invoiceId}/pdf`);
+		return await bexioApiRequest.call(this, 'GET', `/2.0/kb_invoice/${invoiceId}/pdf`);
 	}
 
 	if (operation === 'issue') {
 		const invoiceId = this.getNodeParameter('invoiceId', index) as string;
-		return await bexioApiRequest.call(this, 'POST', `/2.0/invoice/${invoiceId}/issue`);
+		return await bexioApiRequest.call(this, 'POST', `/2.0/kb_invoice/${invoiceId}/issue`);
 	}
 
 	if (operation === 'markAsSent') {
 		const invoiceId = this.getNodeParameter('invoiceId', index) as string;
-		return await bexioApiRequest.call(this, 'POST', `/2.0/invoice/${invoiceId}/mark_as_sent`);
+		return await bexioApiRequest.call(this, 'POST', `/2.0/kb_invoice/${invoiceId}/mark_as_sent`);
 	}
 
 	if (operation === 'search') {
@@ -156,11 +156,11 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 		}
 
 		if (returnAll) {
-			return await bexioApiRequestAllItems.call(this, 'POST', '/2.0/invoice/search', body);
+			return await bexioApiRequestAllItems.call(this, 'POST', '/2.0/kb_invoice/search', body);
 		} else {
 			const limit = this.getNodeParameter('limit', index) as number;
 			const qs = { limit };
-			return await bexioApiRequest.call(this, 'POST', '/2.0/invoice/search', body, qs);
+			return await bexioApiRequest.call(this, 'POST', '/2.0/kb_invoice/search', body, qs);
 		}
 	}
 
@@ -174,7 +174,7 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 			...additionalFields,
 		};
 
-		return await bexioApiRequest.call(this, 'POST', `/2.0/invoice/${invoiceId}/send`, body);
+		return await bexioApiRequest.call(this, 'POST', `/2.0/kb_invoice/${invoiceId}/send`, body);
 	}
 
 	if (operation === 'update') {
@@ -185,7 +185,7 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 			updateFields.positions = JSON.parse(updateFields.positions as string);
 		}
 
-		return await bexioApiRequest.call(this, 'POST', `/2.0/invoice/${invoiceId}`, updateFields);
+		return await bexioApiRequest.call(this, 'POST', `/2.0/kb_invoice/${invoiceId}`, updateFields);
 	}
 
 	throw new Error(`Unknown operation: ${operation}`);
@@ -204,39 +204,39 @@ export async function handleProjectOperations(this: IExecuteFunctions, operation
 			...additionalFields,
 		};
 
-		return await bexioApiRequest.call(this, 'POST', '/2.0/project', body);
+		return await bexioApiRequest.call(this, 'POST', '/2.0/pr_project', body);
 	}
 
 	if (operation === 'delete') {
 		const projectId = this.getNodeParameter('projectId', index) as string;
-		return await bexioApiRequest.call(this, 'DELETE', `/2.0/project/${projectId}`);
+		return await bexioApiRequest.call(this, 'DELETE', `/2.0/pr_project/${projectId}`);
 	}
 
 	if (operation === 'get') {
 		const projectId = this.getNodeParameter('projectId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/2.0/project/${projectId}`);
+		return await bexioApiRequest.call(this, 'GET', `/2.0/pr_project/${projectId}`);
 	}
 
 	if (operation === 'getAll') {
 		const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 
 		if (returnAll) {
-			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/project');
+			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/pr_project');
 		} else {
 			const limit = this.getNodeParameter('limit', index) as number;
 			const qs = { limit };
-			return await bexioApiRequest.call(this, 'GET', '/2.0/project', {}, qs);
+			return await bexioApiRequest.call(this, 'GET', '/2.0/pr_project', {}, qs);
 		}
 	}
 
 	if (operation === 'archive') {
 		const projectId = this.getNodeParameter('projectId', index) as string;
-		return await bexioApiRequest.call(this, 'POST', `/2.0/project/${projectId}/archive`);
+		return await bexioApiRequest.call(this, 'POST', `/2.0/pr_project/${projectId}/archive`);
 	}
 
 	if (operation === 'unarchive') {
 		const projectId = this.getNodeParameter('projectId', index) as string;
-		return await bexioApiRequest.call(this, 'POST', `/2.0/project/${projectId}/unarchive`);
+		return await bexioApiRequest.call(this, 'POST', `/2.0/pr_project/${projectId}/unarchive`);
 	}
 
 	if (operation === 'search') {
@@ -255,11 +255,11 @@ export async function handleProjectOperations(this: IExecuteFunctions, operation
 		}
 
 		if (returnAll) {
-			return await bexioApiRequestAllItems.call(this, 'POST', '/2.0/project/search', body);
+			return await bexioApiRequestAllItems.call(this, 'POST', '/2.0/pr_project/search', body);
 		} else {
 			const limit = this.getNodeParameter('limit', index) as number;
 			const qs = { limit };
-			return await bexioApiRequest.call(this, 'POST', '/2.0/project/search', body, qs);
+			return await bexioApiRequest.call(this, 'POST', '/2.0/pr_project/search', body, qs);
 		}
 	}
 
@@ -267,7 +267,7 @@ export async function handleProjectOperations(this: IExecuteFunctions, operation
 		const projectId = this.getNodeParameter('projectId', index) as string;
 		const updateFields = this.getNodeParameter('updateFields', index) as IDataObject;
 
-		return await bexioApiRequest.call(this, 'POST', `/2.0/project/${projectId}`, updateFields);
+		return await bexioApiRequest.call(this, 'POST', `/2.0/pr_project/${projectId}`, updateFields);
 	}
 
 	throw new Error(`Unknown operation: ${operation}`);
@@ -426,23 +426,23 @@ export async function handleTimesheetOperations(this: IExecuteFunctions, operati
 // =====================================
 export async function handleQuoteOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
 	// Similar to invoice operations
-	const endpoint = '/2.0/quote';
+	const endpoint = '/2.0/kb_offer';
 	return handleDocumentOperations.call(this, operation, index, endpoint, 'quoteId');
 }
 
 export async function handleOrderOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
 	// Similar to invoice operations
-	const endpoint = '/2.0/order';
+	const endpoint = '/2.0/kb_order';
 	return handleDocumentOperations.call(this, operation, index, endpoint, 'orderId');
 }
 
 export async function handleBillOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
-	const endpoint = '/3.0/bill';
+	const endpoint = '/3.0/purchase/bills';
 	return handleGenericCRUD.call(this, operation, index, endpoint, 'billId');
 }
 
 export async function handleExpenseOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
-	const endpoint = '/3.0/expense';
+	const endpoint = '/3.0/purchase/expenses';
 	return handleGenericCRUD.call(this, operation, index, endpoint, 'expenseId');
 }
 
@@ -452,7 +452,7 @@ export async function handleTaskOperations(this: IExecuteFunctions, operation: s
 }
 
 export async function handleFileOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
-	const endpoint = '/3.0/file';
+	const endpoint = '/3.0/files';
 	if (operation === 'download') {
 		const fileId = this.getNodeParameter('fileId', index) as string;
 		return await bexioApiRequest.call(this, 'GET', `${endpoint}/${fileId}/download`);
@@ -462,48 +462,48 @@ export async function handleFileOperations(this: IExecuteFunctions, operation: s
 
 export async function handleBankingOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
 	if (operation === 'getBankAccounts') {
-		return await bexioApiRequest.call(this, 'GET', '/2.0/bank_account');
+		return await bexioApiRequest.call(this, 'GET', '/3.0/banking/accounts');
 	}
 	if (operation === 'getPayments') {
-		return await bexioApiRequest.call(this, 'GET', '/4.0/payment');
+		return await bexioApiRequest.call(this, 'GET', '/3.0/banking/payments');
 	}
 	if (operation === 'getPayment') {
 		const paymentId = this.getNodeParameter('paymentId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/4.0/payment/${paymentId}`);
+		return await bexioApiRequest.call(this, 'GET', `/3.0/banking/payments/${paymentId}`);
 	}
 	if (operation === 'createPayment') {
-		return await bexioApiRequest.call(this, 'POST', '/4.0/payment', {});
+		return await bexioApiRequest.call(this, 'POST', '/3.0/banking/payments', {});
 	}
 	throw new Error(`Unknown operation: ${operation}`);
 }
 
 export async function handleAccountingOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
 	if (operation === 'getAccounts') {
-		return await bexioApiRequest.call(this, 'GET', '/2.0/account');
+		return await bexioApiRequest.call(this, 'GET', '/3.0/accounts');
 	}
 	if (operation === 'getCurrencies') {
-		return await bexioApiRequest.call(this, 'GET', '/2.0/currency');
+		return await bexioApiRequest.call(this, 'GET', '/3.0/currencies');
 	}
 	if (operation === 'getTaxes') {
-		return await bexioApiRequest.call(this, 'GET', '/2.0/tax');
+		return await bexioApiRequest.call(this, 'GET', '/3.0/taxes');
 	}
 	if (operation === 'getVatPeriods') {
-		return await bexioApiRequest.call(this, 'GET', '/2.0/vat_period');
+		return await bexioApiRequest.call(this, 'GET', '/3.0/vat_periods');
 	}
 	if (operation === 'createManualEntry') {
 		const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
-		return await bexioApiRequest.call(this, 'POST', '/2.0/journal', additionalFields);
+		return await bexioApiRequest.call(this, 'POST', '/3.0/accounting/manual_entries', additionalFields);
 	}
 	throw new Error(`Unknown operation: ${operation}`);
 }
 
 export async function handlePayrollOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
 	if (operation === 'getEmployees') {
-		return await bexioApiRequest.call(this, 'GET', '/2.0/payroll_employee');
+		return await bexioApiRequest.call(this, 'GET', '/3.0/payroll/employees');
 	}
 	if (operation === 'getEmployee') {
 		const employeeId = this.getNodeParameter('employeeId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/2.0/payroll_employee/${employeeId}`);
+		return await bexioApiRequest.call(this, 'GET', `/3.0/payroll/employees/${employeeId}`);
 	}
 	if (operation === 'createAbsence') {
 		const employeeId = this.getNodeParameter('employeeId', index) as string;
@@ -512,7 +512,7 @@ export async function handlePayrollOperations(this: IExecuteFunctions, operation
 			employee_id: employeeId,
 			...additionalFields,
 		};
-		return await bexioApiRequest.call(this, 'POST', `/2.0/payroll_absence`, body);
+		return await bexioApiRequest.call(this, 'POST', `/3.0/payroll/absences`, body);
 	}
 	throw new Error(`Unknown operation: ${operation}`);
 }
