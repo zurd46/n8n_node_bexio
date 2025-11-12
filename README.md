@@ -221,7 +221,11 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
-### 1.0.13 (Current)
+### 1.0.14 (Current)
+- Fixed empty PDF issue - PDFs now contain correct document data
+- Improved binary data handling for PDF downloads
+
+### 1.0.13
 - Added PDF download as binary data for Invoice, Quote, and Order operations
 - "Get PDF" operations now return the actual PDF file in the node's binary output
 - PDF files automatically named with document type and ID

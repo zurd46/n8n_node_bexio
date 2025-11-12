@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.14] - 2025-01-12
+
+### Fixed
+- **PDF Download Issue**: Fixed empty PDF problem by correcting binary data encoding
+- Improved Buffer handling to properly receive PDF content from Bexio API
+- PDFs now contain the correct invoice/quote/order data instead of being empty
+
 ## [1.0.13] - 2025-01-12
 
 ### Added
