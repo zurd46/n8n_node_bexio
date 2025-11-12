@@ -41,65 +41,27 @@ This node uses **Personal Access Token (PAT)** authentication for simple and rel
 
 📖 **Detailed Setup Guide**: See [PERSONAL_ACCESS_TOKEN_SETUP.md](PERSONAL_ACCESS_TOKEN_SETUP.md)
 
-### Available Scopes
+### Available Permissions
 
-**Contacts:**
-- `contact_show` - View contacts
-- `contact_edit` - Edit contacts
-- `contact_delete` - Delete contacts
+When creating your Personal Access Token, you can select permissions for:
 
-**Sales Documents:**
-- `invoice_show` - View invoices
-- `invoice_edit` - Edit invoices
-- `invoice_delete` - Delete invoices
-- `quote_show` - View quotes
-- `quote_edit` - Edit quotes
-- `quote_delete` - Delete quotes
-- `order_show` - View orders
-- `order_edit` - Edit orders
-- `order_delete` - Delete orders
+**Contacts**: View, create, edit, and delete contacts
+**Invoices**: View, create, edit, and delete invoices
+**Quotes**: View, create, edit, and delete quotes
+**Orders**: View, create, edit, and delete orders
+**Items/Products**: View, create, edit, and delete items
+**Projects**: View, create, edit, and delete projects
+**Timesheets**: View, create, edit, and delete timesheet entries
+**Accounting**: View and edit accounting data
+**Banking**: View bank accounts and manage payments
+**Company**: Access company profile information
+**Bills**: View, create, edit, and delete purchase bills
+**Expenses**: View, create, edit, and delete expenses
+**Tasks**: View, create, edit, and delete tasks
+**Files**: Upload, download, and manage files
+**Payroll**: View employee and absence data
 
-**Items/Products:**
-- `item_show` - View items
-- `item_edit` - Edit items
-- `item_delete` - Delete items
-
-**Projects & Time:**
-- `project_show` - View projects
-- `project_edit` - Edit projects
-- `project_delete` - Delete projects
-- `timesheet_show` - View timesheets
-- `timesheet_edit` - Edit timesheets
-- `timesheet_delete` - Delete timesheets
-
-**Accounting:**
-- `accounting_show` - View accounting data
-- `accounting_edit` - Edit accounting data
-
-**Banking:**
-- `bank_account_show` - View bank accounts
-- `payment_show` - View payments
-- `payment_edit` - Edit payments
-- `payment_delete` - Delete payments
-
-**Company:**
-- `company_profile` - Access company profile
-
-**Default Scopes** (included in credentials):
-```
-contact_show contact_edit contact_delete
-invoice_show invoice_edit invoice_delete
-quote_show quote_edit quote_delete
-order_show order_edit order_delete
-item_show item_edit item_delete
-project_show project_edit project_delete
-timesheet_show timesheet_edit timesheet_delete
-accounting_show accounting_edit
-bank_account_show payment_show payment_edit payment_delete
-company_profile
-```
-
-**Important:** You must enable these scopes in your Bexio OAuth application at [developer.bexio.com](https://developer.bexio.com/) before using them.
+**Recommended**: Enable all permissions you need when creating the token. You can always create a new token with different permissions if needed.
 
 ## Operations
 
@@ -320,10 +282,20 @@ Daniel Zurmühle (dzurmuehle@gmail.com) zurdai.com
 
 ## Version History
 
+### 1.0.4
+- **Changed authentication to Personal Access Token (PAT)**
+- Simplified setup - no more OAuth configuration needed
+- Improved reliability and ease of use
+- Updated documentation with PAT setup guide
+
+### 1.0.3
+- Updated dependencies
+- Fixed TypeScript compilation issues
+- Improved error handling
+
 ### 1.0.0
 - Initial release
 - Support for all major Bexio API resources
-- OAuth2 authentication
 - Comprehensive CRUD operations for:
   - Contacts
   - Invoices
