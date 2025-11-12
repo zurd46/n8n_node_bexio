@@ -152,7 +152,7 @@ For detailed information about the Bexio API, visit:
 
 ## Support
 
-For issues and feature requests, please create an issue on the [GitHub repository](https://github.com/yourusername/n8n-nodes-bexio/issues).
+For issues and feature requests, please create an issue on the [GitHub repository](https://github.com/zurd46/n8n_node_bexio/issues).
 
 ## Development
 

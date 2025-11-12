@@ -158,8 +158,8 @@ See `testing/GETTING-STARTED.md` for details.
 ## Support
 
 For issues, questions, or contributions:
-- GitHub: https://github.com/zurd46/n8n-nodes-bexio
-- Issues: https://github.com/zurd46/n8n-nodes-bexio/issues
+- GitHub: https://github.com/zurd46/n8n_node_bexio
+- Issues: https://github.com/zurd46/n8n_node_bexio/issues
 
 ## License
 
