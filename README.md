@@ -38,10 +38,6 @@ This node uses OAuth2 authentication. You need to:
 
 ### Available Scopes
 
-**User Information:**
-- `profile` - User profile information
-- `email` - Email address
-
 **Contacts:**
 - `contact_show` - View contacts
 - `contact_edit` - Edit contacts
@@ -50,40 +46,55 @@ This node uses OAuth2 authentication. You need to:
 **Sales Documents:**
 - `invoice_show` - View invoices
 - `invoice_edit` - Edit invoices
+- `invoice_delete` - Delete invoices
 - `quote_show` - View quotes
 - `quote_edit` - Edit quotes
+- `quote_delete` - Delete quotes
 - `order_show` - View orders
 - `order_edit` - Edit orders
+- `order_delete` - Delete orders
 
-**Products:**
-- `article_show` - View items/articles
-- `article_edit` - Edit items/articles
+**Items/Products:**
+- `item_show` - View items
+- `item_edit` - Edit items
+- `item_delete` - Delete items
 
 **Projects & Time:**
 - `project_show` - View projects
 - `project_edit` - Edit projects
+- `project_delete` - Delete projects
 - `timesheet_show` - View timesheets
 - `timesheet_edit` - Edit timesheets
+- `timesheet_delete` - Delete timesheets
 
 **Accounting:**
 - `accounting_show` - View accounting data
 - `accounting_edit` - Edit accounting data
 
-**Payroll:**
-- `payroll_show` - View payroll data
-- `payroll_edit` - Edit payroll data
+**Banking:**
+- `bank_account_show` - View bank accounts
+- `payment_show` - View payments
+- `payment_edit` - Edit payments
+- `payment_delete` - Delete payments
 
 **Company:**
 - `company_profile` - Access company profile
 
 **Default Scopes** (included in credentials):
 ```
-profile email contact_show contact_edit invoice_show invoice_edit
-quote_show quote_edit order_show order_edit article_show article_edit
-project_show project_edit timesheet_show timesheet_edit
+contact_show contact_edit contact_delete
+invoice_show invoice_edit invoice_delete
+quote_show quote_edit quote_delete
+order_show order_edit order_delete
+item_show item_edit item_delete
+project_show project_edit project_delete
+timesheet_show timesheet_edit timesheet_delete
+accounting_show accounting_edit
+bank_account_show payment_show payment_edit payment_delete
+company_profile
 ```
 
-You can customize the scopes in the credential settings based on your needs.
+**Important:** You must enable these scopes in your Bexio OAuth application at [developer.bexio.com](https://developer.bexio.com/) before using them.
 
 ## Operations
 
