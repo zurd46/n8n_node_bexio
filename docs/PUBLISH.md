@@ -1,4 +1,4 @@
-# Publishing n8n-nodes-bexio to npm
+# Publishing @zurdai/n8n-nodes-bexio to npm
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 Check if the package name is available:
 ```bash
-npm search n8n-nodes-bexio
+npm search @zurdai/n8n-nodes-bexio
 ```
 
 If the name is taken, update the `name` field in `package.json`.
@@ -56,16 +56,16 @@ Enter your:
 
 ## Publishing Steps
 
-### Option 1: First Time Publishing
+### Option 1: First Time Publishing (Scoped Package)
 
 ```bash
-npm publish
+npm publish --access public
 ```
 
 ### Option 2: Publishing with OTP (if 2FA is enabled)
 
 ```bash
-npm publish --otp=123456
+npm publish --access public --otp=123456
 ```
 
 Replace `123456` with your current 2FA code.
@@ -111,7 +111,7 @@ git push origin main --tags
 
 Then publish:
 ```bash
-npm publish
+npm publish --access public
 ```
 
 ## Post-Publication Steps
@@ -120,28 +120,28 @@ npm publish
 
 Check your package on npm:
 ```bash
-npm view n8n-nodes-bexio
+npm view @zurdai/n8n-nodes-bexio
 ```
 
-Or visit: https://www.npmjs.com/package/n8n-nodes-bexio
+Or visit: https://www.npmjs.com/package/@zurdai/n8n-nodes-bexio
 
 ### 2. Test Installation
 
 In a test n8n instance:
 ```bash
-npm install n8n-nodes-bexio
+npm install @zurdai/n8n-nodes-bexio
 ```
 
 Or install via n8n UI:
 1. Go to **Settings > Community Nodes**
 2. Click **Install**
-3. Enter `n8n-nodes-bexio`
+3. Enter `@zurdai/n8n-nodes-bexio`
 4. Click **Install**
 
 ### 3. Update README
 
 Update the README.md with:
-- npm badge: `![npm](https://img.shields.io/npm/v/n8n-nodes-bexio)`
+- npm badge: `![npm](https://img.shields.io/npm/v/@zurdai/n8n-nodes-bexio)`
 - Installation instructions
 - Link to npm package page
 
@@ -193,8 +193,8 @@ npm login
 # Dry run to check what will be published
 npm publish --dry-run
 
-# Publish to npm
-npm publish
+# Publish to npm (with public access for scoped package)
+npm publish --access public
 
 # Push to GitHub with tags
 git push origin main --tags
@@ -213,7 +213,7 @@ npm run build
 npm version patch
 
 # Publish
-npm publish
+npm publish --access public
 
 # Push to GitHub
 git push origin main --tags
@@ -223,16 +223,8 @@ git push origin main --tags
 
 ### Access Level
 
-This package is public by default. If you want to make it private:
+This package is published as public:
 ```bash
-npm publish --access restricted
-```
-
-### Package Scope
-
-If you want to publish under your username scope:
-```bash
-# Update package.json name to: "@zurd46/n8n-nodes-bexio"
 npm publish --access public
 ```
 
@@ -249,26 +241,26 @@ After publishing:
 
 ```bash
 # Check package details
-npm view n8n-nodes-bexio
+npm view @zurdai/n8n-nodes-bexio
 
 # Check package versions
-npm view n8n-nodes-bexio versions
+npm view @zurdai/n8n-nodes-bexio versions
 
 # Unpublish a version (only within 72 hours)
-npm unpublish n8n-nodes-bexio@1.0.0
+npm unpublish @zurdai/n8n-nodes-bexio@1.0.0
 
 # Deprecate a version
-npm deprecate n8n-nodes-bexio@1.0.0 "Please upgrade to 1.0.1"
+npm deprecate @zurdai/n8n-nodes-bexio@1.0.0 "Please upgrade to 1.0.1"
 
 # Check who owns the package
-npm owner ls n8n-nodes-bexio
+npm owner ls @zurdai/n8n-nodes-bexio
 
 # Add a maintainer
-npm owner add <username> n8n-nodes-bexio
+npm owner add <username> @zurdai/n8n-nodes-bexio
 ```
 
 ## Links
 
-- npm Package: https://www.npmjs.com/package/n8n-nodes-bexio
+- npm Package: https://www.npmjs.com/package/@zurdai/n8n-nodes-bexio
 - GitHub Repository: https://github.com/zurd46/n8n_node_bexio
 - n8n Community Nodes Documentation: https://docs.n8n.io/integrations/community-nodes/

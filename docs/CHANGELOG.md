@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the n8n-nodes-bexio project will be documented in this file.
+All notable changes to the @zurdai/n8n-nodes-bexio project will be documented in this file.
 
 ## [1.0.7] - 2025-11-12
 
@@ -79,7 +79,7 @@ Personal Access Tokens provide:
 ## [1.0.0] - 2025-11-10
 
 ### Added
-- Initial release of n8n-nodes-bexio
+- Initial release of @zurdai/n8n-nodes-bexio
 - Support for 14 major Bexio API resources:
   - Contact (CRUD, Search)
   - Invoice (CRUD, Search, PDF, Issue, Send)
@@ -142,12 +142,12 @@ Your workflows will automatically use the new credentials once you select them. 
 
 ### From npm (Production)
 ```bash
-npm install n8n-nodes-bexio@latest
+npm install @zurdai/n8n-nodes-bexio@latest
 ```
 
 ### From source (Development)
 ```bash
-cd n8n-nodes-bexio
+cd @zurdai/n8n-nodes-bexio
 git pull
 npm install
 npm run build
@@ -155,7 +155,7 @@ npm run build
 
 ### In n8n
 1. Go to Settings > Community Nodes
-2. Find "n8n-nodes-bexio"
+2. Find "@zurdai/n8n-nodes-bexio"
 3. Click "Update" if available
 4. Restart n8n
 
