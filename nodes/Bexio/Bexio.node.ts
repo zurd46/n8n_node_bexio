@@ -377,60 +377,20 @@ export class Bexio implements INodeType {
 	}
 }
 
-// Helper function stubs - will be implemented in separate files
-async function handleContactOperations(this: IExecuteFunctions, operation: string, index: number) {
-	// Will be implemented
-	throw new Error('Not implemented yet');
-}
+import * as handlers from './OperationsHandlers';
 
-async function handleInvoiceOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleProjectOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleItemOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleTimesheetOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleQuoteOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleOrderOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleBillOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleExpenseOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleTaskOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleFileOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleBankingOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handleAccountingOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
-
-async function handlePayrollOperations(this: IExecuteFunctions, operation: string, index: number) {
-	throw new Error('Not implemented yet');
-}
+// Re-export handlers for use in execute function
+const handleContactOperations = handlers.handleContactOperations;
+const handleInvoiceOperations = handlers.handleInvoiceOperations;
+const handleProjectOperations = handlers.handleProjectOperations;
+const handleItemOperations = handlers.handleItemOperations;
+const handleTimesheetOperations = handlers.handleTimesheetOperations;
+const handleQuoteOperations = handlers.handleQuoteOperations;
+const handleOrderOperations = handlers.handleOrderOperations;
+const handleBillOperations = handlers.handleBillOperations;
+const handleExpenseOperations = handlers.handleExpenseOperations;
+const handleTaskOperations = handlers.handleTaskOperations;
+const handleFileOperations = handlers.handleFileOperations;
+const handleBankingOperations = handlers.handleBankingOperations;
+const handleAccountingOperations = handlers.handleAccountingOperations;
+const handlePayrollOperations = handlers.handlePayrollOperations;
