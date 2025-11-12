@@ -267,7 +267,7 @@ n8n-nodes-bexio/
 
 ## Author
 
-Daniel Zurmühle (dzurmuehle@gmail.com)
+Daniel Zurmühle (dzurmuehle@gmail.com) zurdai.com
 
 ## Version History
 
