@@ -13,7 +13,8 @@
   "homepage": "https://github.com/zurd46/n8n-nodes-bexio",
   "author": {
     "name": "Daniel Zurmühle",
-    "email": "dzurmuehle@gmail.com"
+    "email": "daniel.zurmuehle@zurdai.com",
+    "url": "https://zurdai.com"
   },
   "repository": {
     "type": "git",

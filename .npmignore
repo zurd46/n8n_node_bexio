@@ -9,6 +9,7 @@ node_modules/
 *.log
 .DS_Store
 .vscode/
+testing/
 credentials/**/*.ts
 nodes/**/*.ts
 !dist/**/*
