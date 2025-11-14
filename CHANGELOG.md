@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
+### [1.0.5] - 2025-01-14
+
+#### Security
+- **CRITICAL**: Fixed all dependency vulnerabilities (npm audit: 0 vulnerabilities)
+  - Updated `form-data` from 4.0.0 to 4.0.4 (CVE fix for unsafe random function)
+  - Updated `n8n-workflow` to 1.117.0 (fixes axios SSRF and DoS vulnerabilities)
+  - Added npm overrides to enforce secure dependency versions
+- **JSON Parsing**: Added try-catch error handling for JSON.parse() operations
+  - Invoice positions field now has proper error handling
+  - Prevents node crashes on invalid JSON input
+- **Information Disclosure**: Removed sensitive response data from error messages
+  - Error messages no longer expose API response details
+- **DoS Protection**: Added maximum iteration limit (1000) to pagination loops
+  - Prevents infinite loops on malformed API responses
+
+#### Added
+- **getLanguages LoadOptions**: Implemented missing language dropdown functionality
+  - Users can now select invoice/contact languages from Bexio API
+  - Completes all 16 loadOptions methods (100% coverage)
+
+#### Fixed
+- **validateJSON**: Improved error handling to throw descriptive errors instead of returning undefined
+  - Better debugging for invalid JSON inputs
+
+#### Changed
+- **Code Quality**: All security best practices implemented
+  - Zero npm audit vulnerabilities
+  - Zero ESLint warnings
+  - Complete TypeScript type safety
+
 ### [1.0.4] - 2025-01-14
 
 #### Changed
