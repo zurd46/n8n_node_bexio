@@ -149,30 +149,11 @@ For detailed information about the Bexio API, visit:
 - [Bexio API Documentation](https://docs.bexio.com/)
 - [Bexio Developer Portal](https://developer.bexio.com/)
 
-## Testing
-
-This node includes a comprehensive test suite covering all 87 operations across 14 resources:
-
-- **85.88% success rate** (73/85 tests passing)
-- **11 of 14 resources** achieving 100% test success
-- **Automated testing** with JSON and HTML reports
-- **Dynamic test data** that adapts to your Bexio account
-
-To run tests:
-```bash
-cd tests
-npm install
-npm test
-```
-
-See [tests/README.md](tests/README.md) for detailed test documentation.
-
 ## Compatibility
 
 - Tested with n8n version 1.0.0 and above
 - Uses Bexio API v2.0 and v3.0 endpoints
 - All endpoints verified and tested against Bexio API documentation
-- Comprehensive test suite validates all operations
 
 ## Resources
 
@@ -228,21 +209,6 @@ npm run lintfix
 │           ├── QuoteDescription.ts       # Quote resource fields
 │           ├── OrderDescription.ts       # Order resource fields
 │           └── BankingDescription.ts     # Banking resource fields
-├── tests/                               # Comprehensive test suite
-│   ├── runAllTests.ts                   # Main test runner
-│   ├── utils/                           # Test utilities
-│   │   ├── bexioClient.ts               # HTTP client wrapper
-│   │   ├── testConfig.ts                # Configuration loader
-│   │   ├── testDataHelper.ts            # Dynamic test data fetcher
-│   │   └── testLogger.ts                # Test reporting and logging
-│   └── resources/                       # Resource-specific tests
-│       ├── contact.test.ts              # Contact operations
-│       ├── invoice.test.ts              # Invoice operations
-│       ├── item.test.ts                 # Item operations
-│       ├── quote.test.ts                # Quote operations
-│       ├── order.test.ts                # Order operations
-│       ├── banking.test.ts              # Banking operations
-│       └── ... (14 resources total)
 ├── package.json
 ├── tsconfig.json
 ├── gulpfile.js

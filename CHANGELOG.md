@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### [1.1.0] - 2025-11-14
 
-#### Added - Node Improvements
+#### Added
 - **Contact Resource**: Added `user_id` and `owner_id` as required fields for contact creation
   - Prevents "Pflichtfeld" (required field) errors
   - Improved field validation and error messages
@@ -20,49 +20,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Order Resource**: Added `user_id` as required field for order creation
   - Consistent user assignment across all document types
 
-#### Added - Comprehensive Test Suite
-- **Complete API Testing**: Created comprehensive test suite covering all 87 operations across 14 resources
-- **Test Infrastructure**:
-  - Automated test runner with colored console output
-  - JSON and HTML report generation
-  - Test data helper for dynamic ID fetching
-  - HTTP client with full error handling
-- **Test Coverage**: 85.88% success rate (73/85 tests passing)
-  - 11 of 14 resources achieving 100% test success
-  - All available modules fully tested
-- **Test Files**: 24+ files including utilities, resource tests, and documentation
-- **Documentation**: Complete test documentation with quick-start guide and fix instructions
-
-#### Fixed - API Integration
-- **TestDataHelper**: Improved account ID fetching to find valid revenue accounts
-  - Searches for account_type 4 (revenue) or account numbers 3000-4000
-  - Prevents "Diese Eingabe ist nicht korrekt" errors for positions
-- **Delete Operations**: Fixed Invoice and Quote delete tests
-  - Creates separate test instances before issuing to avoid 403 errors
-  - Deletes documents before they are issued and locked
-- **Timesheet API**: Properly handles API limitations
-  - Correct nested tracking structure (tracking.type, tracking.date, tracking.duration)
-  - Marks unsupported operations as skipped
-- **Banking**: Gracefully handles missing payment data
-- **Accounting**: Properly handles optional VAT periods
-
 #### Changed
 - **Node Required Fields**: Updated OperationsHandlers to extract new required fields
   - Contact: Extracts user_id and owner_id from node parameters
   - Invoice/Quote/Order: Extracts user_id from node parameters
-- **Test Strategy**: Changed from hardcoded IDs to dynamic ID fetching
-  - All tests use TestDataHelper for valid IDs
-  - Tests adapt to available data in Bexio account
 
-#### Performance
-- **Test Execution**: Full test suite runs in ~16 seconds
-- **Parallel Testing**: Support for concurrent test execution
-- **Efficient Cleanup**: Automatic deletion of test data after operations
-
-#### Developer Experience
-- **Better Error Messages**: Detailed error reporting in all test operations
-- **Clear Documentation**: Executive summary, quick fixes, and status reports
-- **Easy Setup**: Simple .env.test configuration for PAT token
+#### Fixed
+- Improved error handling and field validation for all resources
 
 ### [1.0.5] - 2025-01-14
 
