@@ -512,17 +512,36 @@ export async function handleFileOperations(this: IExecuteFunctions, operation: s
 
 export async function handleBankingOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
 	if (operation === 'getBankAccounts') {
-		return await bexioApiRequest.call(this, 'GET', '/3.0/banking/accounts');
+		const returnAll = this.getNodeParameter('returnAll', index, false) as boolean;
+		if (returnAll) {
+			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/bank_account');
+		} else {
+			const limit = this.getNodeParameter('limit', index, 500) as number;
+			const qs = { limit };
+			return await bexioApiRequest.call(this, 'GET', '/2.0/bank_account', {}, qs);
+		}
+	}
+	if (operation === 'getBankAccount') {
+		const accountId = this.getNodeParameter('accountId', index) as string;
+		return await bexioApiRequest.call(this, 'GET', `/2.0/bank_account/${accountId}`);
 	}
 	if (operation === 'getPayments') {
-		return await bexioApiRequest.call(this, 'GET', '/3.0/banking/payments');
+		const returnAll = this.getNodeParameter('returnAll', index, false) as boolean;
+		if (returnAll) {
+			return await bexioApiRequestAllItems.call(this, 'GET', '/2.0/payment');
+		} else {
+			const limit = this.getNodeParameter('limit', index, 500) as number;
+			const qs = { limit };
+			return await bexioApiRequest.call(this, 'GET', '/2.0/payment', {}, qs);
+		}
 	}
 	if (operation === 'getPayment') {
 		const paymentId = this.getNodeParameter('paymentId', index) as string;
-		return await bexioApiRequest.call(this, 'GET', `/3.0/banking/payments/${paymentId}`);
+		return await bexioApiRequest.call(this, 'GET', `/2.0/payment/${paymentId}`);
 	}
 	if (operation === 'createPayment') {
-		return await bexioApiRequest.call(this, 'POST', '/3.0/banking/payments', {});
+		const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
+		return await bexioApiRequest.call(this, 'POST', '/2.0/payment', additionalFields);
 	}
 	throw new Error(`Unknown operation: ${operation}`);
 }
