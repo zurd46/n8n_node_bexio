@@ -22,15 +22,7 @@ A Personal Access Token (PAT) is a simpler alternative to OAuth2. It's a long-li
 ### Step 2: Create Personal Access Token
 
 In the Developer Portal, you should find an option for:
-- **"Personal Access Token"** or
-- **"API Token"** or
-- **"Create Token"** or
-- **"Generate Token"**
-
-**Note**: The exact location may vary. Look for:
-- Menu item "Tokens" or "Access Tokens"
-- Button "New Token" or "Create Token"
-- Possibly under "Settings" or "API"
+- **"Personal Access Token"**
 
 ### Step 3: Create Token
 
