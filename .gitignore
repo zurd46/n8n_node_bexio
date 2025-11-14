@@ -8,4 +8,5 @@ dist/
 
 # Testing (contains PAT token - DO NOT COMMIT!)
 testing/
+tests/
 test-results.json
