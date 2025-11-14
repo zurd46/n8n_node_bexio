@@ -89,10 +89,18 @@ If the test fails: ❌ Error message
 2. Configuration:
    - **Resource**: Invoice
    - **Operation**: Create
-   - Fill in the required fields
+   - **Contact**: Select an existing contact (customer)
+   - **User**: Select the user responsible for this invoice
+   - **Positions**: Add invoice line items (products/services)
+   - Fill in any additional fields as needed
 3. Execute the workflow
 
 **Expected Result**: New invoice has been created
+
+**Note**: Invoice creation requires at least:
+- A valid contact (customer)
+- A user assignment (who is responsible)
+- At least one position (line item)
 
 ## 🔍 Troubleshooting
 
@@ -163,7 +171,7 @@ After setup, you should have:
 - [ ] Credentials created in n8n with the PAT
 - [ ] Credential test successful (green checkmark)
 - [ ] First test request works (e.g., retrieve contacts)
-- [ ] All required permissions are activated
+- [ ] Workflow automation is working as expected
 
 ## 🎯 Next Steps
 
