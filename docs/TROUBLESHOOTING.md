@@ -38,10 +38,16 @@ You MUST enable/activate each scope you want to use. Start with minimal scopes:
 **Recommended Scopes (Production)**:
 - [x] `contact_show` - View contacts
 - [x] `contact_edit` - Create/Update contacts
-- [x] `invoice_show` - View invoices
-- [x] `invoice_edit` - Create/Update invoices
-- [x] `project_show` - View projects
-- [x] `project_edit` - Create/Update projects
+- [x] `kb_invoice_show` - View invoices
+- [x] `kb_invoice_edit` - Create/Update invoices
+- [x] `kb_offer_show` - View quotes (offers)
+- [x] `kb_offer_edit` - Create/Update quotes
+- [x] `kb_order_show` - View orders
+- [x] `kb_order_edit` - Create/Update orders
+- [x] `article_show` - View items/products
+- [x] `article_edit` - Create/Update items/products
+- [x] `banking_show` - View banking data
+- [x] `banking_edit` - Create/Update payments
 
 ### Step 3: Alternative Scope Names
 
@@ -53,11 +59,25 @@ Bexio may use different scope naming conventions. Try looking for these alternat
 - `read:contact`
 - `api.contact.read`
 
-**Instead of `invoice_show`, look for:**
-- `kb_invoice_show`
+**Instead of `kb_invoice_show`, look for:**
+- `invoice_show`
 - `invoice:read`
 - `read:invoice`
 - `api.invoice.read`
+
+**For quotes (offers), look for:**
+- `kb_offer_show` / `kb_offer_edit`
+- `offer_show` / `offer_edit`
+- `quote:read` / `quote:write`
+
+**For orders, look for:**
+- `kb_order_show` / `kb_order_edit`
+- `order:read` / `order:write`
+
+**For items/products, look for:**
+- `article_show` / `article_edit`
+- `item:read` / `item:write`
+- `product:read` / `product:write`
 
 ### Step 4: Contact Bexio Support
 
@@ -122,7 +142,7 @@ Try these steps in order:
    scope: "kb_contact_show"
 
    # Test 4: Multiple scopes
-   scope: "contact_show invoice_show"
+   scope: "contact_show kb_invoice_show kb_offer_show"
    ```
 
 2. **Check Token Response**:

@@ -171,14 +171,16 @@ Now you can:
 
 1. **Create workflows** with the Bexio node
 2. **Build automation** for:
-   - Invoice creation
-   - Contact management
-   - Project management
-   - Time tracking
+   - Invoice creation and management
+   - Contact management (customers and suppliers)
+   - Quote and order processing
+   - Item/Product management
+   - Banking and payment operations
 3. **Integrations** with other n8n nodes:
    - Send email after invoice creation
    - CRM synchronization
    - Automated reports
+   - E-commerce integration
 
 ---
 
