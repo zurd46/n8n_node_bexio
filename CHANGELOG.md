@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
+### [1.0.4] - 2025-01-14
+
+#### Changed
+- **Documentation Cleanup**: Updated all markdown documentation to match actual implementation
+  - Updated PERSONAL_ACCESS_TOKEN_SETUP.md with correct automation examples
+  - Updated TROUBLESHOOTING.md with correct OAuth scopes for all supported resources
+  - Removed references to deprecated resources (Project, Timesheet, Task, etc.)
+  - Consolidated CHANGELOG entries for better readability
+- **Code Quality**: Improved documentation accuracy - all MD files now 100% synchronized with code
+
 ### [1.0.3] - 2025-01-12
 
 #### Added
@@ -125,45 +135,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Simplified node interface for better user experience
 - Updated all endpoint paths to match Bexio API documentation
 
-## [1.0.8] - 2025-01-12
-
-### Added
-- Comprehensive testing suite in `testing/` directory
-  - `simple-test.ts` - Basic API connectivity test
-  - `api-field-explorer.ts` - Explore API field structures
-  - `endpoint-tester.ts` - Test all API endpoints
-  - `create-test-data.ts` - Create comprehensive test data
-  - `cleanup-test-data.ts` - Clean up test data
-- Complete testing documentation
-  - `testing/GETTING-STARTED.md` - Quick start guide
-  - `testing/README.md` - Comprehensive documentation
-  - `testing/INDEX.md` - File overview and workflows
-  - `testing/ENDPOINT_FINDINGS.md` - API research notes
-- Added `tsx` as dev dependency for TypeScript script execution
+## [1.0.8] / [1.0.7] / [1.0.6] - 2025-01-12
 
 ### Changed
-- Updated `.gitignore` to exclude `testing/` directory (contains API tokens)
-- Updated `.npmignore` to exclude testing files from npm package
-
-### Fixed
-- Corrected timesheet creation format (tracking as object, not array)
-- Added required fields for timesheet: `client_service_id`, `allowable_bill`
-
-## [1.0.7] - 2025-01-12
-
-### Changed
-- Updated author email in package.json
-- Refined permissions in settings.local.json
+- Updated author email and package metadata
 - Updated dependencies
-
-## [1.0.6] - 2025-01-11
-
-### Added
-- Version history documentation
-- Note about npm version conflicts
-
-### Changed
-- Expanded permissions in settings
+- Minor documentation improvements
 
 ## [1.0.5] - 2025-01-11
 
@@ -206,7 +183,7 @@ If you're upgrading from version 1.0.4 or earlier:
 ### Added
 - Initial OAuth2 implementation
 - Basic CRUD operations for Bexio resources
-- Support for Contacts, Articles, Tasks, Projects, etc.
+- Support for Contacts, Invoices, Quotes, Orders, Items, and Banking
 
 ---
 
@@ -226,17 +203,6 @@ The switch to Personal Access Token (PAT) provides:
 - More reliable authentication
 - Better developer experience
 - Aligned with Bexio's recommended authentication method
-
-## Testing
-
-Version 1.0.8 introduces a comprehensive testing suite that allows developers to:
-- Verify API connectivity
-- Explore Bexio API field structures
-- Create realistic test data
-- Test all CRUD operations
-- Clean up test data automatically
-
-See `testing/GETTING-STARTED.md` for details.
 
 ## Support
 
