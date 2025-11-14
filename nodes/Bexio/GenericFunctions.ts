@@ -64,12 +64,18 @@ export async function bexioApiRequestAllItems(
 	query: IDataObject = {},
 ): Promise<any> {
 	const returnData: IDataObject[] = [];
+	const maxIterations = 1000; // Protection against infinite loops
+	let iterations = 0;
 
 	let responseData;
 	query.limit = 500;
 	query.offset = 0;
 
 	do {
+		if (iterations++ >= maxIterations) {
+			throw new Error('Maximum pagination limit reached. Please use filters to reduce the result set.');
+		}
+
 		responseData = await bexioApiRequest.call(this, method, endpoint, body, query);
 		if (Array.isArray(responseData)) {
 			returnData.push.apply(returnData, responseData);
@@ -182,18 +188,20 @@ export async function bexioApiRequestBinary(
 		}
 
 		// If response is an object, it might be an error or unexpected format
-		throw new Error(`Unexpected response type: ${typeof response}. Response: ${JSON.stringify(response).substring(0, 200)}`);
+		throw new Error(`Unexpected response type: ${typeof response}. Expected binary data but received a different format.`);
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error as JsonObject);
 	}
 }
 
 export function validateJSON(json: string | undefined): any {
-	let result;
-	try {
-		result = JSON.parse(json!);
-	} catch (exception) {
-		result = undefined;
+	if (!json) {
+		throw new Error('No JSON string provided for validation');
 	}
-	return result;
+
+	try {
+		return JSON.parse(json);
+	} catch (exception) {
+		throw new Error(`Invalid JSON format: ${exception instanceof Error ? exception.message : 'Unknown error'}`);
+	}
 }
