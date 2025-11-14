@@ -93,4 +93,31 @@ export class BexioTestClient {
 			};
 		}
 	}
+
+	async uploadFile(endpoint: string, fileBuffer: Buffer, filename: string) {
+		try {
+			const FormData = require('form-data');
+			const formData = new FormData();
+			formData.append('file', fileBuffer, filename);
+
+			const response = await this.client.post(endpoint, formData, {
+				headers: {
+					...formData.getHeaders(),
+					'Authorization': `Bearer ${this.config.token}`,
+				},
+			});
+			return { success: true, data: response.data, status: response.status };
+		} catch (error: any) {
+			console.log('Upload error details:', {
+				message: error.message,
+				response: error.response?.data,
+				status: error.response?.status,
+			});
+			return {
+				success: false,
+				error: error.response?.data || error.message,
+				status: error.response?.status
+			};
+		}
+	}
 }

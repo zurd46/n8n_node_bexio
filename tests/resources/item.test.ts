@@ -14,7 +14,6 @@ export async function testItemResource(logger: TestLogger) {
 		const itemData = {
 			intern_code: `TEST-${Date.now()}`,
 			intern_name: `Test Item ${Date.now()}`,
-			type: 'KbPositionArticle',
 		};
 
 		const result = await client.post('/2.0/article', itemData);
@@ -149,9 +148,9 @@ export async function testItemResource(logger: TestLogger) {
 		const start = Date.now();
 		const searchParams = [
 			{
-				field: 'type',
-				value: 'KbPositionArticle',
-				criteria: '=',
+				field: 'intern_name',
+				value: 'Test',
+				criteria: 'like',
 			},
 		];
 

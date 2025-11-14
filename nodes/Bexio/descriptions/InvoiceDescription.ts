@@ -96,6 +96,23 @@ export const invoiceFields: INodeProperties[] = [
 		description: 'ID of the contact for this invoice',
 	},
 	{
+		displayName: 'User Name or ID',
+		name: 'user_id',
+		type: 'options',
+		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'getUsers',
+		},
+		displayOptions: {
+			show: {
+				resource: ['invoice'],
+				operation: ['create'],
+			},
+		},
+		default: '',
+		description: 'User responsible for this invoice. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+	},
+	{
 		displayName: 'Additional Fields',
 		name: 'additionalFields',
 		type: 'collection',

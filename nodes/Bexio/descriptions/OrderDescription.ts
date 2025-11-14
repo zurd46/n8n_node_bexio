@@ -54,6 +54,23 @@ export const orderFields: INodeProperties[] = [
 		description: 'ID of the contact for this order',
 	},
 	{
+		displayName: 'User Name or ID',
+		name: 'user_id',
+		type: 'options',
+		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'getUsers',
+		},
+		displayOptions: {
+			show: {
+				resource: ['order'],
+				operation: ['create'],
+			},
+		},
+		default: '',
+		description: 'User responsible for this order. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+	},
+	{
 		displayName: 'Return All',
 		name: 'returnAll',
 		type: 'boolean',

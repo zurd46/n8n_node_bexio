@@ -1,23 +1,36 @@
 import { BexioTestClient } from '../utils/bexioClient';
 import { TestLogger } from '../utils/testLogger';
+import { TestDataHelper } from '../utils/testDataHelper';
 
 export async function testContactResource(logger: TestLogger) {
 	const client = new BexioTestClient();
+	const helper = new TestDataHelper();
 	const resource = 'Contact';
 	let createdContactId: number | null = null;
 
 	console.log('\n📋 Testing Contact Resource...\n');
 
+	// Get required IDs
+	const userId = await helper.getUserId();
+	const countryId = await helper.getCountryId();
+
 	// Test 1: Create Contact
 	try {
 		const start = Date.now();
+
+		if (!userId || !countryId) {
+			throw new Error('Required user_id or country_id not available');
+		}
+
 		const contactData = {
 			contact_type_id: 1, // Company
 			name_1: `Test Company ${Date.now()}`,
 			address: 'Test Street 123',
 			postcode: '8000',
 			city: 'Zurich',
-			country_id: 1, // Switzerland
+			country_id: countryId,
+			user_id: userId,
+			owner_id: userId,
 		};
 
 		const result = await client.post('/2.0/contact', contactData);

@@ -1,31 +1,29 @@
 import { BexioTestClient } from '../utils/bexioClient';
 import { TestLogger } from '../utils/testLogger';
+import { TestDataHelper } from '../utils/testDataHelper';
 
 export async function testInvoiceResource(logger: TestLogger) {
 	const client = new BexioTestClient();
+	const helper = new TestDataHelper();
 	const resource = 'Invoice';
 	let createdInvoiceId: number | null = null;
-	let contactId: number | null = null;
 
 	console.log('\n🧾 Testing Invoice Resource...\n');
 
-	// First, get a contact to use for invoice
-	try {
-		const contactResult = await client.get('/2.0/contact', { limit: 1 });
-		if (contactResult.success && contactResult.data && contactResult.data.length > 0) {
-			contactId = contactResult.data[0].id;
-		}
-	} catch (error) {
-		console.log('Warning: Could not fetch contact for invoice tests');
-	}
+	// Get required IDs
+	const contactId = await helper.getContactId();
+	const userId = await helper.getUserId();
+	const taxId = await helper.getTaxId();
+	const accountId = await helper.getAccountId();
 
 	// Test 1: Create Invoice
-	if (contactId) {
+	if (contactId && userId && taxId && accountId) {
 		try {
 			const start = Date.now();
 			const invoiceData = {
 				title: `Test Invoice ${Date.now()}`,
 				contact_id: contactId,
+				user_id: userId,
 				is_valid_from: new Date().toISOString().split('T')[0],
 				positions: [
 					{
@@ -33,7 +31,8 @@ export async function testInvoiceResource(logger: TestLogger) {
 						text: 'Test Position',
 						unit_price: 100,
 						amount: 1,
-						tax_id: 1,
+						account_id: accountId,
+						tax_id: taxId,
 					},
 				],
 			};
@@ -327,20 +326,54 @@ export async function testInvoiceResource(logger: TestLogger) {
 	});
 
 	// Test 10: Delete Invoice
-	if (createdInvoiceId) {
+	// Note: We need to create a separate invoice for deletion test
+	// because the previous one was issued and cannot be deleted
+	if (contactId && userId && taxId && accountId) {
 		try {
-			const start = Date.now();
-			const result = await client.delete(`/2.0/kb_invoice/${createdInvoiceId}`);
-			const duration = Date.now() - start;
+			// Create a fresh invoice specifically for delete test
+			const invoiceForDelete = {
+				title: `Test Invoice for Delete ${Date.now()}`,
+				contact_id: contactId,
+				user_id: userId,
+				positions: [
+					{
+						type: 'KbPositionCustom',
+						text: 'Test Position',
+						unit_price: 50,
+						amount: 1,
+						account_id: accountId,
+						tax_id: taxId,
+					},
+				],
+			};
 
-			logger.logTest({
-				resource,
-				operation: 'delete',
-				success: result.success,
-				duration,
-				error: result.success ? undefined : JSON.stringify(result.error),
-				timestamp: new Date().toISOString(),
-			});
+			const createResult = await client.post('/2.0/kb_invoice', invoiceForDelete);
+			if (createResult.success && createResult.data?.id) {
+				const deleteInvoiceId = createResult.data.id;
+
+				// Now delete it immediately (before it's issued)
+				const start = Date.now();
+				const result = await client.delete(`/2.0/kb_invoice/${deleteInvoiceId}`);
+				const duration = Date.now() - start;
+
+				logger.logTest({
+					resource,
+					operation: 'delete',
+					success: result.success,
+					duration,
+					error: result.success ? undefined : JSON.stringify(result.error),
+					timestamp: new Date().toISOString(),
+				});
+			} else {
+				logger.logTest({
+					resource,
+					operation: 'delete',
+					success: false,
+					duration: 0,
+					error: 'Could not create invoice for delete test',
+					timestamp: new Date().toISOString(),
+				});
+			}
 		} catch (error: any) {
 			logger.logTest({
 				resource,
@@ -357,7 +390,7 @@ export async function testInvoiceResource(logger: TestLogger) {
 			operation: 'delete',
 			success: false,
 			duration: 0,
-			error: 'No invoice ID available (create failed)',
+			error: 'Required IDs not available for delete test',
 			timestamp: new Date().toISOString(),
 		});
 	}
