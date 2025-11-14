@@ -55,6 +55,23 @@ export const quoteFields: INodeProperties[] = [
 		description: 'ID of the contact for this quote',
 	},
 	{
+		displayName: 'User Name or ID',
+		name: 'user_id',
+		type: 'options',
+		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'getUsers',
+		},
+		displayOptions: {
+			show: {
+				resource: ['quote'],
+				operation: ['create'],
+			},
+		},
+		default: '',
+		description: 'User responsible for this quote. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+	},
+	{
 		displayName: 'Return All',
 		name: 'returnAll',
 		type: 'boolean',

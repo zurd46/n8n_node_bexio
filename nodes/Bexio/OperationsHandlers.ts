@@ -13,10 +13,14 @@ export async function handleContactOperations(this: IExecuteFunctions, operation
 
 	if (operation === 'create') {
 		const contactTypeId = this.getNodeParameter('contact_type_id', index) as number;
+		const userId = this.getNodeParameter('user_id', index) as number;
+		const ownerId = this.getNodeParameter('owner_id', index) as number;
 		const additionalFields = this.getNodeParameter('additionalFields', index) as IDataObject;
 
 		const body: IDataObject = {
 			contact_type_id: contactTypeId,
+			user_id: userId,
+			owner_id: ownerId,
 			...additionalFields,
 		};
 
@@ -87,10 +91,12 @@ export async function handleContactOperations(this: IExecuteFunctions, operation
 export async function handleInvoiceOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
 	if (operation === 'create') {
 		const contactId = this.getNodeParameter('contact_id', index) as string;
+		const userId = this.getNodeParameter('user_id', index) as number;
 		const additionalFields = this.getNodeParameter('additionalFields', index) as IDataObject;
 
 		const body: IDataObject = {
 			contact_id: parseInt(contactId, 10),
+			user_id: userId,
 			...additionalFields,
 		};
 
@@ -590,7 +596,11 @@ export async function handlePayrollOperations(this: IExecuteFunctions, operation
 async function handleDocumentOperations(this: IExecuteFunctions, operation: string, index: number, endpoint: string, idParam: string): Promise<IDataObject | IDataObject[]> {
 	if (operation === 'create') {
 		const contactId = this.getNodeParameter('contact_id', index) as string;
-		const body: IDataObject = { contact_id: parseInt(contactId, 10) };
+		const userId = this.getNodeParameter('user_id', index) as number;
+		const body: IDataObject = {
+			contact_id: parseInt(contactId, 10),
+			user_id: userId,
+		};
 		return await bexioApiRequest.call(this, 'POST', endpoint, body);
 	}
 	if (operation === 'getPdf') {

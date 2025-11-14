@@ -82,6 +82,40 @@ export const contactFields: INodeProperties[] = [
 		description: 'Type of contact (1 = Person, 2 = Company)',
 	},
 	{
+		displayName: 'User Name or ID',
+		name: 'user_id',
+		type: 'options',
+		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'getUsers',
+		},
+		displayOptions: {
+			show: {
+				resource: ['contact'],
+				operation: ['create'],
+			},
+		},
+		default: '',
+		description: 'User responsible for this contact. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+	},
+	{
+		displayName: 'Owner Name or ID',
+		name: 'owner_id',
+		type: 'options',
+		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'getUsers',
+		},
+		displayOptions: {
+			show: {
+				resource: ['contact'],
+				operation: ['create'],
+			},
+		},
+		default: '',
+		description: 'Owner of this contact. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+	},
+	{
 		displayName: 'Additional Fields',
 		name: 'additionalFields',
 		type: 'collection',
@@ -255,26 +289,6 @@ export const contactFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'Comma-separated list of contact branch IDs',
-			},
-			{
-				displayName: 'User ID',
-				name: 'user_id',
-				type: 'options',
-				typeOptions: {
-					loadOptionsMethod: 'getUsers',
-				},
-				default: '',
-				description: 'Responsible user ID',
-			},
-			{
-				displayName: 'Owner ID',
-				name: 'owner_id',
-				type: 'options',
-				typeOptions: {
-					loadOptionsMethod: 'getUsers',
-				},
-				default: '',
-				description: 'Owner user ID',
 			},
 		],
 	},
