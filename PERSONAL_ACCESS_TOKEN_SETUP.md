@@ -40,7 +40,7 @@ The created token automatically has access to all API endpoints available for yo
 
 Example token format:
 ```
-bxo_123abc456def789ghi012jkl345mno678pqr901stu
+bxo_123abc456def789ghi012jkl34fjdj....
 ```
 
 ### Step 5: Use Token in n8n
