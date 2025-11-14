@@ -10,6 +10,7 @@ node_modules/
 .DS_Store
 .vscode/
 testing/
+tests/
 credentials/**/*.ts
 nodes/**/*.ts
 !dist/**/*
