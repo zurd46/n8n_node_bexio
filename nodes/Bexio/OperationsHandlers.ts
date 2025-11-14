@@ -95,7 +95,11 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 		};
 
 		if (body.positions && typeof body.positions === 'string') {
-			body.positions = JSON.parse(body.positions as string);
+			try {
+				body.positions = JSON.parse(body.positions as string);
+			} catch (error) {
+				throw new Error('Invalid JSON format for positions field. Please provide valid JSON.');
+			}
 		}
 
 		return await bexioApiRequest.call(this, 'POST', '/2.0/kb_invoice', body);
@@ -224,7 +228,11 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 		const updateFields = this.getNodeParameter('updateFields', index) as IDataObject;
 
 		if (updateFields.positions && typeof updateFields.positions === 'string') {
-			updateFields.positions = JSON.parse(updateFields.positions as string);
+			try {
+				updateFields.positions = JSON.parse(updateFields.positions as string);
+			} catch (error) {
+				throw new Error('Invalid JSON format for positions field. Please provide valid JSON.');
+			}
 		}
 
 		return await bexioApiRequest.call(this, 'POST', `/2.0/kb_invoice/${invoiceId}`, updateFields);

@@ -240,6 +240,17 @@ export class Bexio implements INodeType {
 				}
 				return returnData;
 			},
+			async getLanguages(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				const returnData: INodePropertyOptions[] = [];
+				const languages = await bexioApiRequest.call(this, 'GET', '/2.0/language');
+				for (const language of languages) {
+					returnData.push({
+						name: language.name,
+						value: language.id,
+					});
+				}
+				return returnData;
+			},
 			async getTaskPriorities(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
 				const priorities = await bexioApiRequest.call(this, 'GET', '/2.0/task/priority');
