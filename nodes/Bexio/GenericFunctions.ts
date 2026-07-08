@@ -1,6 +1,7 @@
 import {
 	IExecuteFunctions,
 	ILoadOptionsFunctions,
+	IPollFunctions,
 	IDataObject,
 	IHttpRequestMethods,
 	IHttpRequestOptions,
@@ -9,7 +10,7 @@ import {
 } from 'n8n-workflow';
 
 export async function bexioApiRequest(
-	this: IExecuteFunctions | ILoadOptionsFunctions,
+	this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
 	body: IDataObject | any[] = {},
@@ -57,7 +58,7 @@ export async function bexioApiRequest(
 }
 
 export async function bexioApiRequestAllItems(
-	this: IExecuteFunctions | ILoadOptionsFunctions,
+	this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
 	body: IDataObject | any[] = {},

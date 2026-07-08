@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
+### [1.2.0] - 2026-07-08
+
+#### Added
+- **Bexio Trigger node** (polling): starts a workflow when Bexio records are
+  created or changed. Because Bexio does not offer natively documented webhooks
+  for status/cancellation events, the trigger polls the REST API on a schedule
+  and emits only records that are new since the previous poll (de-duplicated via
+  the workflow's static data).
+  - **Resources**: Contact, Invoice, Order, Quote, Item
+  - **Events**:
+    - `Created` — new records only, detected via increasing record ID
+    - `Created or Updated` — new *and* changed records, detected via
+      `updated_at` (also catches invoice/order status and cancellation changes).
+      For Item this gracefully falls back to created-only, as the `article`
+      resource has no `updated_at` field.
+  - On first activation the trigger only stores a watermark and emits nothing
+    (no historical replay); in manual/test mode it returns the most recent
+    record so the node can be wired up.
+  - Uses the existing `bexioApi` (Personal Access Token) credentials.
+
+#### Changed
+- `bexioApiRequest` / `bexioApiRequestAllItems` now also accept the polling
+  execution context (`IPollFunctions`), so trigger and action nodes share the
+  same request/pagination layer.
+
 ### [1.1.0] - 2025-11-14
 
 #### Added

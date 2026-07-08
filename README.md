@@ -114,6 +114,29 @@ This node focuses on essential business operations with the following resources:
 - **Get Payment**: Retrieve a single payment
 - **Create Payment**: Create a new payment
 
+## Trigger (Bexio Trigger node)
+
+Bexio does not offer natively documented webhooks for status/cancellation
+events, so the **Bexio Trigger** node works by **polling** the API on a schedule
+(the poll interval is configured on the node) and starting your workflow when
+records appear or change. Already-seen records are never emitted twice — state
+is kept in the workflow's static data.
+
+**Resources**: Contact, Invoice, Order, Quote, Item
+
+**Events**:
+- **Created** — emits only newly created records (detected via increasing record ID).
+- **Created or Updated** — emits new *and* changed records (detected via
+  `updated_at`). This is the option to use for **invoice/order status changes and
+  cancellations**. For **Item** it automatically falls back to created-only, since
+  the `article` resource has no `updated_at` field.
+
+**Behaviour notes**:
+- On first activation the node stores a watermark and emits **nothing** (no
+  historical replay). In manual/test mode ("Fetch Test Event") it returns the most
+  recent record so you can wire up the workflow.
+- Uses the same **Bexio API (Personal Access Token)** credentials as the action node.
+
 ## Usage Examples
 
 ### Example 1: Create a Contact
@@ -225,7 +248,15 @@ Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
 
 ## Version History
 
-### 1.1.0 (Current) - @zurdai/n8n-nodes-bexio
+### 1.2.0 (Current) - @zurdai/n8n-nodes-bexio
+- **New: Bexio Trigger node** (polling) for Contact, Invoice, Order, Quote, and Item
+  - Events: *Created* (via record ID) and *Created or Updated* (via `updated_at`,
+    catches invoice/order status changes and cancellations)
+  - No historical replay on activation; de-duplicated via workflow static data
+  - Reuses the existing Personal Access Token credentials
+- Shared request layer (`bexioApiRequest`) now also supports the polling context
+
+### 1.1.0 - @zurdai/n8n-nodes-bexio
 - **Node Improvements**: Added required fields (`user_id`, `owner_id`) for Contact, Invoice, Quote, and Order resources
 - **Comprehensive Test Suite**: Created full test coverage for all 87 operations across 14 resources
   - 85.88% success rate (73/85 tests passing)
