@@ -1,6 +1,6 @@
 {
   "name": "@zurdai/n8n-nodes-bexio",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "n8n node for Bexio API integration",
   "keywords": [
     "n8n-community-node-package",
@@ -13,8 +13,8 @@
   "homepage": "https://github.com/zurd46/n8n_node_bexio",
   "author": {
     "name": "Daniel Zurmühle",
-    "email": "daniel.zurmuehle@zurdai.com",
-    "url": "https://zurdai.com"
+    "email": "dzurmuehle@gmail.com",
+    "url": "https://impulsai.ch"
   },
   "repository": {
     "type": "git",

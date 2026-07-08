@@ -191,7 +191,7 @@ For issues and feature requests, please create an issue on the [GitHub repositor
 
 If you need specific customizations or have special requirements for this integration, please contact:
 
-- **Email**: daniel.zurmuehle@zurdai.com
+- **Email**: dzurmuehle@gmail.com
 - **Phone**: +41 79 127 55 54
 
 ## Development
@@ -244,11 +244,17 @@ npm run lintfix
 
 ## Author
 
-Daniel Zurmühle (daniel.zurmuehle@zurdai.com) zurdai.com
+Daniel Zurmühle (dzurmuehle@gmail.com) impulsai.ch
 
 ## Version History
 
-### 1.2.0 (Current) - @zurdai/n8n-nodes-bexio
+### 1.2.2 (Current) - @zurdai/n8n-nodes-bexio
+- Updated author website URL to impulsai.ch
+
+### 1.2.1 - @zurdai/n8n-nodes-bexio
+- Updated author/contact email
+
+### 1.2.0 - @zurdai/n8n-nodes-bexio
 - **New: Bexio Trigger node** (polling) for Contact, Invoice, Order, Quote, and Item
   - Events: *Created* (via record ID) and *Created or Updated* (via `updated_at`,
     catches invoice/order status changes and cancellations)

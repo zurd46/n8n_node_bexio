@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
+### [1.2.2] - 2026-07-08
+
+#### Changed
+- Updated author website URL to `https://impulsai.ch`.
+
+### [1.2.1] - 2026-07-08
+
+#### Changed
+- Updated author/contact email to `dzurmuehle@gmail.com`.
+
 ### [1.2.0] - 2026-07-08
 
 #### Added
