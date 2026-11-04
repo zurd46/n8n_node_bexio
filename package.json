@@ -28,7 +28,7 @@
     "lint": "eslint nodes credentials package.json",
     "lintfix": "eslint nodes credentials package.json --fix",
     "prepublishOnly": "npm run build",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test test/*.test.ts"
   },
   "files": [
     "dist"
