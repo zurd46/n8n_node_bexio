@@ -7,6 +7,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
+### [1.3.0] - 2026-11-04
+
+Full comparison with the Bexio API documentation (https://docs.bexio.com/). Not yet
+run against a live Bexio account.
+
+#### Important: check saved contact workflows
+- **Contact Type labels were swapped.** Bexio defines `1` = company, `2` = person; the
+  node showed the opposite. Saved workflows keep sending the same value, so their
+  behaviour does not change, but the label now shows what was really created. A
+  workflow set to "Company" that actually created persons now shows "Person".
+  Change it if you wanted companies.
+
+#### Fixed
+- User, tax, currency and project dropdowns called undocumented paths. They now use
+  `/3.0/users`, `/3.0/taxes`, `/3.0/currencies` and `/2.0/pr_project`. Accounts use
+  `/2.0/accounts`.
+- Contact: `name_1` is the company or last name and `name_2` the addition or first name.
+  `name_1` has its own field and is checked before the request.
+- Contact: `street_name`, `house_number` and `address_addition` replace `address`.
+  A saved `address` is sent as `street_name`.
+- Contact update now sends the fields the API requires, reading unchanged values from
+  the contact first.
+- Banking used paths that are not documented. It now uses `/3.0/banking/accounts` and
+  `/4.0/banking/payments`. **Create Payment has new required fields.**
+- Invoice status values now match the API (7, 8, 9, 16, 19, 31). Status, unpaid and
+  overdue filters use the search endpoint, because the list endpoint has no status
+  filter. Saved values 1, 5, 10 and 18 are translated.
+- Invoice send now sends `recipient_email`, `subject` and `message`. The message must
+  contain `[Network Link]`. **Subject and Message are now required fields.**
+- Invoice: `contact_address_manual` and `pr_project_id` replace `contact_address` and
+  `project_id`. Saved values are translated.
+- Quote and order: create and update now send their fields, and search uses its
+  criteria. Before, update sent an empty body and search returned everything.
+- Item: `article_type_id` replaces `article_type`, `user_name` is removed, prices are
+  sent as text. Search supports `intern_name` and `intern_code`.
+- Bexio Trigger for items no longer uses `updated_at` or a search by `id`, which the API
+  does not support.
+
+#### Added
+- **Contact Relation** resource to link a company and a person.
+- **Additional Address** resource for further addresses of a contact.
+- All search fields and criteria listed in the API documentation.
+- More contact, item, quote and order fields.
+- `npm test`: checks every operation against the live documentation.
+
+#### Removed
+- Contact `is_lead` from the UI (deprecated in the API) and Invoice update `positions`
+  from the UI (not part of the update endpoint).
+
 ### [1.2.2] - 2026-07-08
 
 #### Changed

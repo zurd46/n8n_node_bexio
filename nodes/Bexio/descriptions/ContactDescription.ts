@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { searchOperatorOptions } from './SearchOperators';
 
 export const contactOperations: INodeProperties[] = [
 	{
@@ -71,15 +72,28 @@ export const contactFields: INodeProperties[] = [
 		options: [
 			{
 				name: 'Company',
-				value: 2,
+				value: 1,
 			},
 			{
 				name: 'Person',
-				value: 1,
+				value: 2,
 			},
 		],
 		default: 1,
-		description: 'Type of contact (1 = Person, 2 = Company)',
+		description: 'Type of contact (1 = Company, 2 = Person)',
+	},
+	{
+		displayName: 'Name 1',
+		name: 'name_1',
+		type: 'string',
+		displayOptions: {
+			show: {
+				resource: ['contact'],
+				operation: ['create'],
+			},
+		},
+		default: '',
+		description: 'Required. Company name for a company, last name for a person.',
 	},
 	{
 		displayName: 'User Name or ID',
@@ -129,18 +143,18 @@ export const contactFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'First Name',
-				name: 'name_1',
-				type: 'string',
-				default: '',
-				description: 'First name of the contact (for persons)',
-			},
-			{
-				displayName: 'Last Name',
+				displayName: 'Name 2',
 				name: 'name_2',
 				type: 'string',
 				default: '',
-				description: 'Last name of the contact (for persons) or company name',
+				description: 'Company addition for a company, first name for a person',
+			},
+			{
+				displayName: 'Contact Number',
+				name: 'nr',
+				type: 'string',
+				default: '',
+				description: 'Assigned automatically if empty',
 			},
 			{
 				displayName: 'Salutation Name or ID',
@@ -170,11 +184,23 @@ export const contactFields: INodeProperties[] = [
 				description: 'Birthday of the contact',
 			},
 			{
-				displayName: 'Address',
-				name: 'address',
+				displayName: 'Street Name',
+				name: 'street_name',
 				type: 'string',
 				default: '',
-				description: 'Street address',
+				description: 'Required if a house number or address addition is set',
+			},
+			{
+				displayName: 'House Number',
+				name: 'house_number',
+				type: 'string',
+				default: '',
+			},
+			{
+				displayName: 'Address Addition',
+				name: 'address_addition',
+				type: 'string',
+				default: '',
 			},
 			{
 				displayName: 'Postcode',
@@ -220,6 +246,12 @@ export const contactFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'Landline phone number',
+			},
+			{
+				displayName: 'Phone Fixed Second',
+				name: 'phone_fixed_second',
+				type: 'string',
+				default: '',
 			},
 			{
 				displayName: 'Phone Mobile',
@@ -268,13 +300,6 @@ export const contactFields: INodeProperties[] = [
 				},
 				default: '',
 				description: 'Language preference. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-			},
-			{
-				displayName: 'Is Lead',
-				name: 'is_lead',
-				type: 'boolean',
-				default: false,
-				description: 'Whether the contact is a lead',
 			},
 			{
 				displayName: 'Contact Group IDs',
@@ -414,13 +439,23 @@ export const contactFields: INodeProperties[] = [
 						name: 'field',
 						type: 'options',
 						options: [
-							{ name: 'Name', value: 'name_1' },
-							{ name: 'Surname', value: 'name_2' },
-							{ name: 'Mail', value: 'mail' },
+							{ name: 'Address', value: 'address' },
 							{ name: 'City', value: 'city' },
-							{ name: 'Postcode', value: 'postcode' },
+							{ name: 'Contact Group IDs', value: 'contact_group_ids' },
+							{ name: 'Contact Number', value: 'nr' },
+							{ name: 'Contact Type ID (1 = Company, 2 = Person)', value: 'contact_type_id' },
+							{ name: 'Country ID', value: 'country_id' },
+							{ name: 'Fax', value: 'fax' },
+							{ name: 'ID', value: 'id' },
+							{ name: 'Mail', value: 'mail' },
+							{ name: 'Mail Second', value: 'mail_second' },
+							{ name: 'Name 1 (Company or Last Name)', value: 'name_1' },
+							{ name: 'Name 2 (Addition or First Name)', value: 'name_2' },
 							{ name: 'Phone Fixed', value: 'phone_fixed' },
 							{ name: 'Phone Mobile', value: 'phone_mobile' },
+							{ name: 'Postcode', value: 'postcode' },
+							{ name: 'Updated At', value: 'updated_at' },
+							{ name: 'User ID', value: 'user_id' },
 						],
 						default: 'name_1',
 						description: 'Field to search in',
@@ -429,13 +464,7 @@ export const contactFields: INodeProperties[] = [
 						displayName: 'Criteria',
 						name: 'criteria',
 						type: 'options',
-						options: [
-							{ name: '=', value: '=' },
-							{ name: 'Like', value: 'like' },
-							{ name: 'Not Equal', value: '!=' },
-							{ name: '>', value: '>' },
-							{ name: '<', value: '<' },
-						],
+						options: searchOperatorOptions,
 						default: '=',
 						description: 'Comparison operator',
 					},
@@ -517,26 +546,41 @@ export const contactFields: INodeProperties[] = [
 				name: 'contact_type_id',
 				type: 'options',
 				options: [
-					{ name: 'Person', value: 1 },
-					{ name: 'Company', value: 2 },
+					{ name: 'Company', value: 1 },
+					{ name: 'Person', value: 2 },
 				],
 				default: 1,
 			},
 			{
-				displayName: 'First Name',
+				displayName: 'Name 1',
 				name: 'name_1',
 				type: 'string',
 				default: '',
+				description: 'Company name for a company, last name for a person',
 			},
 			{
-				displayName: 'Last Name',
+				displayName: 'Name 2',
 				name: 'name_2',
+				type: 'string',
+				default: '',
+				description: 'Company addition for a company, first name for a person',
+			},
+			{
+				displayName: 'Street Name',
+				name: 'street_name',
+				type: 'string',
+				default: '',
+				description: 'Required if a house number or address addition is set',
+			},
+			{
+				displayName: 'House Number',
+				name: 'house_number',
 				type: 'string',
 				default: '',
 			},
 			{
-				displayName: 'Address',
-				name: 'address',
+				displayName: 'Address Addition',
+				name: 'address_addition',
 				type: 'string',
 				default: '',
 			},
@@ -555,6 +599,48 @@ export const contactFields: INodeProperties[] = [
 			{
 				displayName: 'Mail',
 				name: 'mail',
+				type: 'string',
+				default: '',
+			},
+			{
+				displayName: 'Mail Second',
+				name: 'mail_second',
+				type: 'string',
+				default: '',
+			},
+			{
+				displayName: 'Country Name or ID',
+				name: 'country_id',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getCountries',
+				},
+				default: '',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+			},
+			{
+				displayName: 'User Name or ID',
+				name: 'user_id',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getUsers',
+				},
+				default: '',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+			},
+			{
+				displayName: 'Owner Name or ID',
+				name: 'owner_id',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getUsers',
+				},
+				default: '',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+			},
+			{
+				displayName: 'URL',
+				name: 'url',
 				type: 'string',
 				default: '',
 			},

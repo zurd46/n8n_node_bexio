@@ -10,6 +10,8 @@ import {
 } from 'n8n-workflow';
 
 import { contactOperations, contactFields } from './descriptions/ContactDescription';
+import { contactRelationOperations, contactRelationFields } from './descriptions/ContactRelationDescription';
+import { additionalAddressOperations, additionalAddressFields } from './descriptions/AdditionalAddressDescription';
 import { invoiceOperations, invoiceFields } from './descriptions/InvoiceDescription';
 import { itemOperations, itemFields } from './descriptions/ItemDescription';
 import { quoteOperations, quoteFields } from './descriptions/QuoteDescription';
@@ -46,6 +48,11 @@ export class Bexio implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
+						name: 'Additional Address',
+						value: 'additionalAddress',
+						description: 'Further addresses of a contact, for example delivery addresses',
+					},
+					{
 						name: 'Banking',
 						value: 'banking',
 						description: 'Bank accounts and payments',
@@ -54,6 +61,11 @@ export class Bexio implements INodeType {
 						name: 'Contact',
 						value: 'contact',
 						description: 'Customers and suppliers',
+					},
+					{
+						name: 'Contact Relation',
+						value: 'contactRelation',
+						description: 'Links between a company and a person',
 					},
 					{
 						name: 'Invoice',
@@ -82,6 +94,10 @@ export class Bexio implements INodeType {
 			...bankingFields,
 			...contactOperations,
 			...contactFields,
+			...contactRelationOperations,
+			...contactRelationFields,
+			...additionalAddressOperations,
+			...additionalAddressFields,
 			...invoiceOperations,
 			...invoiceFields,
 			...itemOperations,
@@ -130,7 +146,7 @@ export class Bexio implements INodeType {
 			},
 			async getProjects(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const projects = await bexioApiRequest.call(this, 'GET', '/2.0/project');
+				const projects = await bexioApiRequest.call(this, 'GET', '/2.0/pr_project');
 				for (const project of projects) {
 					returnData.push({
 						name: project.name,
@@ -185,7 +201,7 @@ export class Bexio implements INodeType {
 			},
 			async getUsers(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const users = await bexioApiRequest.call(this, 'GET', '/2.0/user');
+				const users = await bexioApiRequest.call(this, 'GET', '/3.0/users');
 				for (const user of users) {
 					const name = `${user.firstname} ${user.lastname}`;
 					returnData.push({
@@ -208,7 +224,7 @@ export class Bexio implements INodeType {
 			},
 			async getAccounts(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const accounts = await bexioApiRequest.call(this, 'GET', '/2.0/account');
+				const accounts = await bexioApiRequest.call(this, 'GET', '/2.0/accounts');
 				for (const account of accounts) {
 					const name = `${account.account_no} - ${account.name}`;
 					returnData.push({
@@ -220,10 +236,10 @@ export class Bexio implements INodeType {
 			},
 			async getTaxes(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const taxes = await bexioApiRequest.call(this, 'GET', '/2.0/tax');
+				const taxes = await bexioApiRequest.call(this, 'GET', '/3.0/taxes');
 				for (const tax of taxes) {
 					returnData.push({
-						name: `${tax.name} (${tax.value}%)`,
+						name: tax.value === undefined ? tax.display_name ?? tax.name : `${tax.display_name ?? tax.name} (${tax.value}%)`,
 						value: tax.id,
 					});
 				}
@@ -231,10 +247,10 @@ export class Bexio implements INodeType {
 			},
 			async getCurrencies(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const currencies = await bexioApiRequest.call(this, 'GET', '/2.0/currency');
+				const currencies = await bexioApiRequest.call(this, 'GET', '/3.0/currencies');
 				for (const currency of currencies) {
 					returnData.push({
-						name: `${currency.name} (${currency.code})`,
+						name: currency.name,
 						value: currency.id,
 					});
 				}
@@ -290,6 +306,10 @@ export class Bexio implements INodeType {
 					responseData = await handleBankingOperations.call(this, operation, i);
 				} else if (resource === 'contact') {
 					responseData = await handleContactOperations.call(this, operation, i);
+				} else if (resource === 'contactRelation') {
+					responseData = await handleContactRelationOperations.call(this, operation, i);
+				} else if (resource === 'additionalAddress') {
+					responseData = await handleAdditionalAddressOperations.call(this, operation, i);
 				} else if (resource === 'invoice') {
 					responseData = await handleInvoiceOperations.call(this, operation, i);
 				} else if (resource === 'item') {
@@ -328,6 +348,8 @@ import * as handlers from './OperationsHandlers';
 // Re-export handlers for use in execute function
 const handleBankingOperations = handlers.handleBankingOperations;
 const handleContactOperations = handlers.handleContactOperations;
+const handleContactRelationOperations = handlers.handleContactRelationOperations;
+const handleAdditionalAddressOperations = handlers.handleAdditionalAddressOperations;
 const handleInvoiceOperations = handlers.handleInvoiceOperations;
 const handleItemOperations = handlers.handleItemOperations;
 const handleOrderOperations = handlers.handleOrderOperations;

@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { searchOperatorOptions } from './SearchOperators';
 
 export const itemOperations: INodeProperties[] = [
 	{
@@ -66,21 +67,26 @@ export const itemFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'User Name',
-				name: 'user_name',
+				displayName: 'Internal Code',
+				name: 'intern_code',
 				type: 'string',
 				default: '',
-				description: 'Display name for the item',
+			},
+			{
+				displayName: 'Internal Description',
+				name: 'intern_description',
+				type: 'string',
+				default: '',
 			},
 			{
 				displayName: 'Article Type',
-				name: 'article_type',
+				name: 'article_type_id',
 				type: 'options',
 				options: [
-					{ name: 'Physical', value: 'physical' },
-					{ name: 'Service', value: 'service' },
+					{ name: 'Physical Product', value: 1 },
+					{ name: 'Service', value: 2 },
 				],
-				default: 'physical',
+				default: 1,
 			},
 			{
 				displayName: 'Unit Name or ID',
@@ -180,8 +186,8 @@ export const itemFields: INodeProperties[] = [
 						name: 'field',
 						type: 'options',
 						options: [
+							{ name: 'Internal Code', value: 'intern_code' },
 							{ name: 'Internal Name', value: 'intern_name' },
-							{ name: 'User Name', value: 'user_name' },
 						],
 						default: 'intern_name',
 					},
@@ -189,10 +195,7 @@ export const itemFields: INodeProperties[] = [
 						displayName: 'Criteria',
 						name: 'criteria',
 						type: 'options',
-						options: [
-							{ name: '=', value: '=' },
-							{ name: 'Like', value: 'like' },
-						],
+						options: searchOperatorOptions,
 						default: '=',
 					},
 					{
@@ -219,8 +222,20 @@ export const itemFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'User Name',
-				name: 'user_name',
+				displayName: 'Internal Name',
+				name: 'intern_name',
+				type: 'string',
+				default: '',
+			},
+			{
+				displayName: 'Internal Code',
+				name: 'intern_code',
+				type: 'string',
+				default: '',
+			},
+			{
+				displayName: 'Internal Description',
+				name: 'intern_description',
 				type: 'string',
 				default: '',
 			},
@@ -228,6 +243,18 @@ export const itemFields: INodeProperties[] = [
 				displayName: 'Sale Price',
 				name: 'sale_price',
 				type: 'number',
+				typeOptions: {
+					numberPrecision: 2,
+				},
+				default: 0,
+			},
+			{
+				displayName: 'Purchase Price',
+				name: 'purchase_price',
+				type: 'number',
+				typeOptions: {
+					numberPrecision: 2,
+				},
 				default: 0,
 			},
 		],

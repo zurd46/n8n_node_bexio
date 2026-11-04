@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { searchOperatorOptions } from './SearchOperators';
 
 export const invoiceOperations: INodeProperties[] = [
 	{
@@ -148,7 +149,7 @@ export const invoiceFields: INodeProperties[] = [
 			},
 			{
 				displayName: 'Contact Address',
-				name: 'contact_address',
+				name: 'contact_address_manual',
 				type: 'string',
 				typeOptions: {
 					alwaysOpenEditWindow: true,
@@ -168,7 +169,7 @@ export const invoiceFields: INodeProperties[] = [
 			},
 			{
 				displayName: 'Project ID',
-				name: 'project_id',
+				name: 'pr_project_id',
 				type: 'options',
 				typeOptions: {
 					loadOptionsMethod: 'getProjects',
@@ -361,12 +362,12 @@ export const invoiceFields: INodeProperties[] = [
 				type: 'options',
 				options: [
 					{ name: 'All', value: '' },
-					{ name: 'Draft', value: '1' },
-					{ name: 'Pending', value: '5' },
+					{ name: 'Draft', value: '7' },
+					{ name: 'Pending', value: '8' },
 					{ name: 'Paid', value: '9' },
-					{ name: 'Partially Paid', value: '10' },
-					{ name: 'Overdue', value: '18' },
-					{ name: 'Cancelled', value: '19' },
+					{ name: 'Partial', value: '16' },
+					{ name: 'Unpaid', value: '31' },
+					{ name: 'Canceled', value: '19' },
 				],
 				default: '',
 				description: 'Filter invoices by status',
@@ -416,10 +417,21 @@ export const invoiceFields: INodeProperties[] = [
 						name: 'field',
 						type: 'options',
 						options: [
+							{ name: 'API Reference', value: 'api_reference' },
 							{ name: 'Contact ID', value: 'contact_id' },
+							{ name: 'Contact Sub ID', value: 'contact_sub_id' },
+							{ name: 'Currency ID', value: 'currency_id' },
 							{ name: 'Document Number', value: 'document_nr' },
+							{ name: 'ID', value: 'id' },
+							{ name: 'Status ID', value: 'kb_item_status_id' },
 							{ name: 'Title', value: 'title' },
 							{ name: 'Total', value: 'total' },
+							{ name: 'Total Gross', value: 'total_gross' },
+							{ name: 'Total Net', value: 'total_net' },
+							{ name: 'Updated At', value: 'updated_at' },
+							{ name: 'User ID', value: 'user_id' },
+							{ name: 'Valid From', value: 'is_valid_from' },
+							{ name: 'Valid To', value: 'is_valid_to' },
 						],
 						default: 'contact_id',
 					},
@@ -427,12 +439,7 @@ export const invoiceFields: INodeProperties[] = [
 						displayName: 'Criteria',
 						name: 'criteria',
 						type: 'options',
-						options: [
-							{ name: '=', value: '=' },
-							{ name: 'Like', value: 'like' },
-							{ name: '>', value: '>' },
-							{ name: '<', value: '<' },
-						],
+						options: searchOperatorOptions,
 						default: '=',
 					},
 					{
@@ -509,6 +516,37 @@ export const invoiceFields: INodeProperties[] = [
 		description: 'Email address of the recipient',
 	},
 	{
+		displayName: 'Subject',
+		name: 'subject',
+		type: 'string',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['invoice'],
+				operation: ['send'],
+			},
+		},
+		default: '',
+		description: 'Email subject',
+	},
+	{
+		displayName: 'Message',
+		name: 'message',
+		type: 'string',
+		required: true,
+		typeOptions: {
+			alwaysOpenEditWindow: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['invoice'],
+				operation: ['send'],
+			},
+		},
+		default: '[Network Link]',
+		description: 'Email message. Must contain the placeholder [Network Link].',
+	},
+	{
 		displayName: 'Additional Fields',
 		name: 'additionalFields',
 		type: 'collection',
@@ -522,28 +560,18 @@ export const invoiceFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Subject',
-				name: 'subject',
-				type: 'string',
-				default: '',
-				description: 'Email subject',
-			},
-			{
-				displayName: 'Message',
-				name: 'message',
-				type: 'string',
-				typeOptions: {
-					alwaysOpenEditWindow: true,
-				},
-				default: '',
-				description: 'Email message',
-			},
-			{
-				displayName: 'Mark as Sent',
-				name: 'mark_as_sent',
+				displayName: 'Attach PDF',
+				name: 'attach_pdf',
 				type: 'boolean',
-				default: true,
-				description: 'Whether to mark the invoice as sent',
+				default: false,
+				description: 'Whether to attach the PDF directly to the email',
+			},
+			{
+				displayName: 'Mark as Open',
+				name: 'mark_as_open',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to mark the invoice as open',
 			},
 		],
 	},
@@ -603,15 +631,6 @@ export const invoiceFields: INodeProperties[] = [
 				displayName: 'Footer',
 				name: 'footer',
 				type: 'string',
-				typeOptions: {
-					alwaysOpenEditWindow: true,
-				},
-				default: '',
-			},
-			{
-				displayName: 'Positions',
-				name: 'positions',
-				type: 'json',
 				typeOptions: {
 					alwaysOpenEditWindow: true,
 				},

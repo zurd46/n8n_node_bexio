@@ -66,12 +66,20 @@ This node focuses on essential business operations with the following resources:
 - **Search**: Search contacts with criteria
 - **Update**: Update a contact
 
+### Contact Relation
+- **Create**: Link a person to a company
+- **Delete**, **Get**, **Get Many**, **Search**, **Update**
+
+### Additional Address
+- **Create**: Add an address to a contact, for example a delivery address
+- **Delete**, **Get**, **Get Many**, **Search**, **Update**
+
 ### Invoice
 - **Create**: Create a new invoice
 - **Delete**: Delete an invoice
 - **Get**: Retrieve a single invoice
 - **Get Many**: Retrieve multiple invoices with advanced filtering
-  - Filter by status: Draft, Pending, Paid, Partially Paid, Overdue, Cancelled
+  - Filter by status: Draft, Pending, Paid, Partial, Canceled, Unpaid
   - Quick filters: Overdue Only, Unpaid Only
   - Supports pagination or "Return All" option
 - **Get PDF**: Download invoice as PDF
@@ -143,8 +151,9 @@ is kept in the workflow's static data.
 1. Add a Bexio node to your workflow
 2. Select **Contact** as the resource
 3. Select **Create** as the operation
-4. Choose **Contact Type** (Person or Company)
-5. Fill in the contact details (name, email, address, etc.)
+4. Choose **Contact Type** (Company or Person)
+5. Enter **Name 1**: the company name, or the last name of a person
+6. Add further details: Name 2 (first name of a person), street, email, etc.
 
 ### Example 2: Create and Send an Invoice
 1. Create an invoice using the **Invoice** resource with **Create** operation
@@ -248,7 +257,13 @@ Daniel Zurmühle (dzurmuehle@gmail.com) impulsai.ch
 
 ## Version History
 
-### 1.2.2 (Current) - @zurdai/n8n-nodes-bexio
+### 1.3.0 (Current) - @zurdai/n8n-nodes-bexio
+- Full comparison with the Bexio API documentation, see [CHANGELOG.md](CHANGELOG.md)
+- **Contact Type labels were swapped and are now correct: check saved contact workflows**
+- Dropdowns, Banking, invoice status and send, quote and order update and search corrected
+- New resources: Contact Relation, Additional Address
+
+### 1.2.2 - @zurdai/n8n-nodes-bexio
 - Updated author website URL to impulsai.ch
 
 ### 1.2.1 - @zurdai/n8n-nodes-bexio

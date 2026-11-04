@@ -1,4 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
+import { documentFields } from './DocumentFields';
 
 export const quoteOperations: INodeProperties[] = [
 	{
@@ -102,4 +103,5 @@ export const quoteFields: INodeProperties[] = [
 		default: 500,
 		description: 'Max number of results to return',
 	},
+	...documentFields('quote'),
 ];

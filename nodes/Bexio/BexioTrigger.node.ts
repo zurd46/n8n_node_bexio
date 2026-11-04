@@ -182,7 +182,8 @@ export class BexioTrigger implements INodeType {
 		const stateKey = `${resource}:${event}`;
 		const fieldKey = `${stateKey}:field`;
 
-		const requestedField = event === 'created' ? 'id' : 'updated_at';
+		// Articles have no updated_at and cannot be searched by id according to the Bexio API.
+		const requestedField = event === 'created' || !config.supportsUpdatedAt ? 'id' : 'updated_at';
 		let watermarkField = (staticData[fieldKey] as string) || requestedField;
 		const lastWatermark = staticData[stateKey] as number | string | undefined;
 
@@ -235,13 +236,31 @@ export class BexioTrigger implements INodeType {
 
 		let items: IDataObject[];
 		try {
-			const response = await bexioApiRequestAllItems.call(
-				this,
-				'POST',
-				`${endpoint}/search`,
-				criteria,
-			);
-			items = Array.isArray(response) ? (response as IDataObject[]) : [];
+			if (!config.supportsUpdatedAt) {
+				// /2.0/article/search only supports intern_name and intern_code: walk the list newest first.
+				items = [];
+				for (let offset = 0; ; offset += RECENT_PAGE_SIZE) {
+					const page = (await bexioApiRequest.call(this, 'GET', endpoint, {}, {
+						order_by: 'id_desc',
+						limit: RECENT_PAGE_SIZE,
+						offset,
+					})) as IDataObject[];
+					const batch = Array.isArray(page) ? page : [];
+					items.push(...batch);
+					const oldest = batch.length > 0 ? toNumber(batch[batch.length - 1].id) : undefined;
+					if (batch.length < RECENT_PAGE_SIZE || (oldest !== undefined && oldest <= (lastWatermark as number))) {
+						break;
+					}
+				}
+			} else {
+				const response = await bexioApiRequestAllItems.call(
+					this,
+					'POST',
+					`${endpoint}/search`,
+					criteria,
+				);
+				items = Array.isArray(response) ? (response as IDataObject[]) : [];
+			}
 		} catch (error) {
 			throw new NodeApiError(this.getNode(), error as JsonObject);
 		}
