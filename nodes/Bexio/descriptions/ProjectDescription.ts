@@ -75,14 +75,11 @@ export const projectFields: INodeProperties[] = [
 				description: 'Associated contact',
 			},
 			{
-				displayName: 'Project Type Name or ID',
-				name: 'pr_project_type_id',
-				type: 'options',
-				typeOptions: {
-					loadOptionsMethod: 'getProjectTypes',
-				},
+				displayName: 'End Date',
+				name: 'end_date',
+				type: 'dateTime',
 				default: '',
-				description: 'Type of project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'Project end date',
 			},
 			{
 				displayName: 'Project Status Name or ID',
@@ -92,7 +89,17 @@ export const projectFields: INodeProperties[] = [
 					loadOptionsMethod: 'getProjectStatuses',
 				},
 				default: '',
-				description: 'Status of project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'Status of project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+			},
+			{
+				displayName: 'Project Type Name or ID',
+				name: 'pr_project_type_id',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getProjectTypes',
+				},
+				default: '',
+				description: 'Type of project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Start Date',
@@ -102,21 +109,14 @@ export const projectFields: INodeProperties[] = [
 				description: 'Project start date',
 			},
 			{
-				displayName: 'End Date',
-				name: 'end_date',
-				type: 'dateTime',
-				default: '',
-				description: 'Project end date',
-			},
-			{
-				displayName: 'User ID',
+				displayName: 'User Name or ID',
 				name: 'user_id',
 				type: 'options',
 				typeOptions: {
 					loadOptionsMethod: 'getUsers',
 				},
 				default: '',
-				description: 'Responsible user',
+				description: 'Responsible user. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 		],
 	},
@@ -148,7 +148,7 @@ export const projectFields: INodeProperties[] = [
 			minValue: 1,
 			maxValue: 2000,
 		},
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 	{

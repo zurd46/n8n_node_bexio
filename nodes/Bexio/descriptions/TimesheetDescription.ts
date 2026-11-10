@@ -39,7 +39,7 @@ export const timesheetFields: INodeProperties[] = [
 		description: 'ID of the timesheet',
 	},
 	{
-		displayName: 'User ID',
+		displayName: 'User Name or ID',
 		name: 'user_id',
 		type: 'options',
 		typeOptions: {
@@ -53,7 +53,7 @@ export const timesheetFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'User who performed the work',
+		description: 'User who performed the work. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{
 		displayName: 'Date',
@@ -104,7 +104,7 @@ export const timesheetFields: INodeProperties[] = [
 					loadOptionsMethod: 'getProjects',
 				},
 				default: '',
-				description: 'Associated project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'Associated project. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Activity Name or ID',
@@ -114,7 +114,7 @@ export const timesheetFields: INodeProperties[] = [
 					loadOptionsMethod: 'getActivities',
 				},
 				default: '',
-				description: 'Activity type. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'Activity type. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Text',
@@ -134,7 +134,7 @@ export const timesheetFields: INodeProperties[] = [
 					loadOptionsMethod: 'getTimesheetStatuses',
 				},
 				default: '',
-				description: 'Timesheet status. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'Timesheet status. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 		],
 	},
@@ -166,7 +166,7 @@ export const timesheetFields: INodeProperties[] = [
 			minValue: 1,
 			maxValue: 2000,
 		},
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 	{

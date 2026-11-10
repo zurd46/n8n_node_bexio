@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "ES2019",
     "module": "commonjs",
-    "lib": ["ES2019"],
+    "lib": [
+      "ES2019"
+    ],
     "declaration": true,
     "outDir": "./dist",
     "rootDir": "./",
@@ -15,7 +17,8 @@
   },
   "include": [
     "credentials/**/*",
-    "nodes/**/*"
+    "nodes/**/*",
+    "nodes/**/*.json"
   ],
   "exclude": [
     "node_modules",

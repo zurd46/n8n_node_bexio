@@ -6,18 +6,27 @@ import {
 	IHttpRequestMethods,
 	IHttpRequestOptions,
 	NodeApiError,
+	NodeOperationError,
 	JsonObject,
 } from 'n8n-workflow';
 
+type BexioContext = IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions;
+export type BexioResponse = IDataObject | IDataObject[];
+
+/** Credential type selected by the node's "Authentication" parameter (default: access token). */
+function credentialType(this: BexioContext): 'bexioApi' | 'bexioOAuth2Api' {
+	return this.getNode().parameters.authentication === 'oAuth2' ? 'bexioOAuth2Api' : 'bexioApi';
+}
+
 export async function bexioApiRequest(
-	this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions,
+	this: BexioContext,
 	method: IHttpRequestMethods,
 	endpoint: string,
-	body: IDataObject | any[] = {},
+	body: IDataObject | IDataObject[] = {},
 	qs: IDataObject = {},
 	uri?: string,
 	option: IDataObject = {},
-): Promise<any> {
+): Promise<BexioResponse> {
 	const options: IHttpRequestOptions = {
 		method,
 		headers: {
@@ -47,48 +56,50 @@ export async function bexioApiRequest(
 	}
 
 	try {
-		return await this.helpers.httpRequestWithAuthentication.call(
+		return (await this.helpers.httpRequestWithAuthentication.call(
 			this,
-			'bexioApi',
+			credentialType.call(this),
 			options,
-		);
+		)) as BexioResponse;
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error as JsonObject);
 	}
 }
 
 export async function bexioApiRequestAllItems(
-	this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions,
+	this: BexioContext,
 	method: IHttpRequestMethods,
 	endpoint: string,
-	body: IDataObject | any[] = {},
+	body: IDataObject | IDataObject[] = {},
 	query: IDataObject = {},
-): Promise<any> {
+): Promise<IDataObject[]> {
 	const returnData: IDataObject[] = [];
 	const maxIterations = 1000; // Protection against infinite loops
 	let iterations = 0;
 
-	let responseData;
-	query.limit = 500;
+	const pageSize = 500;
+	query.limit = pageSize;
 	query.offset = 0;
 
-	do {
+	let hasMore = true;
+	while (hasMore) {
 		if (iterations++ >= maxIterations) {
-			throw new Error('Maximum pagination limit reached. Please use filters to reduce the result set.');
+			throw new NodeOperationError(
+				this.getNode(),
+				'Stopped after 1000 pages. Add filters to narrow down the results.',
+			);
 		}
 
-		responseData = await bexioApiRequest.call(this, method, endpoint, body, query);
+		const responseData = await bexioApiRequest.call(this, method, endpoint, body, query);
 		if (Array.isArray(responseData)) {
-			returnData.push.apply(returnData, responseData);
-			if (responseData.length < query.limit) {
-				break;
-			}
-			query.offset += query.limit;
+			returnData.push(...responseData);
+			hasMore = responseData.length === pageSize;
+			query.offset = (query.offset as number) + pageSize;
 		} else {
 			returnData.push(responseData);
-			break;
+			hasMore = false;
 		}
-	} while (true);
+	}
 
 	return returnData;
 }
@@ -97,7 +108,7 @@ export async function bexioApiRequestBinary(
 	this: IExecuteFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
-	body: IDataObject | any[] = {},
+	body: IDataObject | IDataObject[] = {},
 	qs: IDataObject = {},
 ): Promise<Buffer> {
 	const options: IHttpRequestOptions = {
@@ -124,85 +135,77 @@ export async function bexioApiRequestBinary(
 		delete options.qs;
 	}
 
+	let response: unknown;
 	try {
-		const response = await this.helpers.httpRequestWithAuthentication.call(
+		response = await this.helpers.httpRequestWithAuthentication.call(
 			this,
-			'bexioApi',
+			credentialType.call(this),
 			options,
 		);
-
-		// If response is already a Buffer, return it
-		if (Buffer.isBuffer(response)) {
-			return response;
-		}
-
-		// If it's an ArrayBuffer, convert to Buffer
-		if (response instanceof ArrayBuffer) {
-			return Buffer.from(response);
-		}
-
-		// If it's a Uint8Array, convert to Buffer
-		if (response instanceof Uint8Array) {
-			return Buffer.from(response);
-		}
-
-		// If it's a string, convert with binary encoding
-		if (typeof response === 'string') {
-			return Buffer.from(response, 'binary');
-		}
-
-		// If it's an object with data property (axios response format)
-		if (response && typeof response === 'object' && 'data' in response) {
-			const data = (response as any).data;
-			if (Buffer.isBuffer(data)) {
-				return data;
-			}
-			if (data instanceof ArrayBuffer || data instanceof Uint8Array) {
-				return Buffer.from(data);
-			}
-			if (typeof data === 'string') {
-				return Buffer.from(data, 'binary');
-			}
-		}
-
-		// If it's an object with body property (http response format)
-		if (response && typeof response === 'object' && 'body' in response) {
-			const bodyData = (response as any).body;
-			if (Buffer.isBuffer(bodyData)) {
-				return bodyData;
-			}
-			if (bodyData instanceof ArrayBuffer || bodyData instanceof Uint8Array) {
-				return Buffer.from(bodyData);
-			}
-			if (typeof bodyData === 'string') {
-				return Buffer.from(bodyData, 'binary');
-			}
-		}
-
-		// If it's a Bexio PDF response with content property (base64 encoded)
-		if (response && typeof response === 'object' && 'content' in response) {
-			const content = (response as any).content;
-			if (typeof content === 'string') {
-				// Content is base64 encoded
-				return Buffer.from(content, 'base64');
-			}
-		}
-
-		// If response is an object, it might be an error or unexpected format
-		throw new Error(`Unexpected response type: ${typeof response}. Expected binary data but received a different format.`);
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error as JsonObject);
 	}
-}
 
-export function validateJSON(json: string | undefined): any {
-	if (!json) {
-		throw new Error('No JSON string provided for validation');
+	// If response is already a Buffer, return it
+	if (Buffer.isBuffer(response)) {
+		return response;
 	}
 
-	try {
-		return JSON.parse(json);
-	} catch (exception) {
-		throw new Error(`Invalid JSON format: ${exception instanceof Error ? exception.message : 'Unknown error'}`);
+	// If it's an ArrayBuffer, convert to Buffer
+	if (response instanceof ArrayBuffer) {
+		return Buffer.from(new Uint8Array(response));
 	}
+
+	// If it's a Uint8Array, convert to Buffer
+	if (response instanceof Uint8Array) {
+		return Buffer.from(response);
+	}
+
+	// If it's a string, convert with binary encoding
+	if (typeof response === 'string') {
+		return Buffer.from(response, 'binary');
+	}
+
+	// If it's an object with data property (axios response format)
+	if (response && typeof response === 'object' && 'data' in response) {
+		const data = (response as IDataObject).data;
+		if (Buffer.isBuffer(data)) {
+			return data;
+		}
+		if (data instanceof ArrayBuffer || data instanceof Uint8Array) {
+			return Buffer.from(new Uint8Array(data));
+		}
+		if (typeof data === 'string') {
+			return Buffer.from(data, 'binary');
+		}
+	}
+
+	// If it's an object with body property (http response format)
+	if (response && typeof response === 'object' && 'body' in response) {
+		const bodyData = (response as IDataObject).body;
+		if (Buffer.isBuffer(bodyData)) {
+			return bodyData;
+		}
+		if (bodyData instanceof ArrayBuffer || bodyData instanceof Uint8Array) {
+			return Buffer.from(new Uint8Array(bodyData));
+		}
+		if (typeof bodyData === 'string') {
+			return Buffer.from(bodyData, 'binary');
+		}
+	}
+
+	// If it's a Bexio PDF response with content property (base64 encoded)
+	if (response && typeof response === 'object' && 'content' in response) {
+		const content = (response as IDataObject).content;
+		if (typeof content === 'string') {
+			// Content is base64 encoded
+			return Buffer.from(content, 'base64');
+		}
+	}
+
+	// If response is an object, it might be an error or unexpected format
+	throw new NodeOperationError(
+		this.getNode(),
+		`Bexio returned ${typeof response} instead of a file. Check that the document ID is correct.`,
+	);
 }

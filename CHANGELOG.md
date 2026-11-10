@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
+### [Unreleased]
+
+Prepared for the n8n Cloud verification of community nodes.
+
+#### Added
+- **OAuth2 authentication.** Both nodes have an *Authentication* field: *Access Token*
+  (default, unchanged) or *OAuth2* with the *Bexio OAuth2 API* credential. The default
+  scope includes `offline_access` so tokens are refreshed.
+- Light and dark icons for the nodes and both credentials.
+- Node codex files (category, documentation links).
+- GitHub Actions: `ci.yml` (lint + build) and `publish.yml` (npm publish with provenance).
+
+#### Changed
+- **Check saved workflows that use "Limit":** the default limit is now 50 (was 500),
+  as required by the n8n linter. Workflows that never changed the limit now return at
+  most 50 records; set the limit or use *Return All* where you need more.
+- Build, lint and release run with `@n8n/node-cli` (`n8n-node build|lint|release`).
+- Error messages are wrapped in `NodeApiError` / `NodeOperationError` with the item index.
+- Fields inside *Additional Fields* / *Update Fields* are sorted alphabetically.
+
+#### Removed
+- Runtime dependency `n8n-core` and the `overrides` field. The package has no runtime
+  dependencies.
+- Unused helper `validateJSON`, `gulpfile.js`, `.eslintrc.js`.
+
 ### [1.3.0] - 2026-11-04
 
 Full comparison with the Bexio API documentation (https://docs.bexio.com/). Not yet

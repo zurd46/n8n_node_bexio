@@ -43,7 +43,7 @@ export const fileFields: INodeProperties[] = [
 		type: 'number',
 		displayOptions: { show: { resource: ['file'], operation: ['getAll', 'search'], returnAll: [false] } },
 		typeOptions: { minValue: 1, maxValue: 2000 },
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 ];

@@ -42,7 +42,7 @@ export const expenseFields: INodeProperties[] = [
 		type: 'number',
 		displayOptions: { show: { resource: ['expense'], operation: ['getAll'], returnAll: [false] } },
 		typeOptions: { minValue: 1, maxValue: 2000 },
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 ];

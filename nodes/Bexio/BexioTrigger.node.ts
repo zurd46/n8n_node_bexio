@@ -5,6 +5,7 @@ import {
 	INodeExecutionData,
 	IDataObject,
 	NodeApiError,
+	NodeConnectionTypes,
 	JsonObject,
 } from 'n8n-workflow';
 
@@ -86,7 +87,7 @@ export class BexioTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Bexio Trigger',
 		name: 'bexioTrigger',
-		icon: 'file:bexio.svg',
+		icon: { light: 'file:../../icons/bexio.svg', dark: 'file:../../icons/bexio.dark.svg' },
 		group: ['trigger'],
 		version: 1,
 		subtitle: '={{$parameter["event"] + ": " + $parameter["resource"]}}',
@@ -96,14 +97,30 @@ export class BexioTrigger implements INodeType {
 		},
 		polling: true,
 		inputs: [],
-		outputs: ['main'],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'bexioApi',
 				required: true,
+				displayOptions: { show: { authentication: ['accessToken'] } },
+			},
+			{
+				name: 'bexioOAuth2Api',
+				required: true,
+				displayOptions: { show: { authentication: ['oAuth2'] } },
 			},
 		],
 		properties: [
+			{
+				displayName: 'Authentication',
+				name: 'authentication',
+				type: 'options',
+				options: [
+					{ name: 'Access Token', value: 'accessToken' },
+					{ name: 'OAuth2', value: 'oAuth2' },
+				],
+				default: 'accessToken',
+			},
 			{
 				displayName: 'Resource',
 				name: 'resource',

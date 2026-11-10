@@ -114,3 +114,22 @@ test('Item-Trigger meldet nur neue Artikel und läuft ohne updated_at', async ()
 	assert.deepEqual(ergebnis[0].map((i: any) => i.json.id), [6, 7]);
 	assert.equal(statisch['item:updated'], 7);
 });
+
+test('Anmeldung: ohne Auswahl Access Token (bexioApi), mit OAuth2 bexioOAuth2Api', async () => {
+	const { bexioApiRequest } = await import('../nodes/Bexio/GenericFunctions');
+	const { Bexio } = await import('../nodes/Bexio/Bexio.node');
+	for (const [auth, erwartet] of [[undefined, 'bexioApi'], ['accessToken', 'bexioApi'], ['oAuth2', 'bexioOAuth2Api']]) {
+		let benutzt = '';
+		const c = {
+			getNode: () => ({ name: 'Bexio', type: 'bexio', typeVersion: 1, id: 'x', position: [0, 0], parameters: auth ? { authentication: auth } : {} }),
+			helpers: { httpRequestWithAuthentication: async (n: string) => { benutzt = n; return []; } },
+		} as any;
+		await bexioApiRequest.call(c, 'GET', '/2.0/contact');
+		assert.equal(benutzt, erwartet, `authentication=${auth}`);
+	}
+	// Gespeicherte Workflows ohne Feld "authentication" laufen weiter mit dem PAT
+	const d = new Bexio().description;
+	const authFeld = d.properties.find((p) => p.name === 'authentication');
+	assert.equal(authFeld?.default, 'accessToken');
+	assert.deepEqual(d.credentials?.map((c) => [c.name, c.displayOptions?.show?.authentication]), [['bexioApi', ['accessToken']], ['bexioOAuth2Api', ['oAuth2']]]);
+});

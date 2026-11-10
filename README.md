@@ -28,9 +28,15 @@ npm install @zurdai/n8n-nodes-bexio
 
 ## Credentials
 
-This node uses **Personal Access Token (PAT)** authentication for simple and reliable API access.
+The Bexio and Bexio Trigger nodes support two authentication methods. Pick one in the node's
+**Authentication** field:
 
-### Setup Steps
+| Authentication | Credential | Best for |
+|---|---|---|
+| **Access Token** (default) | Bexio API | One Bexio company, quick setup with a Personal Access Token |
+| **OAuth2** | Bexio OAuth2 API | Apps registered in the Bexio Developer Portal, several users or companies |
+
+### Access Token (Personal Access Token)
 
 1. Go to the [Bexio Developer Portal](https://developer.bexio.com/)
 2. Create a **Personal Access Token (PAT)**
@@ -39,6 +45,16 @@ This node uses **Personal Access Token (PAT)** authentication for simple and rel
 5. Paste your Personal Access Token
 
 📖 **Detailed Setup Guide**: See [PERSONAL_ACCESS_TOKEN_SETUP.md](PERSONAL_ACCESS_TOKEN_SETUP.md)
+
+### OAuth2
+
+1. In the [Bexio Developer Portal](https://developer.bexio.com/), create an app and copy its
+   **Client ID** and **Client Secret**
+2. Add the **OAuth Redirect URL** shown in the n8n credential dialog as a redirect URL of the app
+3. In n8n, create a **Bexio OAuth2 API** credential, paste Client ID and Client Secret
+4. Adjust **Scope** to the resources you use (keep `offline_access` so n8n can refresh the token),
+   e.g. `openid profile email company_profile offline_access contact_show contact_edit kb_invoice_show kb_invoice_edit`
+5. Select **Connect my account** and log in to Bexio
 
 ### Available Permissions
 
@@ -214,26 +230,37 @@ npm install
 # Build the node
 npm run build
 
-# Run linter
+# Run linter (n8n-node lint, same rules as the n8n Cloud verification)
 npm run lint
 
 # Fix linting issues
-npm run lintfix
+npm run lint:fix
+
+# Run tests
+npm test
+
+# Start n8n locally with the node loaded
+npm run dev
 ```
+
+### Releasing
+
+Releases are published to npm by GitHub Actions (`.github/workflows/publish.yml`) with an npm
+provenance statement, as required for verified community nodes. Run `npm run release` on `main`
+to bump the version, tag and push; the workflow then publishes the package.
 
 ### Project Structure
 
 ```
 @zurdai/n8n-nodes-bexio/
 ├── credentials/
-│   ├── BexioApi.credentials.ts          # PAT Authentication (Current)
-│   └── BexioOAuth2Api.credentials.ts    # OAuth2 (Deprecated)
+│   ├── BexioApi.credentials.ts          # Personal Access Token
+│   └── BexioOAuth2Api.credentials.ts    # OAuth2
 ├── nodes/
 │   └── Bexio/
 │       ├── Bexio.node.ts                # Main node implementation
 │       ├── GenericFunctions.ts          # API request helpers
 │       ├── OperationsHandlers.ts        # Resource operation handlers
-│       ├── bexio.svg                    # Node icon
 │       └── descriptions/
 │           ├── ContactDescription.ts     # Contact resource fields
 │           ├── InvoiceDescription.ts     # Invoice resource fields
@@ -241,9 +268,11 @@ npm run lintfix
 │           ├── QuoteDescription.ts       # Quote resource fields
 │           ├── OrderDescription.ts       # Order resource fields
 │           └── BankingDescription.ts     # Banking resource fields
+├── icons/                               # Node and credential icons (light/dark)
+├── test/                                # Unit and API documentation conformance tests
 ├── package.json
 ├── tsconfig.json
-├── gulpfile.js
+├── eslint.config.mjs
 └── README.md
 ```
 
@@ -257,7 +286,12 @@ Daniel Zurmühle (dzurmuehle@gmail.com) impulsai.ch
 
 ## Version History
 
-### 1.3.0 (Current) - @zurdai/n8n-nodes-bexio
+### Unreleased
+- OAuth2 authentication next to the Personal Access Token
+- Built, linted and published with the n8n-node CLI (n8n Cloud verification requirements)
+- No runtime dependencies; "Limit" fields default to 50 results
+
+### 1.3.0 - @zurdai/n8n-nodes-bexio
 - Full comparison with the Bexio API documentation, see [CHANGELOG.md](CHANGELOG.md)
 - **Contact Type labels were swapped and are now correct: check saved contact workflows**
 - Dropdowns, Banking, invoice status and send, quote and order update and search corrected

@@ -35,7 +35,7 @@ function parsePositions(this: IExecuteFunctions, fields: IDataObject, index: num
 	if (fields.positions && typeof fields.positions === 'string') {
 		try {
 			fields.positions = JSON.parse(fields.positions);
-		} catch (error) {
+		} catch {
 			throw new NodeOperationError(this.getNode(), 'Invalid JSON format for positions field. Please provide valid JSON.', { itemIndex: index });
 		}
 	}
@@ -43,7 +43,8 @@ function parsePositions(this: IExecuteFunctions, fields: IDataObject, index: num
 
 // The API expects article_type_id and prices as strings. article_type and user_name come from older versions.
 function normalizeItemFields(fields: IDataObject): IDataObject {
-	const { article_type: articleType, user_name: _userName, ...rest } = fields;
+	const { article_type: articleType, ...rest } = fields;
+	delete rest.user_name;
 	if (articleType && rest.article_type_id === undefined) {
 		rest.article_type_id = articleType === 'service' ? 2 : 1;
 	}
@@ -59,8 +60,6 @@ function normalizeItemFields(fields: IDataObject): IDataObject {
 // Contact Operations
 // =====================================
 export async function handleContactOperations(this: IExecuteFunctions, operation: string, index: number): Promise<IDataObject | IDataObject[]> {
-	const resource = 'contact';
-
 	if (operation === 'create') {
 		const contactTypeId = this.getNodeParameter('contact_type_id', index) as number;
 		const userId = this.getNodeParameter('user_id', index) as number;
@@ -246,7 +245,7 @@ export async function handleInvoiceOperations(this: IExecuteFunctions, operation
 			binary: {
 				data: binaryData,
 			},
-		} as any;
+		} as unknown as IDataObject;
 	}
 
 	if (operation === 'issue') {
@@ -773,7 +772,7 @@ async function handleDocumentOperations(this: IExecuteFunctions, operation: stri
 			binary: {
 				data: binaryData,
 			},
-		} as any;
+		} as unknown as IDataObject;
 	}
 	if (operation === 'issue') {
 		const id = this.getNodeParameter(idParam, index) as string;

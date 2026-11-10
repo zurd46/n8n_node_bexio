@@ -67,6 +67,16 @@ export const itemFields: INodeProperties[] = [
 		},
 		options: [
 			{
+				displayName: 'Article Type',
+				name: 'article_type_id',
+				type: 'options',
+				options: [
+					{ name: 'Physical Product', value: 1 },
+					{ name: 'Service', value: 2 },
+				],
+				default: 1,
+			},
+			{
 				displayName: 'Internal Code',
 				name: 'intern_code',
 				type: 'string',
@@ -79,24 +89,13 @@ export const itemFields: INodeProperties[] = [
 				default: '',
 			},
 			{
-				displayName: 'Article Type',
-				name: 'article_type_id',
-				type: 'options',
-				options: [
-					{ name: 'Physical Product', value: 1 },
-					{ name: 'Service', value: 2 },
-				],
-				default: 1,
-			},
-			{
-				displayName: 'Unit Name or ID',
-				name: 'unit_id',
-				type: 'options',
+				displayName: 'Purchase Price',
+				name: 'purchase_price',
+				type: 'number',
 				typeOptions: {
-					loadOptionsMethod: 'getUnits',
+					numberPrecision: 2,
 				},
-				default: '',
-				description: 'Unit of measurement. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				default: 0,
 			},
 			{
 				displayName: 'Sale Price',
@@ -109,16 +108,6 @@ export const itemFields: INodeProperties[] = [
 				description: 'Sales price',
 			},
 			{
-				displayName: 'Purchase Price',
-				name: 'purchase_price',
-				type: 'number',
-				typeOptions: {
-					numberPrecision: 2,
-				},
-				default: 0,
-				description: 'Purchase price',
-			},
-			{
 				displayName: 'Tax Income Name or ID',
 				name: 'tax_income_id',
 				type: 'options',
@@ -126,7 +115,17 @@ export const itemFields: INodeProperties[] = [
 					loadOptionsMethod: 'getTaxes',
 				},
 				default: '',
-				description: 'Income tax. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'Income tax. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+			},
+			{
+				displayName: 'Unit Name or ID',
+				name: 'unit_id',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getUnits',
+				},
+				default: '',
+				description: 'Unit of measurement. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 		],
 	},
@@ -158,7 +157,7 @@ export const itemFields: INodeProperties[] = [
 			minValue: 1,
 			maxValue: 2000,
 		},
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 	{
@@ -222,12 +221,6 @@ export const itemFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Internal Name',
-				name: 'intern_name',
-				type: 'string',
-				default: '',
-			},
-			{
 				displayName: 'Internal Code',
 				name: 'intern_code',
 				type: 'string',
@@ -240,8 +233,14 @@ export const itemFields: INodeProperties[] = [
 				default: '',
 			},
 			{
-				displayName: 'Sale Price',
-				name: 'sale_price',
+				displayName: 'Internal Name',
+				name: 'intern_name',
+				type: 'string',
+				default: '',
+			},
+			{
+				displayName: 'Purchase Price',
+				name: 'purchase_price',
 				type: 'number',
 				typeOptions: {
 					numberPrecision: 2,
@@ -249,8 +248,8 @@ export const itemFields: INodeProperties[] = [
 				default: 0,
 			},
 			{
-				displayName: 'Purchase Price',
-				name: 'purchase_price',
+				displayName: 'Sale Price',
+				name: 'sale_price',
 				type: 'number',
 				typeOptions: {
 					numberPrecision: 2,

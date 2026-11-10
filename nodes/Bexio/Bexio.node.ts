@@ -7,6 +7,9 @@ import {
 	ILoadOptionsFunctions,
 	INodePropertyOptions,
 	NodeApiError,
+	NodeConnectionTypes,
+	NodeOperationError,
+	JsonObject,
 } from 'n8n-workflow';
 
 import { contactOperations, contactFields } from './descriptions/ContactDescription';
@@ -18,13 +21,13 @@ import { quoteOperations, quoteFields } from './descriptions/QuoteDescription';
 import { orderOperations, orderFields } from './descriptions/OrderDescription';
 import { bankingOperations, bankingFields } from './descriptions/BankingDescription';
 
-import { bexioApiRequest, bexioApiRequestAllItems } from './GenericFunctions';
+import { bexioApiRequest } from './GenericFunctions';
 
 export class Bexio implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Bexio',
 		name: 'bexio',
-		icon: 'file:bexio.svg',
+		icon: { light: 'file:../../icons/bexio.svg', dark: 'file:../../icons/bexio.dark.svg' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -32,15 +35,31 @@ export class Bexio implements INodeType {
 		defaults: {
 			name: 'Bexio',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'bexioApi',
 				required: true,
+				displayOptions: { show: { authentication: ['accessToken'] } },
+			},
+			{
+				name: 'bexioOAuth2Api',
+				required: true,
+				displayOptions: { show: { authentication: ['oAuth2'] } },
 			},
 		],
 		properties: [
+			{
+				displayName: 'Authentication',
+				name: 'authentication',
+				type: 'options',
+				options: [
+					{ name: 'Access Token', value: 'accessToken' },
+					{ name: 'OAuth2', value: 'oAuth2' },
+				],
+				default: 'accessToken',
+			},
 			{
 				displayName: 'Resource',
 				name: 'resource',
@@ -107,184 +126,185 @@ export class Bexio implements INodeType {
 			...quoteOperations,
 			...quoteFields,
 		],
+		usableAsTool: true,
 	};
 
 	methods = {
 		loadOptions: {
 			async getContactSalutations(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const salutations = await bexioApiRequest.call(this, 'GET', '/2.0/salutation');
+				const salutations = (await bexioApiRequest.call(this, 'GET', '/2.0/salutation')) as IDataObject[];
 				for (const salutation of salutations) {
 					returnData.push({
-						name: salutation.name,
-						value: salutation.id,
+						name: String(salutation.name),
+						value: salutation.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getContactTitles(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const titles = await bexioApiRequest.call(this, 'GET', '/2.0/title');
+				const titles = (await bexioApiRequest.call(this, 'GET', '/2.0/title')) as IDataObject[];
 				for (const title of titles) {
 					returnData.push({
-						name: title.name,
-						value: title.id,
+						name: String(title.name),
+						value: title.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getCountries(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const countries = await bexioApiRequest.call(this, 'GET', '/2.0/country');
+				const countries = (await bexioApiRequest.call(this, 'GET', '/2.0/country')) as IDataObject[];
 				for (const country of countries) {
 					returnData.push({
-						name: country.name,
-						value: country.id,
+						name: String(country.name),
+						value: country.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getProjects(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const projects = await bexioApiRequest.call(this, 'GET', '/2.0/pr_project');
+				const projects = (await bexioApiRequest.call(this, 'GET', '/2.0/pr_project')) as IDataObject[];
 				for (const project of projects) {
 					returnData.push({
-						name: project.name,
-						value: project.id,
+						name: String(project.name),
+						value: project.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getProjectStatuses(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const statuses = await bexioApiRequest.call(this, 'GET', '/2.0/project/status');
+				const statuses = (await bexioApiRequest.call(this, 'GET', '/2.0/project/status')) as IDataObject[];
 				for (const status of statuses) {
 					returnData.push({
-						name: status.name,
-						value: status.id,
+						name: String(status.name),
+						value: status.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getProjectTypes(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const types = await bexioApiRequest.call(this, 'GET', '/2.0/project/type');
+				const types = (await bexioApiRequest.call(this, 'GET', '/2.0/project/type')) as IDataObject[];
 				for (const type of types) {
 					returnData.push({
-						name: type.name,
-						value: type.id,
+						name: String(type.name),
+						value: type.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getActivities(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const activities = await bexioApiRequest.call(this, 'GET', '/2.0/business_activity');
+				const activities = (await bexioApiRequest.call(this, 'GET', '/2.0/business_activity')) as IDataObject[];
 				for (const activity of activities) {
 					returnData.push({
-						name: activity.name,
-						value: activity.id,
+						name: String(activity.name),
+						value: activity.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getTimesheetStatuses(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const statuses = await bexioApiRequest.call(this, 'GET', '/2.0/timesheet/status');
+				const statuses = (await bexioApiRequest.call(this, 'GET', '/2.0/timesheet/status')) as IDataObject[];
 				for (const status of statuses) {
 					returnData.push({
-						name: status.name,
-						value: status.id,
+						name: String(status.name),
+						value: status.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getUsers(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const users = await bexioApiRequest.call(this, 'GET', '/3.0/users');
+				const users = (await bexioApiRequest.call(this, 'GET', '/3.0/users')) as IDataObject[];
 				for (const user of users) {
 					const name = `${user.firstname} ${user.lastname}`;
 					returnData.push({
 						name,
-						value: user.id,
+						value: user.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getUnits(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const units = await bexioApiRequest.call(this, 'GET', '/2.0/unit');
+				const units = (await bexioApiRequest.call(this, 'GET', '/2.0/unit')) as IDataObject[];
 				for (const unit of units) {
 					returnData.push({
-						name: unit.name,
-						value: unit.id,
+						name: String(unit.name),
+						value: unit.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getAccounts(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const accounts = await bexioApiRequest.call(this, 'GET', '/2.0/accounts');
+				const accounts = (await bexioApiRequest.call(this, 'GET', '/2.0/accounts')) as IDataObject[];
 				for (const account of accounts) {
 					const name = `${account.account_no} - ${account.name}`;
 					returnData.push({
 						name,
-						value: account.id,
+						value: account.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getTaxes(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const taxes = await bexioApiRequest.call(this, 'GET', '/3.0/taxes');
+				const taxes = (await bexioApiRequest.call(this, 'GET', '/3.0/taxes')) as IDataObject[];
 				for (const tax of taxes) {
 					returnData.push({
-						name: tax.value === undefined ? tax.display_name ?? tax.name : `${tax.display_name ?? tax.name} (${tax.value}%)`,
-						value: tax.id,
+						name: tax.value === undefined ? String(tax.display_name ?? tax.name) : `${tax.display_name ?? tax.name} (${tax.value}%)`,
+						value: tax.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getCurrencies(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const currencies = await bexioApiRequest.call(this, 'GET', '/3.0/currencies');
+				const currencies = (await bexioApiRequest.call(this, 'GET', '/3.0/currencies')) as IDataObject[];
 				for (const currency of currencies) {
 					returnData.push({
-						name: currency.name,
-						value: currency.id,
+						name: String(currency.name),
+						value: currency.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getLanguages(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const languages = await bexioApiRequest.call(this, 'GET', '/2.0/language');
+				const languages = (await bexioApiRequest.call(this, 'GET', '/2.0/language')) as IDataObject[];
 				for (const language of languages) {
 					returnData.push({
-						name: language.name,
-						value: language.id,
+						name: String(language.name),
+						value: language.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getTaskPriorities(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const priorities = await bexioApiRequest.call(this, 'GET', '/2.0/task/priority');
+				const priorities = (await bexioApiRequest.call(this, 'GET', '/2.0/task/priority')) as IDataObject[];
 				for (const priority of priorities) {
 					returnData.push({
-						name: priority.name,
-						value: priority.id,
+						name: String(priority.name),
+						value: priority.id as number,
 					});
 				}
 				return returnData;
 			},
 			async getTaskStatuses(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				const returnData: INodePropertyOptions[] = [];
-				const statuses = await bexioApiRequest.call(this, 'GET', '/2.0/task/status');
+				const statuses = (await bexioApiRequest.call(this, 'GET', '/2.0/task/status')) as IDataObject[];
 				for (const status of statuses) {
 					returnData.push({
-						name: status.name,
-						value: status.id,
+						name: String(status.name),
+						value: status.id as number,
 					});
 				}
 				return returnData;
@@ -335,7 +355,11 @@ export class Bexio implements INodeType {
 					returnData.push(...executionData);
 					continue;
 				}
-				throw error;
+				// Keep the HTTP details of API errors; wrap everything else with the item index
+				if (error instanceof NodeApiError) {
+					throw new NodeApiError(this.getNode(), error as unknown as JsonObject, { itemIndex: i });
+				}
+				throw new NodeOperationError(this.getNode(), error as Error, { itemIndex: i });
 			}
 		}
 

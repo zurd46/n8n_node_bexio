@@ -18,25 +18,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zurd46/n8n_node_bexio.git"
+    "url": "https://github.com/zurd46/n8n_node_bexio.git"
   },
   "main": "index.js",
   "scripts": {
-    "build": "tsc && gulp build:icons",
-    "dev": "tsc --watch",
+    "build": "n8n-node build",
+    "build:watch": "tsc --watch",
+    "dev": "n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
+    "release": "n8n-node release",
+    "prepublishOnly": "n8n-node prerelease",
     "format": "prettier nodes credentials --write",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "npm run build",
-    "test": "tsx --test test/*.test.ts"
+    "test": "tsx --test test/*.test.cts"
   },
   "files": [
     "dist"
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
+    "strict": true,
     "credentials": [
-      "dist/credentials/BexioApi.credentials.js"
+      "dist/credentials/BexioApi.credentials.js",
+      "dist/credentials/BexioOAuth2Api.credentials.js"
     ],
     "nodes": [
       "dist/nodes/Bexio/Bexio.node.js",
@@ -44,22 +48,15 @@
     ]
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "~7.18.0",
-    "eslint": "~8.57.0",
-    "eslint-plugin-n8n-nodes-base": "~1.16.0",
-    "gulp": "~5.0.0",
+    "@n8n/node-cli": "^0.56.1",
+    "eslint": "^9.39.4",
     "n8n-workflow": "^1.117.0",
-    "prettier": "~3.3.0",
+    "prettier": "^3.8.3",
+    "release-it": "^20.2.0",
     "tsx": "^4.20.6",
-    "typescript": "~5.6.0"
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "n8n-workflow": "^1.0.0"
-  },
-  "dependencies": {
-    "n8n-core": "^1.0.0"
-  },
-  "overrides": {
-    "form-data": "^4.0.4"
+    "n8n-workflow": "*"
   }
 }

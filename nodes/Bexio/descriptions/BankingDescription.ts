@@ -49,7 +49,7 @@ export const bankingFields: INodeProperties[] = [
 		type: 'number',
 		displayOptions: { show: { resource: ['banking'], operation: ['getBankAccounts'], returnAll: [false] } },
 		typeOptions: { minValue: 1, maxValue: 2000 },
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 
@@ -83,7 +83,7 @@ export const bankingFields: INodeProperties[] = [
 		type: 'number',
 		displayOptions: { show: { resource: ['banking'], operation: ['getPayments'], returnAll: [false] } },
 		typeOptions: { minValue: 1, maxValue: 2000 },
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 

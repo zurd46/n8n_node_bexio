@@ -8,9 +8,9 @@ export const payrollOperations: INodeProperties[] = [
 		noDataExpression: true,
 		displayOptions: { show: { resource: ['payroll'] } },
 		options: [
-			{ name: 'Create Absence', value: 'createAbsence', description: 'Create an absence', action: 'Create an absence' },
-			{ name: 'Get Employee', value: 'getEmployee', description: 'Get an employee', action: 'Get an employee' },
-			{ name: 'Get Employees', value: 'getEmployees', description: 'Get employees', action: 'Get employees' },
+			{ name: 'Create Absence', value: 'createAbsence', action: 'Create an absence' },
+			{ name: 'Get Employee', value: 'getEmployee', action: 'Get an employee' },
+			{ name: 'Get Employees', value: 'getEmployees', action: 'Get employees' },
 		],
 		default: 'getEmployees',
 	},
@@ -40,7 +40,7 @@ export const payrollFields: INodeProperties[] = [
 		type: 'number',
 		displayOptions: { show: { resource: ['payroll'], operation: ['getEmployees'], returnAll: [false] } },
 		typeOptions: { minValue: 1, maxValue: 2000 },
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 ];

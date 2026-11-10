@@ -1,5 +1,6 @@
 import {
 	IAuthenticateGeneric,
+	Icon,
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
@@ -8,6 +9,7 @@ import {
 export class BexioApi implements ICredentialType {
 	name = 'bexioApi';
 	displayName = 'Bexio API';
+	icon: Icon = { light: 'file:../icons/bexio.svg', dark: 'file:../icons/bexio.dark.svg' };
 	documentationUrl = 'https://docs.bexio.com/';
 	properties: INodeProperties[] = [
 		{

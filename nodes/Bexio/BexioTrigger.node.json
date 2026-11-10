@@ -1,0 +1,18 @@
+{
+	"node": "@zurdai/n8n-nodes-bexio",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Finance & Accounting", "Sales"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://github.com/zurd46/n8n_node_bexio?tab=readme-ov-file#credentials"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/zurd46/n8n_node_bexio?tab=readme-ov-file"
+			}
+		]
+	}
+}

@@ -17,7 +17,7 @@ const addressFields: INodeProperties[] = [
 		type: 'options',
 		typeOptions: { loadOptionsMethod: 'getCountries' },
 		default: '',
-		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{ displayName: 'Subject', name: 'subject', type: 'string', default: '' },
 	{ displayName: 'Description', name: 'description', type: 'string', default: '' },
@@ -83,7 +83,7 @@ export const additionalAddressFields: INodeProperties[] = [
 		type: 'number',
 		displayOptions: { show: { resource: ['additionalAddress'], operation: ['getAll', 'search'], returnAll: [false] } },
 		typeOptions: { minValue: 1, maxValue: 2000 },
-		default: 500,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 	{

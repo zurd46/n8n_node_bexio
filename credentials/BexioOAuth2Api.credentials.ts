@@ -1,14 +1,10 @@
-import {
-	IAuthenticateGeneric,
-	ICredentialTestRequest,
-	ICredentialType,
-	INodeProperties,
-} from 'n8n-workflow';
+import type { Icon, ICredentialType, INodeProperties } from 'n8n-workflow';
 
 export class BexioOAuth2Api implements ICredentialType {
 	name = 'bexioOAuth2Api';
 	extends = ['oAuth2Api'];
 	displayName = 'Bexio OAuth2 API';
+	icon: Icon = { light: 'file:../icons/bexio.svg', dark: 'file:../icons/bexio.dark.svg' };
 	documentationUrl = 'https://docs.bexio.com/';
 	properties: INodeProperties[] = [
 		{
@@ -33,8 +29,8 @@ export class BexioOAuth2Api implements ICredentialType {
 			displayName: 'Scope',
 			name: 'scope',
 			type: 'string',
-			default: 'openid profile email company_profile contact_show',
-			description: 'Space-separated list of scopes. OpenID scopes (openid, profile, email, company_profile) + API scopes (contact_show, contact_edit, invoice_show, etc.)',
+			default: 'openid profile email company_profile offline_access contact_show',
+			description: 'Space-separated list of scopes. Keep offline_access so n8n can refresh the token. Add the API scopes you need, e.g. contact_edit kb_invoice_show kb_invoice_edit',
 		},
 		{
 			displayName: 'Auth URI Query Parameters',
@@ -49,22 +45,4 @@ export class BexioOAuth2Api implements ICredentialType {
 			default: 'body',
 		},
 	];
-
-	authenticate: IAuthenticateGeneric = {
-		type: 'generic',
-		properties: {
-			headers: {
-				Authorization: '=Bearer {{$credentials.accessToken}}',
-				Accept: 'application/json',
-			},
-		},
-	};
-
-	test: ICredentialTestRequest = {
-		request: {
-			baseURL: 'https://api.bexio.com/2.0',
-			url: '/contact',
-			method: 'GET',
-		},
-	};
 }

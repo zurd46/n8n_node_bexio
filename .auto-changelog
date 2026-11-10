@@ -1,0 +1,6 @@
+{
+  "output": "docs/RELEASE_HISTORY.md",
+  "unreleased": true,
+  "commitLimit": false,
+  "hideCredit": true
+}
