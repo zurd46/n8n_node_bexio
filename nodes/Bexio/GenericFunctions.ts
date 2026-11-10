@@ -94,7 +94,9 @@ export async function bexioApiRequestAllItems(
 		if (Array.isArray(responseData)) {
 			returnData.push(...responseData);
 			hasMore = responseData.length === pageSize;
-			query.offset = (query.offset as number) + pageSize;
+			if (hasMore) {
+				query.offset = (query.offset as number) + pageSize;
+			}
 		} else {
 			returnData.push(responseData);
 			hasMore = false;
