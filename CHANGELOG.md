@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
-### [Unreleased]
+### [1.3.1] - 2026-11-10
 
 Prepared for the n8n Cloud verification of community nodes.
 

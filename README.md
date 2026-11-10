@@ -286,7 +286,7 @@ Daniel Zurmühle (dzurmuehle@gmail.com) impulsai.ch
 
 ## Version History
 
-### Unreleased
+### 1.3.1 (Current) - @zurdai/n8n-nodes-bexio
 - OAuth2 authentication next to the Personal Access Token
 - Built, linted and published with the n8n-node CLI (n8n Cloud verification requirements)
 - No runtime dependencies; "Limit" fields default to 50 results
