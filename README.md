@@ -216,8 +216,8 @@ For issues and feature requests, please create an issue on the [GitHub repositor
 
 If you need specific customizations or have special requirements for this integration, please contact:
 
-- **Email**: dzurmuehle@gmail.com
-- **Phone**: +41 79 127 55 54
+- **Email**: info@impulsai.ch
+- **Phone**: +41 79 786 06 46
 
 ## Development
 
