@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## @zurdai/n8n-nodes-bexio
 
+### [1.3.2] - 2026-11-10
+
+#### Changed
+- README: contact details for custom adjustments (info@impulsai.ch, +41 79 786 06 46, https://impulsai.ch).
+
 ### [1.3.1] - 2026-11-10
 
 Prepared for the n8n Cloud verification of community nodes.

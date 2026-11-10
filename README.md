@@ -218,6 +218,7 @@ If you need specific customizations or have special requirements for this integr
 
 - **Email**: info@impulsai.ch
 - **Phone**: +41 79 786 06 46
+- **Website**: [https://impulsai.ch](https://impulsai.ch)
 
 ## Development
 
@@ -286,7 +287,10 @@ Daniel Zurmühle (dzurmuehle@gmail.com) impulsai.ch
 
 ## Version History
 
-### 1.3.1 (Current) - @zurdai/n8n-nodes-bexio
+### 1.3.2 (Current) - @zurdai/n8n-nodes-bexio
+- Contact details updated (email, phone, website)
+
+### 1.3.1 - @zurdai/n8n-nodes-bexio
 - OAuth2 authentication next to the Personal Access Token
 - Built, linted and published with the n8n-node CLI (n8n Cloud verification requirements)
 - No runtime dependencies; "Limit" fields default to 50 results
